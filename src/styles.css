@@ -1,0 +1,93 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+body{
+    overflow: auto;
+}
+*{
+    padding: 0px;
+    margin: 0px;
+}
+.float-btn{
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+  }
+
+  table{
+      width: 100%;
+  }
+  .padding-left{
+    padding-left: 16px;
+  }
+  .txtColor:hover{
+    color: #ef8157;
+    cursor: pointer;
+  }
+  
+  .background-highlight{
+    background:#708090;
+    color: #fff;
+  }
+  .example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  .example-radio-group {
+    display: block;
+    border: 1px solid #555;
+    margin: 20px;
+    padding: 10px;
+  }
+  .example-tree-invisible {
+    display: none;
+  }
+  
+  .example-tree ul,
+  .example-tree li {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+  }
+  .fixed-height{
+      height: 72vh;
+      overflow-y: auto;
+  }
+  .footer{
+    bottom: 12px;
+    background-color: #fff;
+   width: 100%;
+   position: fixed;
+   z-index: 999;
+  }
+  .hidden{
+    overflow: hidden;
+  }
+  .scroll{
+    overflow-y: auto;
+  }
+  .content{
+    position: relative;
+    top: 56px;
+    padding: 16px;
+  }
+  .window-header{
+    background-color: #ef8157;
+    color: #fff;
+    height: 50px;
+    position: fixed;
+    z-index: 999;
+  }
+  .width-off{
+    width: 84%;
+  }
+  .width-on{
+    width: 67%;
+  }
+  .padding-left{
+    padding-left: 16px;
+  }
+ 

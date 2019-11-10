@@ -1,0 +1,326 @@
+<mat-toolbar class="head-toolbar" fxLayout="row" fxLayoutAlign="space-between center">
+  <div>
+      <button mat-icon-button *ngIf="width != 70" (click)="maxWidth()" matTooltip="Expand Tree">
+          <mat-icon>account_tree
+          </mat-icon>
+        </button>
+        View and Update Company
+  </div>
+  <button mat-icon-button matTooltip="Edit">
+      <mat-icon>edit</mat-icon>
+  </button> 
+
+  <!-- <a routerLink='/ubt' routerLinkActive="active" class="padding-left"> Create </a>
+  <a routerLink='/view-ubt' routerLinkActive="active" class="padding-left"> View </a>
+  <a routerLink='/edit-ubt' routerLinkActive="active" class="padding-left"> Edit </a> -->
+
+</mat-toolbar>
+<div fxLayout="row" fxLayoutAlign="center center">
+  <div [style.width.%]="width" style="height: 93vh;background-color: #ccc;border-right: 1px solid #ccc;" *ngIf="width != 40">
+    <div fxLayout="row" fxLayoutAlign="end center">
+      <div>
+        <button mat-icon-button (click)="refresh()" matTooltip="Refresh Tree">
+          <mat-icon>refresh</mat-icon>
+        </button>
+        <button mat-icon-button (click)="minWidth()" matTooltip="Collapse Tree">
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+
+      </div>
+
+    </div>
+    <div *ngIf="width != 40">
+        <app-tree [dataSrc]="dataSrc" (dataNodeChange)="dataNode($event)" (nodeLabelChange)="nodeLabel($event)"></app-tree>
+    </div>
+
+  </div>
+  <div style="height: 93vh;">
+    <div>
+
+    </div>
+
+    <mat-card class="padding">
+      <div class="padding fixed-height">
+        <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="6px">
+          <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>CompanyName</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="ubt.CompanyName">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>Address1</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="ubt.Address1">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>Address2</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="ubt.Address2">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>Address3</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="ubt.Address3">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>StateId</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="ubt.StateId">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>CIN</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="ubt.CIN">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>GSTIN</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="ubt.GSTIN">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>PAN</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="ubt.PAN">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>TAN_NO</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="ubt.TAN_NO">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>Mobile</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="ubt.Mobile">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>AlternateMobile</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="ubt.AlternateMobile">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="ubt.Email">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>AlternateEmail</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="ubt.AlternateEmail">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>Website URL</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="ubt.URL">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>ActiveStatus</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="ubt.ActiveStatus">
+          </mat-form-field>
+          <div fxLayoutAlign="center center" fxFlex="100">
+            <button mat-button>Save</button>
+          </div>
+
+        </div>
+
+      </div>
+    </mat-card>
+
+    <div class="footer" [ngClass]=" height > 43 ? 'scroll' : 'hidden'" mwlResizable [enableGhostResize]="false"
+      [resizeEdges]="{bottom: false, right: false, top: true, left: false}" (resizeEnd)="onResizeEnd($event)"
+      [style.height.px]="height">
+      <div class="window-header" [ngClass]=" width == 40 ? 'width-off' : 'width-on'" fxLayout="row" fxLayoutAlign="space-between center">
+        <div style="padding-left: 22px;">
+          Tabs
+        </div>
+        <div style="padding-right: 22px;">
+          <button mat-icon-button *ngIf="height > 43" matTooltip="Minimize" (click)="min()">
+            <mat-icon>indeterminate_check_box</mat-icon>
+          </button>
+          <button mat-icon-button *ngIf="height != restoreHeight" matTooltip="Minimize" (click)="restore()">
+            <mat-icon>restore_page</mat-icon>
+          </button>
+          <button mat-icon-button *ngIf="height != maxHeight" (click)="max()" matTooltip="Maximize">
+            <mat-icon>aspect_ratio
+            </mat-icon>
+          </button>
+        </div>
+
+      </div>
+
+      <div class="content" [ngClass]=" width == 40 ? 'width-off' : 'width-on'">
+        <mat-tab-group [selectedIndex]="selectedTab" (selectedTabChange)="tabChange($event)">
+          <mat-tab label="First">
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry's
+              standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+              to
+              make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+              typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+              Letraset
+              sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+              PageMaker including versions of Lorem Ipsum.
+            </p>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry's
+              standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+              to
+              make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+              typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+              Letraset
+              sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+              PageMaker including versions of Lorem Ipsum.
+            </p>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry's
+              standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+              to
+              make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+              typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+              Letraset
+              sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+              PageMaker including versions of Lorem Ipsum.
+            </p>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry's
+              standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+              to
+              make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+              typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+              Letraset
+              sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+              PageMaker including versions of Lorem Ipsum.
+            </p>
+          </mat-tab>
+          <mat-tab label="Second">
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry's
+              standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+              to
+              make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+              typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+              Letraset
+              sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+              PageMaker including versions of Lorem Ipsum.
+            </p>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry's
+              standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+              to
+              make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+              typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+              Letraset
+              sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+              PageMaker including versions of Lorem Ipsum.
+            </p>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry's
+              standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+              to
+              make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+              typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+              Letraset
+              sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+              PageMaker including versions of Lorem Ipsum.
+            </p>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry's
+              standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+              to
+              make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+              typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+              Letraset
+              sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+              PageMaker including versions of Lorem Ipsum.
+            </p>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry's
+              standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+              to
+              make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+              typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+              Letraset
+              sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+              PageMaker including versions of Lorem Ipsum.
+            </p>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry's
+              standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+              to
+              make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+              typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+              Letraset
+              sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+              PageMaker including versions of Lorem Ipsum.
+            </p>
+          </mat-tab>
+          <mat-tab label="Third">
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry's
+              standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+              to
+              make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+              typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+              Letraset
+              sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+              PageMaker including versions of Lorem Ipsum.
+            </p>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry's
+              standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+              to
+              make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+              typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+              Letraset
+              sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+              PageMaker including versions of Lorem Ipsum.
+            </p>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry's
+              standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+              to
+              make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+              typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+              Letraset
+              sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+              PageMaker including versions of Lorem Ipsum.
+            </p>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry's
+              standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+              to
+              make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+              typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+              Letraset
+              sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+              PageMaker including versions of Lorem Ipsum.
+            </p>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry's
+              standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+              to
+              make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+              typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+              Letraset
+              sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+              PageMaker including versions of Lorem Ipsum.
+            </p>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry's
+              standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+              to
+              make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+              typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+              Letraset
+              sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+              PageMaker including versions of Lorem Ipsum.
+            </p>
+          </mat-tab>
+        </mat-tab-group>
+
+      </div>
+    </div>
+
+  </div>
+</div>

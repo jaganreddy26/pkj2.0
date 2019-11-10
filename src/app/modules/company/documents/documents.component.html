@@ -1,0 +1,50 @@
+
+<div  fxLayout="row wrap" fxLayoutAlign="start start">
+        <button fxFlex="90"fxLayoutAlign="end center" mat-icon-button matTooltip="Edit" [disabled]="!isEdit" (click)="checkPermission()">
+                <mat-icon>edit</mat-icon>
+            </button>
+    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="80">
+        <span fxFlex="15">CIN</span>
+        <a *ngIf="!isEditCIN" fxFlex="50" (click)="viewPdf(dialog,cin)">{{cin.split("/").pop()}}</a>
+        <input *ngIf="isEditCIN" fxFlex="50" type="file" #myInput name="cin" [disabled]="!isEditChild"  (change)="handleFileSelect($event,'CIN')">
+        <button *ngIf="isEditCIN"fxFlex="15" mat-button type="button" [disabled]="!isEditChild" (click)="save('CIN')">Save</button>
+        <button *ngIf="!isEditCIN" fxFlex="15" mat-button type="button" [disabled]="!isEditChild" (click)="edit('CIN')">Edit</button>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="80">
+        <span fxFlex="15">GSTIN</span>
+        <a *ngIf="!isEditGSTIN" fxFlex="50" (click)="viewPdf(dialog,gstin)">{{gstin.split("/").pop()}}</a>
+        <input *ngIf="isEditGSTIN" fxFlex="50" type="file"   name="gstin" [disabled]="!isEditChild"  (change)="handleFileSelect($event,'GSTIN')">
+        <button *ngIf="isEditGSTIN" fxFlex="15" mat-button type="button" [disabled]="!isEditChild"  (click)="save('GSTIN')">Save</button>
+        <button *ngIf="!isEditGSTIN" fxFlex="15" mat-button type="button" [disabled]="!isEditChild" (click)="edit('GSTIN')">Edit</button>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="80">
+        <span fxFlex="15">PAN</span>
+        <a *ngIf="!isEditPAN" fxFlex="50" (click)="viewPdf(dialog,pan)">{{pan.split("/").pop()}}</a>
+        <input  *ngIf="isEditPAN" fxFlex="50" type="file" [(ngModel)]="panValue"  name="pan" [disabled]="!isEditChild"  (change)="handleFileSelect($event,'PAN')">
+        <button  *ngIf="isEditPAN" fxFlex="15" mat-button type="button" [disabled]="!isEditChild" (click)="save('PAN')">Save</button>
+        <button *ngIf="!isEditPAN" fxFlex="15" mat-button type="button" [disabled]="!isEditChild" (click)="edit('PAN')">Edit</button>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="80">
+        <span fxFlex="15">TAN</span>
+        <a *ngIf="!isEditTAN" fxFlex="50" (click)="viewPdf(dialog,tan)">{{tan.split("/").pop()}}</a>
+        <input  *ngIf="isEditTAN" fxFlex="50" type="file"  name="tan" [disabled]="!isEditChild"  (change)="handleFileSelect($event,'TAN')">
+        <button *ngIf="isEditTAN" fxFlex="15" mat-button type="button" [disabled]="!isEditChild" (click)="save('TAN')">Save</button>
+        <button *ngIf="!isEditTAN" fxFlex="15" mat-button type="button" [disabled]="!isEditChild" (click)="edit('TAN')">Edit</button>
+    </div>
+</div>
+
+
+
+<ng-template #dialog>
+        <h2 matDialogTitle>Bank Detials</h2>
+            <mat-dialog-content>
+                    <object [data]="pdfPath" style="width:800px;height: 500px" type='application/pdf'>
+                        <p>Sorry, the PDF couldn't be displayed :(</p>
+                        <a [href]="pdfPath" target="_blank">Click Here</a>
+                      </object>
+            </mat-dialog-content>
+            <mat-dialog-actions align="end">
+                    <button mat-button type="button" matDialogClose type="reset" color="primary">Close</button>
+                </mat-dialog-actions>
+      
+</ng-template>

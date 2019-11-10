@@ -1,0 +1,22 @@
+export class Company {
+    CompanyId:string;
+    BusinessTypeId:string;
+    CompanyName:string;
+    BusinessName:string;
+    Address1:string;
+    Address2:string;
+    Address3:string;
+    StateId:any;
+    StateName:any;
+    CIN:string;
+    GSTIN:string;
+    PAN:string;
+    TAN_NO:string;
+    Phone1:string;
+    Phone2:string;
+    Fax:string;
+    Email1:string;
+    Email2:string;
+    URL:string;
+    Status:boolean;
+}

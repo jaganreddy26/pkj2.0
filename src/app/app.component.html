@@ -1,0 +1,78 @@
+<mat-sidenav-container  fullscreen>
+        <mat-sidenav #sidenav style="background-color: #3a4248;color: #fff !important" mode="side" class="example-sidenav" [ngStyle]="{ 'width.em': sidenavWidth }" opened="true" >
+        <mat-nav-list >
+          <mat-list-item routerLink="operation"  routerLinkActive="active" style="color:#fff">
+            <mat-icon mat-list-icon >dns</mat-icon>
+            <div fxFlex="10"></div>
+            <div *ngIf="sidenavWidth > 6" class="sidenav-item">
+              <h5 class="lead">Operation</h5>
+            </div>
+          </mat-list-item>
+    
+          <mat-list-item routerLink="adminstration" routerLinkActive="active" style="color:#fff">
+            <mat-icon mat-list-icon >settings</mat-icon>
+            <div fxFlex="10"></div>
+            <div *ngIf="sidenavWidth > 6" class="sidenav-item">
+              <h5 class="lead">Adminstartion</h5>
+            </div>
+          </mat-list-item>
+    
+          <!-- <mat-list-item routerLink="3" routerLinkActive="active" style="color:#fff">
+            <mat-icon mat-list-icon>local_phone</mat-icon>
+            <div fxFlex="10"></div>
+            <div *ngIf="sidenavWidth > 6" class="sidenav-item">
+              <h5 class="lead">Contact</h5>
+            </div>
+          </mat-list-item> -->
+    
+    
+    
+        </mat-nav-list>
+    
+      </mat-sidenav>
+      <!-- <mat-sidenav #drawer position="left" mode="side" id="sideNav" [opened]="isOpen" disableClose="true"
+      [ngStyle]="{ 'width.em': sidenavWidth }">
+      <div>
+    
+    
+        <ul class="sidenav-list">
+          <li>
+            <a class="side" routerLink="" routerLinkActive="active">Operation</a>
+          </li>
+          <li>
+            <a class="side" routerLink="/view-users" routerLinkActive="active">Adminstartion</a>
+          </li>
+          <li>
+            <a class="side" routerLink="/view-customers" routerLinkActive="active">Dashboard</a>
+          </li>
+          <li>
+            <a class="side" routerLink="/view-products" routerLinkActive="active">Report</a>
+          </li>
+          <li>
+            <a class="side" routerLink="/view-bills" routerLinkActive="active">Help</a>
+          </li>
+        </ul>
+      </div>
+    </mat-sidenav> -->
+    <mat-sidenav-content style="margin-left: 55px !important;">
+    <!-- <mat-toolbar  style="color:#fff!;background-color: #60717d">
+        <button mat-icon-button class="menu-btn" (click)="toggle()"><mat-icon>menu</mat-icon>
+        </button>
+        <div style="position: absolute;top: 12px;left: 36px">
+            <a routerLink="/home">
+              POC
+            </a>
+          </div>
+    
+    <div class="right-side">
+      <label style="position: relative;top: -6px;font-size: 14px;color:#fff">Admin</label>
+    </div>
+    </mat-toolbar> -->
+    
+    <div style="height: 90vh;background-color: #fff;">
+        <router-outlet></router-outlet>
+    </div>
+    
+    
+    </mat-sidenav-content>
+    </mat-sidenav-container>

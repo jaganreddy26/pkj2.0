@@ -1,0 +1,71 @@
+<form name="myForm" (ngSubmit)="myForm.form.valid && onSubmit(myForm)" #myForm="ngForm" novalidate fxLayout="row wrap"
+    fxLayoutAlign="center center">
+    <app-input fxFlex="55" [form]="myForm" labelName="Company Name" type="text" filedName="CompanyName" [filedValue]="company"
+        required="true" errorRequired="CompanyName is required" readonly="true">
+    </app-input>
+    <app-input fxFlex="55" [form]="myForm" labelName="Address1" type="text" filedName="Address1" [filedValue]="company"
+        required="true" errorRequired="Address1 is required" [readonly]="!isEdit">
+    </app-input>
+    <app-input fxFlex="55" [form]="myForm" labelName="Address2" type="text" filedName="Address2" [filedValue]="company"
+        required="false" [readonly]="!isEdit">
+    </app-input>
+    <app-input fxFlex="55" [form]="myForm" labelName="Address3" type="text" filedName="Address3" [filedValue]="company"
+        required="false" [readonly]="!isEdit">
+    </app-input>
+    <app-select fxFlex="55" [form]="myForm" labelName="State" type="text" filedName="StateId" [filedValue]="company"
+        required="false" primaryKey="SteteId" name="StateName" [data]="dataLoad" [readonly]="!isEdit" errorRequired="State is required">
+
+    </app-select>
+    <!-- <mat-form-field appearance="outline" fxFlex="55">
+            <mat-label>State</mat-label>
+            <mat-select name="StateId" [(ngModel)]="company.StateId" #model="ngModel"  required="true" >
+                <mat-option *ngFor="let item of dataLoad" [value]="item.SteteId">
+                {{item.StateName}}
+                </mat-option>
+            </mat-select>
+            <mat-error> 
+            <div *ngIf="myForm.submitted && model.invalid || model.touched && model.invalid">
+            <span *ngIf="model.errors.required">{{errorRequired}}</span> 
+            </div>
+            </mat-error>
+            </mat-form-field> -->
+    <app-input fxFlex="55" [form]="myForm" labelName="CIN" type="text" filedName="CIN" [filedValue]="company" required="true"
+        errorRequired="CIN is required" [readonly]="!isEdit">
+    </app-input>
+    <app-input fxFlex="55" [form]="myForm" labelName="GSTIN" type="text" filedName="GSTIN" [filedValue]="company"
+        required="true" errorRequired="GSTIN is required" [readonly]="!isEdit">
+    </app-input>
+    <app-input fxFlex="55" [form]="myForm" labelName="PAN" type="text" filedName="PAN" [filedValue]="company" required="true"
+        errorRequired="PAN is required" [readonly]="!isEdit">
+    </app-input>
+    <app-input fxFlex="55" [form]="myForm" labelName="TAN_NO" type="text" filedName="TAN_NO" [filedValue]="company"
+        required="true" errorRequired="TAN_NO is required" [readonly]="!isEdit">
+    </app-input>
+    <app-input fxFlex="55" [form]="myForm" labelName="Mobile" type="text" filedName="Phone1" [filedValue]="company"
+        required="true" errorRequired="Mobile is required" [readonly]="!isEdit">
+    </app-input>
+    <app-input fxFlex="55" [form]="myForm" labelName="Alternate Mobile" type="text" filedName="Phone2" [filedValue]="company"
+        required="false" [readonly]="!isEdit">
+    </app-input>
+    <app-input fxFlex="55" [form]="myForm" labelName="FAX" type="text" filedName="Fax" [filedValue]="company" required="false"
+        [readonly]="!isEdit">
+    </app-input>
+    <app-input fxFlex="55" [form]="myForm" labelName="Email" type="email" filedName="Email1" [filedValue]="company"
+        required="true" errorRequired="Email is required" [readonly]="!isEdit">
+    </app-input>
+    <app-input fxFlex="55" [form]="myForm" labelName="Alternate Email" type="email" filedName="Email2" [filedValue]="company"
+        required="false" errorRequired="AlternateEmail is required" [readonly]="!isEdit">
+    </app-input>
+    <app-input fxFlex="55" [form]="myForm" labelName="Website URL" type="text" filedName="URL" [filedValue]="company"
+        required="false" [readonly]="!isEdit">
+    </app-input>
+    <mat-radio-group fxFlex="55" aria-label="ActiveStatus" [(ngModel)]="company.Status" [disabled]="!isEdit" [ngModelOptions]="{standalone: true}">
+        <mat-radio-button [value]="true">Active</mat-radio-button>
+        <mat-radio-button [value]="false">In - Active</mat-radio-button>
+    </mat-radio-group>
+
+    <div fxLayoutAlign="center center" fxFlex="55">
+            <button mat-button *ngIf="!isEdit" type="submit" [disabled]="!isEdit">Save</button>
+        <button mat-button  *ngIf="isEdit" type="submit" [disabled]="!myForm.valid">Save</button>
+    </div>
+</form>

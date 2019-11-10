@@ -1,0 +1,15 @@
+.footer{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    z-index: 1;
+}
+.content{
+    margin-left: 64px !important;
+}
+.active{
+   color: tomato !important;
+}
+.mat-drawer-side{
+    border-right: none !important;
+}
