@@ -10,8 +10,11 @@ import { NgForm } from "@angular/forms";
   styleUrls: ['./documents.component.css']
 })
 export class DocumentsComponent implements OnInit {
-  @ViewChild('myForm', { static: true }) myForm: ElementRef;
-  @ViewChild('myInput', { static: false }) myInput: ElementRef;;
+  //@ViewChild('myForm', { static: true }) myForm: ElementRef;
+  @ViewChild('myInput', { static: false }) myInput: ElementRef;
+  @ViewChild('myInput1', { static: false }) myInput1: ElementRef;
+  @ViewChild('myInput2', { static: false }) myInput2: ElementRef;
+  @ViewChild('myInput3', { static: false }) myInput3: ElementRef;;
   @Output() saveDocumentFiles = new EventEmitter();
   @Input() pan: any;
   @Input() cin: any;
@@ -35,18 +38,25 @@ export class DocumentsComponent implements OnInit {
 
   }
   ngOnChanges(changes: SimpleChanges) {
-   // console.log(changes)
       if (this.pan) {
         this.isEditPAN = false
+      }else{
+        this.isEditPAN = true
       }
       if (this.cin) {
         this.isEditCIN = false;
+      }else{
+        this.isEditCIN = true;
       }
       if (this.tan) {
         this.isEditTAN = false;
+      }else{
+        this.isEditTAN = true;
       }
       if (this.gstin) {
         this.isEditGSTIN = false;
+      }else{
+        this.isEditGSTIN = true;
       }
   }
   ngOnInit() {
@@ -96,16 +106,15 @@ export class DocumentsComponent implements OnInit {
       reader.onload = this._handleReaderLoaded.bind(this);
       reader.readAsBinaryString(file);
     }
-    let obj = {...this.filesDetails}
-  this.files.push(obj);
-  console.log(this.files)
   }
 
   _handleReaderLoaded(readerEvt) {
     var binaryString = readerEvt.target.result;
 
     this.filesDetails.EncryptedFile = btoa(binaryString);
-    //  console.log(this.filesDetails.EncryptedFile)      
+    //  console.log(this.filesDetails.EncryptedFile)    
+    let obj = {...this.filesDetails}
+    this.files.push(obj);
   }
   viewPdf(templateRef: TemplateRef<any>,path) {
  
@@ -117,6 +126,18 @@ export class DocumentsComponent implements OnInit {
   }
   clearAll(){
     this.files = [];
-   this.myInput.nativeElement = '';
+    if(this.myInput.nativeElement.value){
+      this.myInput.nativeElement.value = null;
+    }
+    if(this.myInput1.nativeElement.value){
+      this.myInput1.nativeElement.value = null;
+    }
+    if(this.myInput2.nativeElement.value){
+      this.myInput2.nativeElement.value = null;
+    }
+    if(this.myInput3.nativeElement.value){
+      this.myInput3.nativeElement.value = null;
+    }
+
   }
 }

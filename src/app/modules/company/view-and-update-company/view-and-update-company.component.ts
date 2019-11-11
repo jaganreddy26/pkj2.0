@@ -188,15 +188,15 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
 
     localStorage.setItem('company', JSON.stringify(this.company));
     if (this.selectedTab != 0) {
-    //  localStorage.setItem('companyTab', this.selectedTab);
+      //  localStorage.setItem('companyTab', this.selectedTab);
     }
     localStorage.setItem('companyHeight', this.height)
-    
+
     if (this.companyForm.myForm.touched || this.documentsForm.files.length != 0 || this.vendorForm.isChanged || this.customerForm.isChanged) {
       this.openDialog();
       this.releaseLock();
     }
-  
+
   }
   dataNode(node) {
     //  console.log(node)
@@ -206,7 +206,7 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
   nodeLabel(node) {
     this.companyNode = node;
     this.isNodelLabelChange = true;
-    console.log(this.documentsForm.files)
+    // console.log(this.documentsForm.files)
     if (this.companyForm.myForm.touched || this.documentsForm.files.length != 0 || this.vendorForm.isChanged || this.customerForm.isChanged) {
       this.openDialog();
     } else {
@@ -252,9 +252,6 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
           this.isEdit = false;
           this.releaseLock();
         }
-        if (this.isNodelLabelChange) {
-          this.changeNode()
-        }
       }
     })
 
@@ -277,27 +274,41 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
 
     let url = "FilesApi/GetAllFilesforScreen_SF"
     this.service.postData(data, url).subscribe((data: any) => {
-      //   console.log(data)
+      // console.log(data)
       if (type == "PAN") {
         if (data && data.AbsolutePath[0].DocumentsAbsolutePath.length != 0) {
           this.panDocumentPath = data.AbsolutePath[0].DocumentsAbsolutePath[0].AbsoluteFilePath;
+        } else {
+          this.panDocumentPath = null;
         }
 
       } else if (type == "GSTIN") {
         if (data && data.AbsolutePath[0].DocumentsAbsolutePath.length != 0) {
           this.gstinDocumentPath = data.AbsolutePath[0].DocumentsAbsolutePath[0].AbsoluteFilePath;
+        } else {
+          this.gstinDocumentPath = null;
         }
+
 
       } else if (type == "TAN") {
         if (data && data.AbsolutePath[0].DocumentsAbsolutePath.length != 0) {
           this.tanDocumentPath = data.AbsolutePath[0].DocumentsAbsolutePath[0].AbsoluteFilePath;
+        } else {
+          this.tanDocumentPath = null;
         }
 
       } else if (type == "CIN") {
         if (data && data.AbsolutePath[0].DocumentsAbsolutePath.length != 0) {
           this.cinDocumentPath = data.AbsolutePath[0].DocumentsAbsolutePath[0].AbsoluteFilePath;
+        } else {
+          this.cinDocumentPath = null;
         }
 
+      } else {
+        this.panDocumentPath = null;
+        this.gstinDocumentPath = null;
+        this.tanDocumentPath = null;
+        this.cinDocumentPath = null;
       }
     })
 
@@ -335,6 +346,7 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     })
   }
   saveDocumentFiles($event) {
+    // console.log($event)
     this.document.BusinessId = this.bussinessId;
     this.document.BusinessName = this.bussinessName;
     this.document.ControlId = 'ControlId-1';
@@ -350,6 +362,7 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
       if (data) {
         alert('Saved Successfully');
         this.getDocuments(this.document.Type)
+        this.closeDialog();
       }
     })
 
@@ -449,17 +462,20 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     if (this.companyForm.myForm.touched) {
       this.saveData(this.company)
     }
-    if(this.documentsForm.files.length != 0){
+    if (this.documentsForm.files.length != 0) {
       this.documentsForm.files.forEach(element => {
         this.saveDocumentFiles(element);
         this.documentsForm.clearAll();
       });
     }
-    if(this.vendorForm.isChanged){
+    if (this.vendorForm.isChanged) {
       this.saveVendorDetails(this.vendors)
     }
-    if(this.customerForm.isChanged){
+    if (this.customerForm.isChanged) {
       this.saveCustomerDetails(this.customers)
+    }
+    if (this.isNodelLabelChange) {
+      this.changeNode();
     }
     this.closeDialog();
     this.isEdit = false;
@@ -470,15 +486,20 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
       this.companyForm.myForm.reset();
       this.getCustomers();
     }
-    if(this.vendorForm.isChanged){
-       this.getVendors();
+    if (this.vendorForm.isChanged) {
+      this.getVendors();
     }
-    if(this.customerForm.isChanged){
+    if (this.customerForm.isChanged) {
       this.getCustomers();
-   }
-   this.closeDialog();
-   this.changeNode();
-   this.isEdit = false;
+    }
+    if (this.documentsForm.files.length != 0) {
+      this.documentsForm.clearAll();
+    }
+    this.closeDialog();
+    if (this.isNodelLabelChange) {
+      this.changeNode();
+    }
+    this.isEdit = false;
   }
   closeDialog() {
     this.dialog.closeAll();

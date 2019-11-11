@@ -71,16 +71,19 @@ export class TreeComponent implements OnInit {
     hasChild = (_: number, node: FlatNode) => node.Expandable;
     constructor() { }
     ngOnChanges(changes: SimpleChanges) {
-        this.dataSource.data = this.dataSrc;
-        if (this.treeArray.length != 0) {
-            this.treeArray.filter((element) => {
-                for (let i = 0; i < this.treeControl.dataNodes.length; i++) {
-                    if (this.treeControl.dataNodes[i].Name == element) {
-                        this.treeControl.expand(this.treeControl.dataNodes[i])
+        if(changes.dataSrc){
+            this.dataSource.data = this.dataSrc;
+            if (this.treeArray.length != 0) {
+                this.treeArray.filter((element) => {
+                    for (let i = 0; i < this.treeControl.dataNodes.length; i++) {
+                        if (this.treeControl.dataNodes[i].Name == element) {
+                            this.treeControl.expand(this.treeControl.dataNodes[i])
+                        }
                     }
-                }
-            })
+                })
+            }
         }
+
     }
     ngOnInit() {
     }
@@ -96,7 +99,7 @@ export class TreeComponent implements OnInit {
                 this.nodeArray.push(element.Name)
             }
         })
-        this.dataLabelChange.emit(node)
+      //  this.dataLabelChange.emit(node)
         localStorage.setItem('ubtTree', JSON.stringify(this.nodeArray))
 
     }
