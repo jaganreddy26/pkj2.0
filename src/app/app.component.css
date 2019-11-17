@@ -8,8 +8,12 @@
     margin-left: 64px !important;
 }
 .active{
-   color: tomato !important;
+  background: #f39c38 !important;
+  color: #fff;
 }
 .mat-drawer-side{
     border-right: none !important;
+}
+.logo{
+    margin-top: 16px
 }

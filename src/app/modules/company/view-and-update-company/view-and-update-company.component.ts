@@ -11,6 +11,8 @@ import { VendorComponent } from '../vendor/vendor.component';
 import { DocumentsComponent } from '../documents/documents.component';
 import { BankComponent } from '../bank/bank.component';
 import { MatDialog } from '@angular/material';
+import { AppService } from '../../../shared/service/app.service';
+
 
 @Component({
   selector: 'app-view-and-update-company',
@@ -55,7 +57,7 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
   isCheckForm: boolean = false;
   isNodelLabelChange: boolean = false;
   companyNode: any;
-  constructor(private router: Router, private service: ModuleService, private dialog: MatDialog) {
+  constructor(private router: Router, private service: ModuleService, private dialog: MatDialog,private appService:AppService) {
     this.getStates();
     this.getLocalStorage();
 
@@ -153,8 +155,8 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     this.height = 43;
   }
   max() {
-    if (this.height != window.innerHeight - 56) {
-      this.height = window.innerHeight - 56;
+    if (this.height != window.innerHeight - 90) {
+      this.height = window.innerHeight - 90;
     } else {
       this.height = this.previousHeight;
     }
@@ -192,10 +194,10 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     }
     localStorage.setItem('companyHeight', this.height)
 
-    if (this.companyForm.myForm.touched || this.documentsForm.files.length != 0 || this.vendorForm.isChanged || this.customerForm.isChanged) {
-      this.openDialog();
-      this.releaseLock();
-    }
+    // if (this.companyForm.myForm.touched || this.documentsForm.files.length != 0 || this.vendorForm.isChanged || this.customerForm.isChanged) {
+    //   this.openDialog();
+    //   this.releaseLock();
+    // }
 
   }
   dataNode(node) {
@@ -246,12 +248,14 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     let url = "MasterDataApi/UpsertCompanyMaster";
     this.service.postData(event, url).subscribe((data: any) => {
       if (data) {
-        alert('Saved Successfully');
+        this.appService.showMessage('Saved Successfully','X');
         this.getCompanyDetails(this.companyId)
         if (this.isCheckForm == true) {
           this.isEdit = false;
           this.releaseLock();
         }
+      }else{
+        this.appService.showMessage('Something went wrong','X')
       }
     })
 
@@ -314,16 +318,28 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
 
   }
   getCustomers() {
+    let status = 1;
+    if(this.isEdit == true){
+      status = 2;
+    }else{
+      status = 1;
+    }
     let url = "MasterDataApi/GetMappedCustomersByCompanyStatus_SF"
-    let data = { "BusinessId": this.bussinessId, "CompanyId": this.companyId, "Status": 1 }
+    let data = { "BusinessId": this.bussinessId, "CompanyId": this.companyId, "Status": status }
     this.service.postData(data, url).subscribe((data: any) => {
       this.customers = data;
       //console.log(data)
     })
   }
   getVendors() {
+    let status = 1;
+    if(this.isEdit == true){
+      status =2;
+    }else{
+      status = 1;
+    }
     let url = "MasterDataApi/GetMappedVendorsByCompanyStatus_SF"
-    let data = { "BusinessId": this.bussinessId, "CompanyId": this.companyId, "Status": 2 }
+    let data = { "BusinessId": this.bussinessId, "CompanyId": this.companyId, "Status": status }
     this.service.postData(data, url).subscribe((data: any) => {
       this.vendors = data;
       //  console.log(data)
@@ -360,9 +376,11 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     let data = this.document;
     this.service.postData(data, url).subscribe((data: any) => {
       if (data) {
-        alert('Saved Successfully');
+        this.appService.showMessage('Saved Successfully','X');
         this.getDocuments(this.document.Type)
         this.closeDialog();
+      }else{
+        this.appService.showMessage('Somethimg went wrong','X');
       }
     })
 
@@ -377,8 +395,10 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     let data = this.bankObj;
     this.service.postData(data, url).subscribe((data: any) => {
       if (data) {
-        alert('Saved Successfully');
+        this.appService.showMessage('Saved Successfully','X');
         this.getBanks();
+      }else{
+        this.appService.showMessage('Something went wrong','X');
       }
     })
   }
@@ -407,8 +427,10 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     this.service.postData(data, url).subscribe((data: any) => {
 
       if (data) {
-        alert('Saved Successfully');
+        this.appService.showMessage('Saved Successfully','X');
         this.getCustomers();
+      }else{
+        this.appService.showMessage('Something went wrong','X');
       }
     })
   }
@@ -432,9 +454,11 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     let url = 'MasterDataApi/UpsertCompanyVendorMapping';
     this.service.postData(data, url).subscribe((data: any) => {
       if (data) {
-        alert('Saved Successfully');
+        this.appService.showMessage('Saved Successfully','X');
         this.getVendors();
         this.vendorForm.isChanged = false;
+      }else{
+        this.appService.showMessage('Something went wrong','X');
       }
     })
   }
@@ -465,7 +489,9 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     if (this.documentsForm.files.length != 0) {
       this.documentsForm.files.forEach(element => {
         this.saveDocumentFiles(element);
-        this.documentsForm.clearAll();
+        setTimeout(()=>{
+          this.documentsForm.clearAll();
+        },2000)
       });
     }
     if (this.vendorForm.isChanged) {
@@ -479,6 +505,7 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     }
     this.closeDialog();
     this.isEdit = false;
+    return true;
 
   }
   discardChanges() {
@@ -500,6 +527,7 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
       this.changeNode();
     }
     this.isEdit = false;
+    return true;
   }
   closeDialog() {
     this.dialog.closeAll();
@@ -533,5 +561,11 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
         }
       })
     })
+  }
+  checkPermissionCustomerEvent($event){
+    this.getCustomers()
+  }
+  checkPermissionVendorEvent($event){
+    this.getVendors()
   }
 }

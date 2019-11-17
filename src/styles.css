@@ -2,6 +2,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 body{
     overflow: auto;
+    background-color: #f8f8f8;
 }
 *{
     padding: 0px;
@@ -20,7 +21,7 @@ body{
     padding-left: 16px;
   }
   .txtColor:hover{
-    color: #ef8157;
+    color: #f39c38;
     cursor: pointer;
   }
   
@@ -58,7 +59,7 @@ body{
   }
   .footer{
     bottom: 12px;
-    background-color: #fff;
+    background-color: #f8f8f8;
    width: 100%;
    position: fixed;
    z-index: 999;
@@ -72,22 +73,35 @@ body{
   .content{
     position: relative;
     top: 56px;
-    padding: 16px;
+    background-color: #fff;
   }
   .window-header{
-    background-color: #ef8157;
-    color: #fff;
+    background-color: #f4f4f4;
+    color: #131313;
     height: 50px;
     position: fixed;
     z-index: 999;
   }
   .width-off{
-    width: 84%;
+    width: 81.2%;
   }
   .width-on{
-    width: 67%;
+    width: 65%;
   }
   .padding-left{
     padding-left: 16px;
   }
- 
+ .mat-tab-label-active{
+   background-color: #32404f !important;
+   color: #fff;
+ }
+ .mat-tab-body-wrapper{
+   padding: 16px;
+ }
+ .mat-raised-button.mat-primary {
+  background-color: #32404f !important;
+  color: #fff !important; 
+}
+.mat-list-base{
+  padding: 0px 12px;
+}

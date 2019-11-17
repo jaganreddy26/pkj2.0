@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router} from '@angular/router'
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,22 @@ export class AppComponent {
   sidenavWidth = 14;
   ngStyle: string;
   isOpen=true;
-  constructor(){
+  isOperation:boolean=true;
+  isAdminstration:boolean = false;
+  constructor(public router:Router){
 
   }
   getUrl(url){
     localStorage.setItem('url',url)
+  }
+  addClass(route){
+    if(route == 'operation'){
+      this.isOperation = true;
+      this.isAdminstration = false;
+    }else{
+      this.isOperation = false;
+      this.isAdminstration = true;
+    }
   }
   // increase() {
   //   this.sidenavWidth = 15;

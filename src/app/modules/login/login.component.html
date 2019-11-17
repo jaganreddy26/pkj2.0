@@ -1,0 +1,31 @@
+<div>
+    <div fxLayout="row wrap" fxLayoutAlign="center center" class="login" >
+        <mat-card fxFlex.xs="65" fxFlex.sm="55" fxFlex.md="36" fxFlex.lg="30" style="position:fixed;border-radius:12px">
+            <mat-card-title style="padding-top: 26px;" align="center">Signin</mat-card-title>
+            <mat-card-content fxLayout="row wrap" fxLayoutAlign="center center" style="height: 206px;">
+                <!-- <mat-form-field fxFlex="100">
+                    <mat-select placeholder="Business Name" [(ngModel)]="businessId">
+                        <mat-option *ngFor="let item of business" [value]="item.BusinessId">
+                            {{item.BusinessName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field> -->
+                <mat-form-field fxFlex="70">
+                    <input matInput placeholder="Email" [(ngModel)]="username">
+                </mat-form-field>
+                <mat-form-field fxFlex="70">
+                    <input matInput placeholder="Password" [(ngModel)]="passwrod" type="password">
+                </mat-form-field>
+                <button fxFlex="55"  mat-raised-button color="primary" style="border-radius: 40px;margin: 16px;" (click)="login()">Login</button>
+            </mat-card-content>
+    
+    
+        </mat-card>
+        <!-- <mat-card>
+            <mat-card-content>
+                Text content
+            </mat-card-content>
+        </mat-card> -->
+    
+    </div>
+    </div>

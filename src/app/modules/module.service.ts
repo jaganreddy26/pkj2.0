@@ -31,14 +31,17 @@ export class ModuleService implements CanDeactivate<ViewAndUpdateCompanyComponen
   getSingleData(data){
     return this.http.get(this.url+'/'+data)
   }
-  canDeactivate(component: ViewAndUpdateCompanyComponent, route: ActivatedRouteSnapshot, 
-    state: RouterStateSnapshot): Observable<boolean> | boolean{
-  // if(component.companyForm.myForm.touched || component.documentsForm.files.length != 0 || component.vendorForm.isChanged || component.customerForm.isChanged){
-  //     component.openDialog();
-  //     return false
-  // }else{
-  //   return true
-  // }
-  return true
+  canDeactivate(component: ViewAndUpdateCompanyComponent): Observable<boolean> | boolean{
+    console.log(component)
+  if(component.companyForm.myForm.touched || component.documentsForm.files.length != 0 || component.vendorForm.isChanged || component.customerForm.isChanged){
+    if (confirm('Do you want to save changes') == true) 
+        return component.saveChanges(); 
+    else { 
+        return component.discardChanges() 
+  }
+  }else{
+    return true
+  }
+
 }
 }

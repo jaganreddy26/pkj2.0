@@ -56,6 +56,16 @@ export class BankComponent implements OnInit {
     this.dialog.open(templateRef,{ disableClose: true });
   }
   onSubmit(myForm){
+    if(this.bankObj.IsActive == true){
+      this.bankObj.IsActive = 1;
+    }else{
+      this.bankObj.IsActive = 0;
+    }
+    if(this.bankObj.DefaultAc == true){
+      this.bankObj.DefaultAc = 1;
+    }else{
+      this.bankObj.DefaultAc = 0;
+    }
     this.saveBankDetails.emit(this.bankObj);
     this.dialog.closeAll();
   }

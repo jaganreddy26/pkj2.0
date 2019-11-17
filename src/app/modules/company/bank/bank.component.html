@@ -59,6 +59,8 @@
                 <app-input fxFlex="55" [form]="myForm" labelName="Description" type="text" filedName="Description"
                     [filedValue]="bankObj" required="true" errorRequired="Description is required" readonly="false">
                 </app-input>
+                <mat-checkbox fxFlex="55"  [(ngModel)]="bankObj.DefaultAc" color="primary" [ngModelOptions]="{standalone: true}">Is Default Account</mat-checkbox>
+                <mat-checkbox fxFlex="55"  [(ngModel)]="bankObj.IsActive" color="primary" [ngModelOptions]="{standalone: true}">Is Active</mat-checkbox>
             </div>
 
 

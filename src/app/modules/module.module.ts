@@ -14,10 +14,12 @@ import { DirectorsComponent } from './company/directors/directors.component';
 import { CustomerComponent } from './company/customer/customer.component';
 import { VendorComponent } from './company/vendor/vendor.component';
 import { BankComponent } from './company/bank/bank.component';
+import { LoginComponent} from './login/login.component';
 
 
 const routes: Routes = [
   {path: '' ,component :OprationComponent},
+  {path: 'login' ,component :LoginComponent},
   {path: 'operation' ,component :OprationComponent},
   {path: 'ubt' ,component :UbtComponent},
   {path: 'view-ubt' ,component :ViewUbtComponent},
@@ -29,7 +31,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes),SharedModule.forRoot()],
   exports: [RouterModule],
-  declarations:[OprationComponent,UbtComponent,ViewUbtComponent,EditUbtComponent,AdminstrationComponent, CompanyFormComponent, ViewAndUpdateCompanyComponent, DocumentsComponent, DirectorsComponent, CustomerComponent, VendorComponent, BankComponent],
+  declarations:[OprationComponent,UbtComponent,ViewUbtComponent,EditUbtComponent,AdminstrationComponent, CompanyFormComponent, ViewAndUpdateCompanyComponent, DocumentsComponent, DirectorsComponent, CustomerComponent, VendorComponent, BankComponent,LoginComponent],
   providers: [ModuleService]
 })
 export class ModuleModule { }

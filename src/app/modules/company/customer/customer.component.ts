@@ -8,6 +8,7 @@ import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
 export class CustomerComponent implements OnInit {
   @Input() customers :any;
   @Output() saveCustomerEvent = new EventEmitter();
+  @Output() checkPermissionEvent = new EventEmitter();
   @Input() isEdit:boolean;
   isEditChild:boolean = false;
   isChanged:boolean = false;
@@ -21,6 +22,7 @@ export class CustomerComponent implements OnInit {
   }
   checkPermission(){
     this.isEditChild = true;
+    this.checkPermissionEvent.emit()
   }
   changeEvent(){
   this.isChanged = true;

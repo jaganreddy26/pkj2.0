@@ -10,6 +10,7 @@ export class VendorComponent implements OnInit {
 @Input() vendors:any;
 @Input() isEdit:boolean;
 @Output() saveVendorEvent = new EventEmitter();
+@Output() checkPermissionEvent = new EventEmitter();
 @ViewChild(NgForm, { static: true }) myForm: NgForm;
 isEditChild:boolean = false;
 isChanged:boolean = false;
@@ -24,6 +25,7 @@ saveVendor(){
 }
 checkPermission(){
   this.isEditChild = true;
+  this.checkPermissionEvent.emit()
 }
 changeEvent(){
 this.isChanged = true;

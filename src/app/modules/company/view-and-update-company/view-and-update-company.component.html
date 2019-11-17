@@ -1,10 +1,9 @@
 <mat-toolbar class="head-toolbar" fxLayout="row" fxLayoutAlign="space-between center">
-    <div>
-        <button mat-icon-button *ngIf="width != 25" (click)="maxWidth()" matTooltip="Expand Tree">
-            <mat-icon>account_tree
-            </mat-icon>
-        </button>
-        View and Update Company
+    <div  class="menu-header">  
+        <span>
+            Master /
+        </span>
+       <span style="color:#ccc">View and Update Company</span> 
     </div>
     <button mat-icon-button matTooltip="Edit" (click)="checkPermission()" *ngIf="!isEdit">
         <mat-icon>edit</mat-icon>
@@ -14,29 +13,32 @@
     </button>
 
 </mat-toolbar>
-
-<div fxLayout="row" fxLayoutAlign="start center">
-    <div [style.width.%]="width" style="height: 93vh;background-color: #ccc;border-right: 1px solid #ccc;" *ngIf="width != 40">
+<button mat-icon-button *ngIf="width != 25"  class="treeIcon" (click)="maxWidth()" matTooltip="Expand Tree">
+    <mat-icon>account_tree
+    </mat-icon>
+</button>
+<div fxLayout="row" fxLayoutAlign="start center" >
+    <div  *ngIf="width != 0" [style.width.%]="width" style="height: 93vh;background-color: #fff;border-right: 1px solid #ccc;" >
         <div fxLayout="row" fxLayoutAlign="end center">
             <div>
                 <button mat-icon-button (click)="refresh()" matTooltip="Refresh Tree">
                     <mat-icon>refresh</mat-icon>
                 </button>
                 <button mat-icon-button (click)="minWidth()" matTooltip="Collapse Tree">
-                    <mat-icon>keyboard_arrow_left</mat-icon>
+                    <mat-icon>close</mat-icon>
                 </button>
 
             </div>
 
         </div>
-        <div *ngIf="width != 0">
+        <div>
             <app-tree [dataSrc]="dataSrc" [treeArray]="treeArray" [childrenNode]="childrenNode" (dataLabelChange)="dataNode($event)"
                 (nodeLabelChange)="nodeLabel($event)"></app-tree>
         </div>
 
     </div>
-    <div style="height: 93vh;width: 100%">
-        <mat-card class="padding">
+    <div style="height: 93vh;width: 100%;margin:16px">
+        <mat-card class="padding" >
             <div class="padding fixed-height">
 
                 <app-company-form [isEdit]="isEdit" [company]="company" [dataLoad]="states" (saveData)="saveData($event)"></app-company-form>
@@ -75,10 +77,10 @@
                         <app-directors></app-directors>
                     </mat-tab>
                     <mat-tab label="Customer">
-                        <app-customer [isEdit]="isEdit" [customers]="customers" (saveCustomerEvent)="saveCustomerDetails($event)"></app-customer>
+                        <app-customer [isEdit]="isEdit" [customers]="customers" (checkPermissionEvent)="checkPermissionCustomerEvent($event)" (saveCustomerEvent)="saveCustomerDetails($event)"></app-customer>
                     </mat-tab>
                     <mat-tab label="Vendor">
-                        <app-vendor [isEdit]="isEdit" [vendors]="vendors" (saveVendorEvent)="saveVendorDetails($event)"></app-vendor>
+                        <app-vendor [isEdit]="isEdit" [vendors]="vendors" (checkPermissionEvent)="checkPermissionVendorEvent($event)" (saveVendorEvent)="saveVendorDetails($event)"></app-vendor>
                     </mat-tab>
                     <mat-tab label="Bank">
                         <app-bank [isEdit]="isEdit" [bankAccDetails]="bankAccDetails" [bankBranches]="bankBranches" (saveBankDetails)="saveBankDetails($event)"></app-bank>

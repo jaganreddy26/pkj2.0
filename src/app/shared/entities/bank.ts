@@ -5,7 +5,7 @@ export class Bank {
     BBId: string;
     AcNo: string;
     AcHolderName: string;
-    DefaultAc: number = 1;
+    DefaultAc: any;
     Description: string;
-    IsActive: number = 1;
+    IsActive: any;
 }

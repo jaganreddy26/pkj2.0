@@ -4,11 +4,12 @@ import { AppService} from './shared/service/app.service';
 import { ModuleModule} from './modules/module.module';
 
 
-const routes: Routes = [{
-  path: '',
-  loadChildren: () => import('./modules/module.module')
-    .then(m => m.ModuleModule)
-}
+const routes: Routes = [
+//   {
+//   path: '',
+//   loadChildren: () => import('./modules/module.module')
+//     .then(m => m.ModuleModule)
+// }
 // ,{
 //   path: 'home',
 //   loadChildren: () => import('./modules/home/home.module')
