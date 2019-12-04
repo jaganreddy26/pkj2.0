@@ -59,8 +59,6 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
   companyNode: any;
   constructor(private router: Router, private service: ModuleService, private dialog: MatDialog,private appService:AppService) {
     this.getStates();
-    this.getLocalStorage();
-
   }
   @HostListener('window:beforeunload', ['$event'])
   public beforeunloadHandler($event) {
@@ -77,39 +75,7 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     //  this.saveCustomerDetails(null);
     //this.saveVendorDetails('')
   }
-  getLocalStorage() {
-    if (localStorage.getItem('companyId')) {
-      this.childrenNode = localStorage.getItem('companyId');
-      this.companyId = localStorage.getItem('companyId');
-      this.getCompanyDetails(this.childrenNode)
-    }
-    if (localStorage.getItem('companyName')) {
-      this.companyName = localStorage.getItem('companyName');
-    }
-    if (localStorage.getItem('bussinessId')) {
-      this.bussinessId = localStorage.getItem('bussinessId');
-    }
-    if (localStorage.getItem('bussinessName')) {
-      this.bussinessName = localStorage.getItem('bussinessName');
-      //   console.log(this.bussinessName)
-    }
-    if (localStorage.getItem('ubtTree')) {
-      this.treeArray = JSON.parse(localStorage.getItem('ubtTree'));
-    }
-    if (localStorage.getItem('company')) {
-      this.company = JSON.parse(localStorage.getItem('company'))
-    }
-    // if (localStorage.getItem('companyTab')) {
-    //   this.selectedTab = localStorage.getItem('companyTab');
-    // }
-    if (localStorage.getItem('companyHeight')) {
-      this.height = localStorage.getItem('companyHeight');
-    } else {
-      this.height = 43;
-      this.height = (window.innerHeight) / 2.2;
-    }
 
-  }
   getAllData() {
 
     this.getDocuments('PAN');
@@ -206,6 +172,7 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
 
   }
   nodeLabel(node) {
+    console.log(node);
     this.companyNode = node;
     this.isNodelLabelChange = true;
     // console.log(this.documentsForm.files)
@@ -218,6 +185,7 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
 
   }
   getCompanyDetails(node) {
+    console.log("hi4");
     let obj = { CompanyId: node }
     let url = 'MasterDataApi/GetCompanyMaster'
     this.service.postData(obj, url).subscribe((data: any) => {
@@ -354,6 +322,7 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     })
   }
   getBankBranchs() {
+    console.log("hi1");
     let url = "MasterDataApi/GetAllBankAndBranch_SF"
     let data = { "Status": 1 }
     this.service.postData(data, url).subscribe((data: any) => {
@@ -362,7 +331,7 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     })
   }
   saveDocumentFiles($event) {
-    // console.log($event)
+   console.log($event)
     this.document.BusinessId = this.bussinessId;
     this.document.BusinessName = this.bussinessName;
     this.document.ControlId = 'ControlId-1';

@@ -44,7 +44,7 @@
                 <app-company-form [isEdit]="isEdit" [company]="company" [dataLoad]="states" (saveData)="saveData($event)"></app-company-form>
             </div>
         </mat-card>
-
+ 
         <div class="footer" [ngClass]=" height > 43 ? 'scroll' : 'hidden'" mwlResizable [enableGhostResize]="false"
             [resizeEdges]="{bottom: false, right: false, top: true, left: false}" (resizeEnd)="onResizeEnd($event)"
             [style.height.px]="height">
