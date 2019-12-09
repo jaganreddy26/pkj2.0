@@ -10,7 +10,17 @@ export class DocumentFiles {
     EntityId:string;
     ControlId:string;
     FilesCount:number=1;
+
+     //below ranga addeed
+
+     EntityType:string;
+     EntityName:string;
+     DocumentType:string;
+     BusinesTypes:string
+     //upto here
     FileDetails:any= new FileDetails();
+
+   
 }
 export class FileDetails {
     FilePath:string;

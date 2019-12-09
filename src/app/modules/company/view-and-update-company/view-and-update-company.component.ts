@@ -244,7 +244,7 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     }
 
 
-    let url = "FilesApi/GetAllFilesforScreen_SF"
+    let url = "FilesApi/GetAllFilesforScreen_SF" 
     this.service.postData(data, url).subscribe((data: any) => {
       // console.log(data)
       if (type == "PAN") {

@@ -19,6 +19,7 @@ import { MasterComponent } from './masters/master/master.component';
 import { AddCustomerComponent } from './masters/customer/add-customer-details/add-customer-details.component';
 import { CustomerAddComponent } from './masters/customer/customer/customer.component';
 import { NewCustomerComponent } from './masters/customer/new-customer/new-customer.component';
+import { AgencyComponent } from './agency/agency.component';
 
 
 const routes: Routes = [
@@ -39,7 +40,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes),SharedModule.forRoot()],
   exports: [RouterModule],
-  declarations:[OprationComponent,UbtComponent,ViewUbtComponent,EditUbtComponent,AdminstrationComponent, CompanyFormComponent, ViewAndUpdateCompanyComponent, DocumentsComponent, DirectorsComponent, CustomerComponent, VendorComponent, BankComponent,LoginComponent, MasterComponent, AddCustomerComponent, CustomerAddComponent, NewCustomerComponent],
+  declarations:[OprationComponent,UbtComponent,ViewUbtComponent,EditUbtComponent,AdminstrationComponent, CompanyFormComponent, ViewAndUpdateCompanyComponent, DocumentsComponent, DirectorsComponent, CustomerComponent, VendorComponent, BankComponent,LoginComponent, MasterComponent, AddCustomerComponent, CustomerAddComponent, NewCustomerComponent, AgencyComponent],
   providers: [ModuleService]
 })
 export class ModuleModule { }

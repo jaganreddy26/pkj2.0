@@ -36,7 +36,7 @@
     <mat-card class="padding">
       <div class="padding fixed-height">
         <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="6px">
-           
+
           <mat-form-field appearance="outline" fxFlex="100">
             <mat-label>CustomerName</mat-label>
             <input matInput placeholder="Placeholder" [(ngModel)]="customer.CustomerName" readonly>
@@ -46,14 +46,14 @@
           [readonly]="!isEdit" >
   
       </app-select> -->
-      <mat-form-field appearance="outline" fxFlex="100">
-        <mat-label>CustomerType</mat-label>
-        <mat-select (selectionChange)="changeCustomerType($event)">
-          <mat-option *ngFor="let item of CustomerType">
-          
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>CustomerType</mat-label>
+            <mat-select (selectionChange)="changeCustomerType($event)">
+              <mat-option *ngFor="let item of CustomerType" [value]="item.TypeId">
+                {{item.TypeName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
           <mat-form-field appearance="outline" fxFlex="100">
             <mat-label>Email1</mat-label>
             <input matInput placeholder="Placeholder" [(ngModel)]="customer.Email1">
@@ -149,10 +149,12 @@
       <div class="content" [ngClass]=" width == 40 ? 'width-off' : 'width-on'">
         <mat-tab-group [selectedIndex]="selectedTab" (selectedTabChange)="tabChange($event)">
           <mat-tab label="Documents">
-            <app-documents [isEdit]="isEdit" (saveDocumentFiles)="saveDocumentFiles($event)"></app-documents>
+            <app-documents [isEdit]="isEdit"  [pan]="panDocumentPath" [cin]="cinDocumentPath" [tan]="tanDocumentPath" [gstin]="gstinDocumentPath"
+            (saveDocumentFiles)="saveDocumentFiles($event)">
+            </app-documents>
           </mat-tab>
           <mat-tab label="Agency Mapping">
-            <app-customer></app-customer>
+            <app-agency [isEdit]="isEdit" [agencys]="agencys"></app-agency>
           </mat-tab>
           <mat-tab label="Bank Mapping">
             tab3
