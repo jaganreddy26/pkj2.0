@@ -11,7 +11,9 @@ import {Observable} from "rxjs";
 export class ModuleService implements CanDeactivate<ViewAndUpdateCompanyComponent>{
 
   private host = environment.API_END_POINT;
-  private url: string =  this.host+'MasterDataApi/GetMasterDataTree_SF';
+ // private url: string =  this.host+'MasterDataApi/GetMasterDataTree_SF';
+
+ private url: string ="";
    
   constructor(private http:HttpClient) { }
 
@@ -25,7 +27,9 @@ export class ModuleService implements CanDeactivate<ViewAndUpdateCompanyComponen
   }
   postData(data,url)
   {
+    console.log(url);
      this.url = this.host+url;
+     console.log(url);
     return this.http.post(this.url,data)
   }
   getSingleData(data){

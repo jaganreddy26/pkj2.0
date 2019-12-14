@@ -109,7 +109,6 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
       this.height = 43;
       this.height = (window.innerHeight) / 2.2;
     }
-
   }
   getAllData() {
 
@@ -207,6 +206,7 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
 
   }
   nodeLabel(node) {
+    console.log(node);
     this.companyNode = node;
     this.isNodelLabelChange = true;
     // console.log(this.documentsForm.files)
@@ -219,6 +219,7 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
 
   }
   getCompanyDetails(node) {
+    console.log("hi4");
     let obj = { CompanyId: node }
     let url = 'MasterDataApi/GetCompanyMaster'
     this.service.postData(obj, url).subscribe((data: any) => {
@@ -279,7 +280,7 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     }
 
 
-    let url = "FilesApi/GetAllFilesforScreen_SF"
+    let url = "FilesApi/GetAllFilesforScreen_SF" 
     this.service.postData(data, url).subscribe((data: any) => {
       // console.log(data)
       if (type == "PAN") {
@@ -357,6 +358,7 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     })
   }
   getBankBranchs() {
+    console.log("hi1");
     let url = "MasterDataApi/GetAllBankAndBranch_SF"
     let data = { "Status": 1 }
     this.service.postData(data, url).subscribe((data: any) => {
@@ -365,7 +367,7 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     })
   }
   saveDocumentFiles($event) {
-    // console.log($event)
+   console.log($event)
     this.document.BusinessId = this.bussinessId;
     this.document.BusinessName = this.bussinessName;
     this.document.ControlId = 'ControlId-1';

@@ -38,8 +38,9 @@ export class SelectComponent implements OnInit {
     @Input() minlength?: number;
     @Input() maxlength?: number;
     @Input() readonly?: boolean;
-
+   
     ngOnInit() {
+        console.log(this.data);
         // console.log(this.filedValue)
         // console.log(this.primaryKey)
         // console.log(this.filedValue[this.filedName])

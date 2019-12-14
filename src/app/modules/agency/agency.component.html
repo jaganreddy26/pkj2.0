@@ -1,0 +1,35 @@
+
+<div fxLayout="row warp" >
+
+    <div fxFlex="90">
+            <div fxLayout="row warp" fxLayoutAlign="space-between center" style="background-color:grey;height:50px">
+                    <div fxFlex="50">
+                        AgencyName
+                    </div>
+                    <div fxFlex="50">
+                        Status
+                    </div>
+                </div>
+            <div  *ngFor="let item of agencys">
+               
+                    <div fxLayout="row warp" fxLayoutAlign="space-between center">
+                        <div fxFlex="50">
+                                {{item.AgencyName}}
+                            </div>
+                            <div fxFlex="50">
+                                    <mat-checkbox [(ngModel)]="item.Status" (ngModelChange)="changeEvent()" [disabled]="!isEditChild"></mat-checkbox>
+                            </div>
+                </div>
+            </div>
+            <div  fxLayoutAlign="end start">
+                <button mat-raised-button color="primary" (click)="saveCustomer()" [disabled]="!isEditChild">Save</button>
+            </div>
+    </div>
+    <mat-divider></mat-divider>
+
+    <button mat-icon-button matTooltip="Edit" [disabled]="!isEdit" (click)="checkPermission()">
+            <mat-icon>edit</mat-icon>
+        </button>
+     
+</div>
+

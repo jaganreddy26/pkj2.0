@@ -15,6 +15,11 @@ import { CustomerComponent } from './company/customer/customer.component';
 import { VendorComponent } from './company/vendor/vendor.component';
 import { BankComponent } from './company/bank/bank.component';
 import { LoginComponent} from './login/login.component';
+import { MasterComponent } from './masters/master/master.component';
+import { AddCustomerComponent } from './masters/customer/add-customer-details/add-customer-details.component';
+import { CustomerAddComponent } from './masters/customer/customer/customer.component';
+import { NewCustomerComponent } from './masters/customer/new-customer/new-customer.component';
+import { AgencyComponent } from './agency/agency.component';
 
 
 const routes: Routes = [
@@ -25,13 +30,17 @@ const routes: Routes = [
   {path: 'view-ubt' ,component :ViewUbtComponent},
   {path: 'edit-ubt' ,component :EditUbtComponent},
   {path: 'adminstration' ,component :AdminstrationComponent},
-  {path: 'view-and-update-company',component : ViewAndUpdateCompanyComponent,canDeactivate: [ModuleService],}
+  {path: 'view-and-update-company',component : ViewAndUpdateCompanyComponent,canDeactivate: [ModuleService],},
+  {path:'masters',component:MasterComponent},
+  {path:'masters/customer/addcustomerdetails',component:AddCustomerComponent},
+  {path:'masters/Customer',component:CustomerAddComponent},
+  {path:'masters/customer/addcustomer',component:NewCustomerComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes),SharedModule.forRoot()],
   exports: [RouterModule],
-  declarations:[OprationComponent,UbtComponent,ViewUbtComponent,EditUbtComponent,AdminstrationComponent, CompanyFormComponent, ViewAndUpdateCompanyComponent, DocumentsComponent, DirectorsComponent, CustomerComponent, VendorComponent, BankComponent,LoginComponent],
+  declarations:[OprationComponent,UbtComponent,ViewUbtComponent,EditUbtComponent,AdminstrationComponent, CompanyFormComponent, ViewAndUpdateCompanyComponent, DocumentsComponent, DirectorsComponent, CustomerComponent, VendorComponent, BankComponent,LoginComponent, MasterComponent, AddCustomerComponent, CustomerAddComponent, NewCustomerComponent, AgencyComponent],
   providers: [ModuleService]
 })
 export class ModuleModule { }

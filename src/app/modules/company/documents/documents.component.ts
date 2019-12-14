@@ -26,7 +26,7 @@ export class DocumentsComponent implements OnInit {
   gstinValue: any;
   @Input() isEdit:boolean;
   isEditPAN: boolean = true;
-  isEditCIN: boolean = true;
+  isEditCIN: boolean = true; 
   isEditTAN: boolean = true;
   isEditGSTIN: boolean = true;
   isEditChild:boolean = false;
@@ -62,6 +62,7 @@ export class DocumentsComponent implements OnInit {
   ngOnInit() {
   }
   save(file) {
+    console.log()
     this.filesDetails.UploadedFileName = file;
     this.saveDocumentFiles.emit(this.filesDetails);
   }

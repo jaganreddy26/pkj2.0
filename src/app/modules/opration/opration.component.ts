@@ -18,4 +18,7 @@ export class OprationComponent implements OnInit {
   company(){
     this.router.navigate(['/view-and-update-company',{}])
   }
+  masterData(){
+    this.router.navigate(['/masters',{}])
+  }
 }

@@ -91,8 +91,10 @@ export class TreeComponent implements OnInit {
     nodeLabel(node) {
     //   this.childrenNode = node.Id;
         this.nodeLabelChange.emit(node)
+        console.log("hi2");
     }
     dataNode(node) {
+        console.log("hi");
         this.nodeArray = [];
         this.treeControl.dataNodes.filter((element) => {
             if (element.Expandable && this.treeControl.isExpanded(element)) {
