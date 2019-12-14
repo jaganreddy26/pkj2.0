@@ -44,9 +44,9 @@ export class BankComponent implements OnInit {
     }
   }
 
-  addBank(){
-    this.saveBankDetails.emit()
-  }
+  // addBank(){
+  //   this.saveBankDetails.emit()
+  // }
   openBankForm(templateRef: TemplateRef<any>,obj) {
     if(obj){
       this.bankObj = obj;
@@ -55,7 +55,7 @@ export class BankComponent implements OnInit {
     }
     this.dialog.open(templateRef,{ disableClose: true });
   }
-  onSubmit(myForm){
+  onSubmit(myForm){ 
     if(this.bankObj.IsActive == true){
       this.bankObj.IsActive = 1;
     }else{

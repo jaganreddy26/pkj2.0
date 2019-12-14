@@ -1,0 +1,172 @@
+<mat-toolbar class="head-toolbar" fxLayout="row" fxLayoutAlign="space-between center">
+    <div  class="menu-header">  
+        <span>
+            Master /
+        </span>
+       <span style="color:#ccc">View and Update Customer</span> 
+    </div>
+    <button mat-icon-button matTooltip="Edit" (click)="checkPermission()" *ngIf="!isEdit">
+        <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button  matTooltip="View" *ngIf="isEdit" (click)="viewDetails()">
+        <mat-icon>collections_bookmark</mat-icon>
+    </button>
+
+</mat-toolbar>
+<button mat-icon-button *ngIf="width != 25"  class="treeIcon" (click)="maxWidth()" matTooltip="Expand Tree">
+    <mat-icon>account_tree
+    </mat-icon>
+</button>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div [style.width.%]="width" style="height: 93vh;background-color: #ccc;border-right: 1px solid #ccc;" *ngIf="width != 40">
+            <div fxLayout="row" fxLayoutAlign="end center">
+              <div>
+                <button mat-icon-button (click)="refresh()" matTooltip="Refresh Tree">
+                  <mat-icon>refresh</mat-icon>
+                </button>
+                <button mat-icon-button (click)="minWidth()" matTooltip="Collapse Tree">
+                  <mat-icon>keyboard_arrow_left</mat-icon>
+                </button>
+        
+              </div>
+        
+            </div>
+            <div *ngIf="width != 40">
+                <app-tree [dataSrc]="dataSrc" (dataNodeChange)="dataNode($event)" (nodeLabelChange)="nodeLabel($event)"></app-tree>
+            </div>
+        
+          </div>
+    <div style="height: 93vh;">
+      <div>
+  
+      </div>
+  
+      <mat-card class="padding">
+        <div class="padding fixed-height">
+          <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="6px">
+  
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>CustomerName</mat-label>
+              <input matInput placeholder="Placeholder" [(ngModel)]="customer.CustomerName" readonly>
+            </mat-form-field>
+          
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>CustomerType</mat-label>
+              <mat-select (selectionChange)="changeCustomerType($event)" >
+                <mat-option *ngFor="let item of CustomerType" [value]="item.TypeId">
+                  {{item.TypeName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>Email1</mat-label>
+              <input matInput placeholder="Placeholder" [(ngModel)]="customer.Email1" [readonly]="!isEdit">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>Email2</mat-label>
+              <input matInput placeholder="Placeholder" [(ngModel)]="customer.Email2" [readonly]="!isEdit">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>URL</mat-label>
+              <input matInput placeholder="Placeholder" [(ngModel)]="customer.URL"  [readonly]="!isEdit">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>Phone1</mat-label>
+              <input matInput placeholder="Placeholder" [(ngModel)]="customer.Phone1"  [readonly]="!isEdit">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>Phone2</mat-label>
+              <input matInput placeholder="Placeholder" [(ngModel)]="customer.Phone2"  [readonly]="!isEdit">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>Address1</mat-label>
+              <input matInput placeholder="Placeholder" [(ngModel)]="customer.Address1"  [readonly]="!isEdit">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>Address2</mat-label>
+              <input matInput placeholder="Placeholder" [(ngModel)]="customer.Address2"  [readonly]="!isEdit">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>Address3</mat-label>
+              <input matInput placeholder="Placeholder" [(ngModel)]="customer.Address3"  [readonly]="!isEdit">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>states</mat-label>
+              <mat-select (selectionChange)="changeStates($event)"  >
+                <mat-option *ngFor="let item of states" [value]="item.SteteId" >
+                  {{item.StateName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>CIN</mat-label>
+              <input matInput placeholder="Placeholder" [(ngModel)]="customer.CIN"  [readonly]="!isEdit">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>GSTIN</mat-label>
+              <input matInput placeholder="Placeholder" [(ngModel)]="customer.GSTIN"  [readonly]="!isEdit">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>PAN</mat-label>
+              <input matInput placeholder="Placeholder" [(ngModel)]="customer.PAN" [readonly]="!isEdit">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>TAN</mat-label>
+              <input matInput placeholder="Placeholder" [(ngModel)]="customer.TAN_NO" [readonly]="!isEdit">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>FAX</mat-label>
+              <input matInput placeholder="Placeholder" [(ngModel)]="customer.Fax" [readonly]="!isEdit">
+            </mat-form-field>
+            <div fxLayoutAlign="center center" fxFlex="100">
+              <button mat-button (click)="updateCustomerDetails()" [disabled]="!isEdit">Save</button>
+            </div>
+  
+          </div>
+  
+        </div>
+      </mat-card>
+  
+      <div class="footer" [ngClass]=" height > 43 ? 'scroll' : 'hidden'" mwlResizable [enableGhostResize]="false"
+        [resizeEdges]="{bottom: false, right: false, top: true, left: false}" (resizeEnd)="onResizeEnd($event)"
+        [style.height.px]="height">
+        <div class="window-header" [ngClass]=" width == 40 ? 'width-off' : 'width-on'" fxLayout="row"
+          fxLayoutAlign="space-between center">
+          <div style="padding-left: 22px;">
+            Tabs
+          </div>
+          <div style="padding-right: 22px;">
+            <button mat-icon-button *ngIf="height > 43" matTooltip="Minimize" (click)="min()">
+              <mat-icon>indeterminate_check_box</mat-icon>
+            </button>
+            <button mat-icon-button *ngIf="height != restoreHeight" matTooltip="Minimize" (click)="restore()">
+              <mat-icon>restore_page</mat-icon>
+            </button>
+            <button mat-icon-button *ngIf="height != maxHeight" (click)="max()" matTooltip="Maximize">
+              <mat-icon>aspect_ratio
+              </mat-icon>
+            </button>
+          </div>
+  
+        </div>
+  
+        <div class="content" [ngClass]=" width == 40 ? 'width-off' : 'width-on'">
+          <mat-tab-group [selectedIndex]="selectedTab" (selectedTabChange)="tabChange($event)">
+            <mat-tab label="Documents">
+              <app-documents [isEdit]="isEdit"  [pan]="panDocumentPath" [cin]="cinDocumentPath" [tan]="tanDocumentPath" [gstin]="gstinDocumentPath"
+              (saveDocumentFiles)="saveDocumentFiles($event)">
+              </app-documents>
+            </mat-tab>
+            <mat-tab label="Agency Mapping">
+              <app-agency [isEdit]="isEdit" [agencys]="agencys" (checkPermissionEvent)="checkPermissionAgencyEvent($event)" (saveAgencyEvent)="saveAgencyDetails($event)"></app-agency>
+            </mat-tab>
+            <mat-tab label="Bank Mapping">
+              <app-bank [isEdit]="isEdit" [bankAccDetails]="bankAccDetails" [bankBranches]="bankBranches" (saveBankDetails)="saveBankDetails($event)"></app-bank>
+            </mat-tab>
+          </mat-tab-group>
+  
+        </div>
+      </div>
+  
+    </div>
+  </div>

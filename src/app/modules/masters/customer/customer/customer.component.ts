@@ -137,5 +137,11 @@ export class CustomerAddComponent implements OnInit {
      this.router.navigate(['/masters/customer/addcustomer',{}])
     
   }
+  viewCustomer(){
+    
+    this.router.navigate(['/masters/customer/viewcustomer',{}])
+   
+ }
+
 }
 

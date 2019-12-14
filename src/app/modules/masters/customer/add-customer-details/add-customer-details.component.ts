@@ -7,6 +7,7 @@ import { NgForm } from "@angular/forms";
 import { Customer } from '../../../../shared/entities/customer';
 import { AppService } from '../../../../shared/service/app.service';
 import { DocumentFiles } from '../../../../shared/entities/document';
+import { Bank } from '../../../../shared/entities/bank';
 @Component({
   selector: 'app-add-customer',
   templateUrl: './add-customer-details.component.html',
@@ -39,11 +40,15 @@ export class AddCustomerComponent implements OnInit {
   cinDocumentPath: any;
   gstinDocumentPath: any;
   agencys: any = [];
+  bankAccDetails: any = [];
+  bankBranches:any=[];
+  bankObj: Bank = new Bank();
   @ViewChild(NgForm, { static: true }) myForm: NgForm;
   constructor(private router: Router, private service: ModuleService, private appService: AppService) {
     this.customer.CustomerName = history.state.data;
     this.getStates();
     this.getCustomerType();
+    this.getBankBranchs();
     //this.getTreeData();
   }
 
@@ -113,26 +118,32 @@ export class AddCustomerComponent implements OnInit {
   dataNode(node) {
 
   }
-  nodeLabel(node) {
-    console.log(node);
-    if (node) {
-      localStorage.setItem('nodeLabel', node);
-      this.childrenNode = node;
-    }
-    let obj = { CustomerId: this.childrenNode.Id }
-    let url = 'MasterDataApi/GetCustomerMaster_SF'
-    this.service.postData(obj, url).subscribe((data: any) => {
-      console.log(data);
-      if (data.length != 0) {
-        this.customer = data[0];
-        console.log(this.customer);
-      }
+  // nodeLabel(node) {
+  //   console.log(node);
+  //   if (node) {
+  //     localStorage.setItem('nodeLabel', node);
+  //     this.childrenNode = node;
+  //   }
+  //   let obj = { CustomerId: this.childrenNode.Id }
+  //   let url = 'MasterDataApi/GetCustomerMaster_SF'
+  //   this.service.postData(obj, url).subscribe((data: any) => {
+  //     console.log(data);
+  //     if (data.length != 0) {
+  //       this.customer = data[0];
+  //       this.customerDetailsById=data[0];
+  //       console.log(this.customer);
+  //     }
 
-    })
-  }
-  refresh() {
-    this.getTreeData();
-  }
+  //   })
+  //   this.getAgencyMapping();
+  //   this.getDocuments('PAN');
+  //   this.getDocuments('TAN');
+  //   this.getDocuments('GSTIN');
+  //   this.getDocuments('CIN');
+  //   console.log(this.childrenNode.Id);
+  //   this.getBanks()
+  // }
+ 
   getStates() {
     let url = "MasterDataApi/GetAllStates_SF";
     this.service.getData({}, url).subscribe((data: any) => {
@@ -200,24 +211,10 @@ export class AddCustomerComponent implements OnInit {
           }
 
         })
-
-        //getAgencyDetailsByCustoreId
-        let agencyInputobj =
-        {
-          "BusinessId": "",
-          "Entity": "Customer",
-          "EntityId": this.customerDetailsById.CustomerId,
-          "Status": 2
-        }
-        let agencyUrl = 'MasterDataApi/GetMappedAgencyByEntityStatus_SF';
-        this.service.postData(agencyInputobj,agencyUrl).subscribe((data:any)=>{
-          console.log(data);
-          this.agencys=data;
-        })
-
-
         this.isEdit = true;
-        // this.closeDialog();
+        //getAgencyDetailsByCustoreId
+        this.getAgencyMapping()
+
       } else {
         this.appService.showMessage('Somethimg went wrong', 'X');
       }
@@ -304,6 +301,95 @@ export class AddCustomerComponent implements OnInit {
         this.gstinDocumentPath = null;
         this.tanDocumentPath = null;
         this.cinDocumentPath = null;
+      }
+    })
+  }
+  getAgencyMapping() {
+    let status = 1;
+    if (this.isEdit == true) {
+      status = 2;
+    } else {
+      status = 1;
+    }
+
+    let agencyInputobj =
+    {
+      "BusinessId": "",
+      "Entity": "Customer",
+      "EntityId": this.customerDetailsById.CustomerId,
+      "Status": status
+    }
+    let agencyUrl = 'MasterDataApi/GetMappedAgencyByEntityStatus_SF';
+    this.service.postData(agencyInputobj, agencyUrl).subscribe((data: any) => {
+      console.log(data);
+      this.agencys = data;
+    })
+  }
+  checkPermissionAgencyEvent($event){
+    this.getAgencyMapping();
+  }
+  saveAgencyDetails($event){
+    console.log($event);
+    this.agencys = $event;
+    let agencyArray: any = []
+    this.agencys.forEach(element => {
+      if (element.Status == true) {
+        element.Status = 1
+      } else {
+        element.Status = 0
+      }
+      agencyArray.push({ 'CustomerId':this.customerDetailsById.CustomerId, 'AgencyId': element.AgencyId, 'Status': element.Status })
+
+    });
+    let data = {
+      "BusinessId": 'A',
+      "EntityAgency": agencyArray
+
+    }
+    let url = 'MasterDataApi/UpsertCustomerAgencyMapping';
+    this.service.postData(data, url).subscribe((data: any) => {
+      console.log();
+      if (data) {
+        this.appService.showMessage('Saved Successfully','X');
+        this.getAgencyMapping();
+       // this.vendorForm.isChanged = false;
+      }else{
+        this.appService.showMessage('Something went wrong','X');
+      }
+    })
+  }
+  getBanks() {
+    let url = "MasterDataApi/GetAllMappedBankAccountsByEntityId_SF"
+    let data = { "BusinessId": '', "Entity": 'Customer', "EntityId": this.customerDetailsById.CustomerId, "Status": 2 }
+    this.service.postData(data, url).subscribe((data: any) => {
+      this.bankAccDetails = data;
+      //   console.log(data)
+    })
+  }
+  getBankBranchs() {
+    console.log("hi1");
+    let url = "MasterDataApi/GetAllBankAndBranch_SF"
+    let data = { "Status": 1 }
+    this.service.postData(data, url).subscribe((data: any) => {
+      this.bankBranches = data;
+      //   console.log(data)
+    })
+  }
+  saveBankDetails($event) {
+    //  console.log($event)
+    this.bankObj = $event;
+    this.bankObj.Entity = 'Customer';
+    this.bankObj.EntityId = this.customerDetailsById.CustomerId;
+    this.bankObj.BusinessId = '';
+    let url = 'MasterDataApi/UpsertBankAccountByEntity ';
+    let data = this.bankObj;
+    console.log(data);
+    this.service.postData(data, url).subscribe((data: any) => {
+      if (data) {
+        this.appService.showMessage('Saved Successfully','X');
+        this.getBanks();
+      }else{
+        this.appService.showMessage('Something went wrong','X');
       }
     })
   }
