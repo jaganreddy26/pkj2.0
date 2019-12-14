@@ -105,3 +105,6 @@ body{
 .mat-list-base{
   padding: 0px 12px;
 }
+.mat-form-field-infix{
+  font-size: 13px !important;
+}
