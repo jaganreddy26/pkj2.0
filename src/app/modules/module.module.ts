@@ -20,6 +20,7 @@ import { AddCustomerComponent } from './masters/customer/add-customer-details/ad
 import { CustomerAddComponent } from './masters/customer/customer/customer.component';
 import { NewCustomerComponent } from './masters/customer/new-customer/new-customer.component';
 import { AgencyComponent } from './agency/agency.component';
+import { ViewCustomerDetailsComponent } from './masters/customer/view-customer-details/view-customer-details.component';
 
 
 const routes: Routes = [
@@ -34,13 +35,14 @@ const routes: Routes = [
   {path:'masters',component:MasterComponent},
   {path:'masters/customer/addcustomerdetails',component:AddCustomerComponent},
   {path:'masters/Customer',component:CustomerAddComponent},
-  {path:'masters/customer/addcustomer',component:NewCustomerComponent}
+  {path:'masters/customer/addcustomer',component:NewCustomerComponent},
+  {path:'masters/customer/viewcustomer',component:ViewCustomerDetailsComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes),SharedModule.forRoot()],
   exports: [RouterModule],
-  declarations:[OprationComponent,UbtComponent,ViewUbtComponent,EditUbtComponent,AdminstrationComponent, CompanyFormComponent, ViewAndUpdateCompanyComponent, DocumentsComponent, DirectorsComponent, CustomerComponent, VendorComponent, BankComponent,LoginComponent, MasterComponent, AddCustomerComponent, CustomerAddComponent, NewCustomerComponent, AgencyComponent],
+  declarations:[OprationComponent,UbtComponent,ViewUbtComponent,EditUbtComponent,AdminstrationComponent, CompanyFormComponent, ViewAndUpdateCompanyComponent, DocumentsComponent, DirectorsComponent, CustomerComponent, VendorComponent, BankComponent,LoginComponent, MasterComponent, AddCustomerComponent, CustomerAddComponent, NewCustomerComponent, AgencyComponent, ViewCustomerDetailsComponent],
   providers: [ModuleService]
 })
 export class ModuleModule { }

@@ -14,7 +14,7 @@ export class VendorComponent implements OnInit {
 @ViewChild(NgForm, { static: true }) myForm: NgForm;
 isEditChild:boolean = false;
 isChanged:boolean = false;
-constructor() { }
+constructor() { } 
 
 ngOnInit() {
 

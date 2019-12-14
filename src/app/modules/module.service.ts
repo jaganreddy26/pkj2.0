@@ -27,9 +27,9 @@ export class ModuleService implements CanDeactivate<ViewAndUpdateCompanyComponen
   }
   postData(data,url)
   {
-    console.log(url);
+    
      this.url = this.host+url;
-     console.log(url);
+    
     return this.http.post(this.url,data)
   }
   getSingleData(data){

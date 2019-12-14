@@ -154,10 +154,10 @@
             </app-documents>
           </mat-tab>
           <mat-tab label="Agency Mapping">
-            <app-agency [isEdit]="isEdit" [agencys]="agencys"></app-agency>
+            <app-agency [isEdit]="isEdit" [agencys]="agencys" (checkPermissionEvent)="checkPermissionAgencyEvent($event)" (saveAgencyEvent)="saveAgencyDetails($event)"></app-agency>
           </mat-tab>
           <mat-tab label="Bank Mapping">
-            tab3
+            <app-bank [isEdit]="isEdit" [bankAccDetails]="bankAccDetails" [bankBranches]="bankBranches" (saveBankDetails)="saveBankDetails($event)"></app-bank>
           </mat-tab>
         </mat-tab-group>
 

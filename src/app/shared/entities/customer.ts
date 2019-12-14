@@ -1,4 +1,5 @@
 export class Customer {
+    CustomerId:any=null
     CustomerName:any
     CustomerTypeId:any
     Email1:any
@@ -16,4 +17,5 @@ export class Customer {
     TAN_NO:any
     Fax:any
     Status:any=1
+    PreviousStatus:any=null
 }
