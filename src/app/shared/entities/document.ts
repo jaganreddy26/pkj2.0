@@ -6,8 +6,10 @@ export class DocumentFiles {
     CompanyId:string;
     CompanyName:string;
     EntityParent:string;
-    Type:string;
-    EntityId:string;
+    EntityType:any;
+    DocumentType:string;
+    BusinesTypes:string;
+    EntityName:string;
     ControlId:string;
     FilesCount:number=1;
     FileDetails:any= new FileDetails();
@@ -18,3 +20,4 @@ export class FileDetails {
     FileExtn:string;
     UploadedFileName:string;
 }
+

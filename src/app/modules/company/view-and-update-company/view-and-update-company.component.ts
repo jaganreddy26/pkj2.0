@@ -57,10 +57,11 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
   isCheckForm: boolean = false;
   isNodelLabelChange: boolean = false;
   companyNode: any;
+  nodeArray:any=[];
   constructor(private router: Router, private service: ModuleService, private dialog: MatDialog,private appService:AppService) {
     this.getStates();
     this.getLocalStorage();
-
+    this.releaseLock();
   }
   @HostListener('window:beforeunload', ['$event'])
   public beforeunloadHandler($event) {
@@ -93,8 +94,8 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
       this.bussinessName = localStorage.getItem('bussinessName');
       //   console.log(this.bussinessName)
     }
-    if (localStorage.getItem('ubtTree')) {
-      this.treeArray = JSON.parse(localStorage.getItem('ubtTree'));
+    if (localStorage.getItem('businessTree')) {
+      this.treeArray = JSON.parse(localStorage.getItem('businessTree'));
     }
     if (localStorage.getItem('company')) {
       this.company = JSON.parse(localStorage.getItem('company'))
@@ -193,16 +194,16 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
       //  localStorage.setItem('companyTab', this.selectedTab);
     }
     localStorage.setItem('companyHeight', this.height)
-
+    this.releaseLock();
     // if (this.companyForm.myForm.touched || this.documentsForm.files.length != 0 || this.vendorForm.isChanged || this.customerForm.isChanged) {
     //   this.openDialog();
-    //   this.releaseLock();
+     
     // }
 
   }
   dataNode(node) {
-    //  console.log(node)
-
+    this.nodeArray = node;
+    localStorage.setItem('businessTree', JSON.stringify(this.nodeArray))
 
   }
   nodeLabel(node) {
@@ -267,9 +268,11 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
           "EntityCategory": "Master",
           "Entity": 'Company',
           "EntityId": null,
-          "Type": type,
-          "EntityParent": this.bussinessName + '/' + this.companyName,
+          "DocumentType": type,
+          "EntityParent": this.bussinessName,
+          "BusinesTypes":'Busines Types',          
           "FilesCount": 1,
+          "EntityType":'',          
           "ControlId": "ControlId-1"
         },
       ]
@@ -368,16 +371,17 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     this.document.ControlId = 'ControlId-1';
     this.document.Entity = 'Company';
     this.document.EntityCategory = 'Master';
-    this.document.EntityParent = this.bussinessName + '/' + this.companyName
-    this.document.EntityId = this.document.FileDetails.FilePath;
+    this.document.EntityParent = this.bussinessName;
+    this.document.EntityName = this.document.FileDetails.FilePath;
     this.document.FileDetails = $event;
-    this.document.Type = $event.UploadedFileName;
+    this.document.DocumentType = $event.UploadedFileName;
+    this.document.BusinesTypes = 'Busines Types';
     let url = 'MasterDataApi/SaveDocument';
     let data = this.document;
     this.service.postData(data, url).subscribe((data: any) => {
       if (data) {
         this.appService.showMessage('Saved Successfully','X');
-        this.getDocuments(this.document.Type)
+        this.getDocuments(this.document.DocumentType)
         this.closeDialog();
       }else{
         this.appService.showMessage('Somethimg went wrong','X');

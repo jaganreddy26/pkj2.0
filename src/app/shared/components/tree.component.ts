@@ -96,11 +96,12 @@ export class TreeComponent implements OnInit {
         this.nodeArray = [];
         this.treeControl.dataNodes.filter((element) => {
             if (element.Expandable && this.treeControl.isExpanded(element)) {
-                this.nodeArray.push(element.Name)
+               this.nodeArray.push(element.Name)
+               this.dataLabelChange.emit(this.nodeArray);
             }
         })
       //  this.dataLabelChange.emit(node)
-        localStorage.setItem('ubtTree', JSON.stringify(this.nodeArray))
+       
 
     }
 }

@@ -13,7 +13,7 @@ export class AdminstrationComponent implements OnInit {
     // localStorage.removeItem('ubt');
     // localStorage.removeItem('ubtTab');
     // localStorage.removeItem('ubtHeight');
-    // localStorage.removeItem('ubtTree');
+    // localStorage.removeItem('businessTree');
   }
 
 }
