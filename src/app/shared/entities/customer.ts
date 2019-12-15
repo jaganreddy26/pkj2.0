@@ -17,5 +17,5 @@ export class Customer {
     TAN_NO:any
     Fax:any
     Status:any=1
-    PreviousStatus:any=null
+   
 }

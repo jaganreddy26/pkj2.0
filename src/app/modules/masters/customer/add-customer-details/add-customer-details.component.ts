@@ -379,7 +379,7 @@ export class AddCustomerComponent implements OnInit {
     //  console.log($event)
     this.bankObj = $event;
     this.bankObj.Entity = 'Customer';
-    this.bankObj.EntityId = this.customerDetailsById.CustomerId;
+    this.bankObj.EntityId = this.customer.CustomerId;
     this.bankObj.BusinessId = '';
     let url = 'MasterDataApi/UpsertBankAccountByEntity ';
     let data = this.bankObj;
