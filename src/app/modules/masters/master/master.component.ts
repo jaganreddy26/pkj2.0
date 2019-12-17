@@ -16,4 +16,7 @@ export class MasterComponent implements OnInit {
    // this.router.navigate(['/masters/createCustomer',{}])
     //this.router.navigate(['/ubt',{}])
   }
+  vendorMaster(){
+    this.router.navigate(['/masters/Vendor',{}])
+  }
 }

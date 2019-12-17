@@ -22,6 +22,11 @@ import { NewCustomerComponent } from './masters/customer/new-customer/new-custom
 import { AgencyComponent } from './agency/agency.component';
 import { ViewCustomerDetailsComponent } from './masters/customer/view-customer-details/view-customer-details.component';
 
+import { MasterVendorsComponent } from './masters/vendor/master-vendors/master-vendors.component';
+import { NewVendorComponent } from './masters/vendor/new-vendor/new-vendor.component';
+import { AddVendorDetailsComponent } from './masters/vendor/add-vendor-details/add-vendor-details.component';
+
+
 
 const routes: Routes = [
   {path: '' ,component :OprationComponent},
@@ -34,15 +39,20 @@ const routes: Routes = [
   {path: 'view-and-update-company',component : ViewAndUpdateCompanyComponent,canDeactivate: [ModuleService],},
   {path:'masters',component:MasterComponent},
   {path:'masters/customer/addcustomerdetails',component:AddCustomerComponent},
+
   {path:'masters/Customer',component:CustomerAddComponent},
   {path:'masters/customer/addcustomer',component:NewCustomerComponent},
-  {path:'masters/customer/viewcustomer',component:ViewCustomerDetailsComponent}
+  {path:'masters/customer/viewcustomer',component:ViewCustomerDetailsComponent},
+
+  {path:'masters/Vendor',component:MasterVendorsComponent},
+  {path:'masters/vendor/addcustomer',component:NewVendorComponent},
+  {path:'masters/vendor/addvendordetails',component:AddVendorDetailsComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes),SharedModule.forRoot()],
   exports: [RouterModule],
-  declarations:[OprationComponent,UbtComponent,ViewUbtComponent,EditUbtComponent,AdminstrationComponent, CompanyFormComponent, ViewAndUpdateCompanyComponent, DocumentsComponent, DirectorsComponent, CustomerComponent, VendorComponent, BankComponent,LoginComponent, MasterComponent, AddCustomerComponent, CustomerAddComponent, NewCustomerComponent, AgencyComponent, ViewCustomerDetailsComponent],
+  declarations:[OprationComponent,UbtComponent,ViewUbtComponent,EditUbtComponent,AdminstrationComponent, CompanyFormComponent, ViewAndUpdateCompanyComponent, DocumentsComponent, DirectorsComponent, CustomerComponent, VendorComponent, BankComponent,LoginComponent, MasterComponent, AddCustomerComponent, CustomerAddComponent, NewCustomerComponent, AgencyComponent, ViewCustomerDetailsComponent, NewVendorComponent, AddVendorDetailsComponent, MasterVendorsComponent],
   providers: [ModuleService]
 })
 export class ModuleModule { }

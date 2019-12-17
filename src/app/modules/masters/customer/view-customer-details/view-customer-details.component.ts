@@ -195,7 +195,7 @@ export class ViewCustomerDetailsComponent implements OnInit {
 
     let agencyInputobj =
     {
-      "BusinessId": "",
+      "BusinessId": this.appService.businessId,
       "Entity": "Customer",
       "EntityId": this.customerId,
       "Status": status
@@ -298,7 +298,7 @@ export class ViewCustomerDetailsComponent implements OnInit {
 
     });
     let data = {
-      "BusinessId": '',
+      "BusinessId": this.appService.businessId,
       "EntityAgency": agencyArray
 
     }

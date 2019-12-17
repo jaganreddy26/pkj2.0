@@ -1,0 +1,41 @@
+
+   <mat-toolbar class="head-toolbar" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+        <button mat-icon-button *ngIf="width != 70" (click)="maxWidth()" matTooltip="Expand Tree">
+           
+          </button>
+          Add Vendor
+    </div>
+  
+
+  
+  </mat-toolbar>
+  <div fxLayout="row" fxLayoutAlign="center center">
+  
+    <div style="height: 93vh;">
+      <div>
+  
+      </div>
+  
+      <mat-card class="padding">
+        <div class="padding fixed-height">
+          <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="6px">
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>VendorName</mat-label>
+              <input matInput placeholder="Placeholder" [(ngModel)]="VendorName">
+            </mat-form-field>
+           
+            <div fxLayoutAlign="center center" fxFlex="100">
+              <button mat-button (click)="addVendorDetails()">Save</button>
+            </div>
+  
+          </div>
+  
+        </div>
+      </mat-card>
+  
+    
+    </div>
+  </div>
+
+

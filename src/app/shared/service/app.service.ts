@@ -10,6 +10,7 @@ import { environment } from "../../../environments/environment";
 @Injectable()
 export class AppService {
   sessionUser: any;
+ public businessId:any='A'
   constructor(
     private http: HttpClient,
     private router: Router,

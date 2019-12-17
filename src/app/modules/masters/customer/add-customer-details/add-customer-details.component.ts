@@ -342,7 +342,7 @@ export class AddCustomerComponent implements OnInit {
 
     });
     let data = {
-      "BusinessId": 'A',
+      "BusinessId": this.appService.businessId,
       "EntityAgency": agencyArray
 
     }
