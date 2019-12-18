@@ -36,7 +36,8 @@
         <mat-card class="padding" >
             <div class="padding fixed-height">
 
-                <app-company-form [isEdit]="isEdit" [company]="vendor" [dataLoad]="states" (saveData)="saveData($event)"></app-company-form>
+                <app-vendor-form [isEdit]="isEdit" [vendor]="vendor"
+                 [dataLoad]="states" (saveData)="saveData($event)"></app-vendor-form>
             </div>
         </mat-card>
 
@@ -67,15 +68,15 @@
         <div class="content" [ngClass]=" width == 40 ? 'width-off' : 'width-on'">
           <mat-tab-group [selectedIndex]="selectedTab" (selectedTabChange)="tabChange($event)">
             <mat-tab label="Documents">
-              <app-documents [isEdit]="isEdit"  [pan]="panDocumentPath" [cin]="cinDocumentPath" [tan]="tanDocumentPath" [gstin]="gstinDocumentPath"
+              <app-documents [isEdit]="isEditTab"  [pan]="panDocumentPath" [cin]="cinDocumentPath" [tan]="tanDocumentPath" [gstin]="gstinDocumentPath"
               (saveDocumentFiles)="saveDocumentFiles($event)">
               </app-documents>
             </mat-tab>
             <mat-tab label="Agency Mapping">
-              <app-agency [isEdit]="isEdit" [agencys]="agencys" (checkPermissionEvent)="checkPermissionAgencyEvent($event)" (saveAgencyEvent)="saveAgencyDetails($event)"></app-agency>
+              <app-agency [isEdit]="isEditTab" [agencys]="agencys" (checkPermissionEvent)="checkPermissionAgencyEvent($event)" (saveAgencyEvent)="saveAgencyDetails($event)"></app-agency>
             </mat-tab>
             <mat-tab label="Bank Mapping">
-              <app-bank [isEdit]="isEdit" [bankAccDetails]="bankAccDetails" [bankBranches]="bankBranches" (saveBankDetails)="saveBankDetails($event)"></app-bank>
+              <app-bank [isEdit]="isEditTab" [bankAccDetails]="bankAccDetails" [bankBranches]="bankBranches" (saveBankDetails)="saveBankDetails($event)"></app-bank>
             </mat-tab>
           </mat-tab-group>
   

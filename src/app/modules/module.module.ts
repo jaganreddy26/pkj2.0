@@ -25,6 +25,7 @@ import { ViewCustomerDetailsComponent } from './masters/customer/view-customer-d
 import { MasterVendorsComponent } from './masters/vendor/master-vendors/master-vendors.component';
 import { NewVendorComponent } from './masters/vendor/new-vendor/new-vendor.component';
 import { AddVendorDetailsComponent } from './masters/vendor/add-vendor-details/add-vendor-details.component';
+import { VendorFormComponent } from './masters/vendor/vendor-form/vendor-form.component';
 
 
 
@@ -52,7 +53,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes),SharedModule.forRoot()],
   exports: [RouterModule],
-  declarations:[OprationComponent,UbtComponent,ViewUbtComponent,EditUbtComponent,AdminstrationComponent, CompanyFormComponent, ViewAndUpdateCompanyComponent, DocumentsComponent, DirectorsComponent, CustomerComponent, VendorComponent, BankComponent,LoginComponent, MasterComponent, AddCustomerComponent, CustomerAddComponent, NewCustomerComponent, AgencyComponent, ViewCustomerDetailsComponent, NewVendorComponent, AddVendorDetailsComponent, MasterVendorsComponent],
+  declarations:[OprationComponent,UbtComponent,ViewUbtComponent,EditUbtComponent,AdminstrationComponent, CompanyFormComponent, ViewAndUpdateCompanyComponent, DocumentsComponent, DirectorsComponent, CustomerComponent, VendorComponent, BankComponent,LoginComponent, MasterComponent, AddCustomerComponent, CustomerAddComponent, NewCustomerComponent, AgencyComponent, ViewCustomerDetailsComponent, NewVendorComponent, AddVendorDetailsComponent, MasterVendorsComponent, VendorFormComponent],
   providers: [ModuleService]
 })
 export class ModuleModule { }
