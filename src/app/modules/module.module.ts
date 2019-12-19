@@ -26,6 +26,9 @@ import { MasterVendorsComponent } from './masters/vendor/master-vendors/master-v
 import { NewVendorComponent } from './masters/vendor/new-vendor/new-vendor.component';
 import { AddVendorDetailsComponent } from './masters/vendor/add-vendor-details/add-vendor-details.component';
 import { VendorFormComponent } from './masters/vendor/vendor-form/vendor-form.component';
+import { GoodsComponent } from './goods/goods.component';
+import { ServiceComponent } from './service/service.component';
+import { ViewVendorDetailsComponent } from './masters/vendor/view-vendor-details/view-vendor-details.component';
 
 
 
@@ -48,12 +51,13 @@ const routes: Routes = [
   {path:'masters/Vendor',component:MasterVendorsComponent},
   {path:'masters/vendor/addcustomer',component:NewVendorComponent},
   {path:'masters/vendor/addvendordetails',component:AddVendorDetailsComponent},
+  {path:'masters/vendor/viewvendors',component:ViewVendorDetailsComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes),SharedModule.forRoot()],
   exports: [RouterModule],
-  declarations:[OprationComponent,UbtComponent,ViewUbtComponent,EditUbtComponent,AdminstrationComponent, CompanyFormComponent, ViewAndUpdateCompanyComponent, DocumentsComponent, DirectorsComponent, CustomerComponent, VendorComponent, BankComponent,LoginComponent, MasterComponent, AddCustomerComponent, CustomerAddComponent, NewCustomerComponent, AgencyComponent, ViewCustomerDetailsComponent, NewVendorComponent, AddVendorDetailsComponent, MasterVendorsComponent, VendorFormComponent],
+  declarations:[OprationComponent,UbtComponent,ViewUbtComponent,EditUbtComponent,AdminstrationComponent, CompanyFormComponent, ViewAndUpdateCompanyComponent, DocumentsComponent, DirectorsComponent, CustomerComponent, VendorComponent, BankComponent,LoginComponent, MasterComponent, AddCustomerComponent, CustomerAddComponent, NewCustomerComponent, AgencyComponent, ViewCustomerDetailsComponent, NewVendorComponent, AddVendorDetailsComponent, MasterVendorsComponent, VendorFormComponent, GoodsComponent, ServiceComponent, ViewVendorDetailsComponent],
   providers: [ModuleService]
 })
 export class ModuleModule { }

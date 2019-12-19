@@ -36,4 +36,8 @@ export class MasterVendorsComponent implements OnInit {
     // this.router.navigate(['/masters/addVendor',{}])
     this.router.navigate(['/masters/vendor/addcustomer',{}])
   }
+  
+  viewVendor(){
+    this.router.navigate(['/masters/vendor/viewvendors',{}])
+  }
 }

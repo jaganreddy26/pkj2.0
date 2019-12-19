@@ -6,12 +6,13 @@ import { ModuleService } from '../../../module.service';
 import { AppService } from '../../../../shared/service/app.service';
 import { DocumentFiles } from '../../../../shared/entities/document';
 import { Bank } from '../../../../shared/entities/bank';
+
 @Component({
-  selector: 'app-add-vendor-details',
-  templateUrl: './add-vendor-details.component.html',
-  styleUrls: ['./add-vendor-details.component.css']
+  selector: 'app-view-vendor-details',
+  templateUrl: './view-vendor-details.component.html',
+  styleUrls: ['./view-vendor-details.component.css']
 })
-export class AddVendorDetailsComponent implements OnInit {
+export class ViewVendorDetailsComponent implements OnInit {
 
   height: any = 43;
   previousHeight: number = 43;
@@ -20,10 +21,14 @@ export class AddVendorDetailsComponent implements OnInit {
   maxHeight: number;
   restoreHeight: number;
   selectedTab: any = 0;
-  isEdit: boolean = true;
-  isEditTab: boolean = false;
+  isEdit: boolean = false;
+
   vendorname: any;
   vendor: Vendor = new Vendor();
+
+  dataSrc: any = [];
+  isNodelLabelChange: boolean = false;
+  childrenNode: any;
 
   states: any = [];
   document: DocumentFiles = new DocumentFiles();
@@ -36,7 +41,7 @@ export class AddVendorDetailsComponent implements OnInit {
   bankObj: Bank = new Bank();
   bankAccDetails: any = [];
   goods: any = [];
-  serviceMappingDetails:any=[];
+  serviceMappingDetails: any = [];
   constructor(private service: ModuleService, private appService: AppService) { }
 
   ngOnInit() {
@@ -54,8 +59,7 @@ export class AddVendorDetailsComponent implements OnInit {
     } else {
       this.height = (window.innerHeight) / 2.2;
     }
-    //===============================
-    this.getStates();
+    this.getTreeData();
 
   }
 
@@ -93,7 +97,7 @@ export class AddVendorDetailsComponent implements OnInit {
     this.height = (window.innerHeight) / 2.2;
     this.restoreHeight = (window.innerHeight) / 2.2;
   }
-  //==================================================//
+  //==================
   getStates() {
     let url = "MasterDataApi/GetAllStates_SF";
     this.service.getData({}, url).subscribe((data: any) => {
@@ -101,64 +105,105 @@ export class AddVendorDetailsComponent implements OnInit {
       this.states = data;
     })
   }
-  saveData($event) {
-    console.log($event);
-    this.vendor = $event;
-    let url = "MasterDataApi/UpsertVendorMaster";
-    this.service.postData(this.vendor, url).subscribe((data: any) => {
-      console.log(data);
-      if (data != null) {
-        this.appService.showMessage('Saved Successfully', 'X');
-        //getVendorDetailsById
-        let obj = { VendorId: data }
-        let url = 'MasterDataApi/GetVendorMaster_SF';
-        this.service.postData(obj, url).subscribe((data: any) => {
-          console.log(data);
-          if (data.length != 0) {
-            this.vendor = data[0];
-            console.log(this.vendor);
-            this.isEditTab = true;
-            // this.getAgencyMapping();
-            this.getBankBranchs();
-            // this.getGoodsMapping();
-          }
+  ///tree data
+  refresh() {
+    this.getTreeData();
+  }
+  getTreeData() {
+    let obj = {
+      "SchemaName": "dbo",
+      "EntityCategory": "Master",
+      "Entity": "VENDOR",
+      "ReturnType": "TREE"
+    }
+    let url = 'Tree/GetTree_SF'
+    this.service.postData(obj, url).subscribe((data: any) => {
+      this.dataSrc = data.RecursiveObjects;
+    })
+  }
+  checkPermission() {
 
-        })
+    let url = 'ManageTransactionLockApi/SetContextLock';
+    let obj = {
+      "Type": 'Master',
+      "LockContextType": 'Vendor',
+      "LockContextValue": this.vendor.VendorId,
+      "UserID": 'A01_Administrator'
+    }
+
+    this.service.postData(obj, url).subscribe((data: any) => {
+      this.isEdit = data.Status;
+
+    })
+
+  }
+  viewDetails() {
+    this.releaseLock();
+  }
+
+  releaseLock() {
+    let url = 'ManageTransactionLockApi/ReleaseContextLock';
+    let obj = {
+      "Type": 'Master',
+      "LockContextType": 'Vendor',
+      "LockContextValue": this.vendor.VendorId,
+      "UserID": 'A01_Administrator'
+    }
+
+    this.service.postData(obj, url).subscribe((data: any) => {
+
+      if (data = "Released") {
+        this.isEdit = false;
+        console.log('hi12');
       }
       else {
-        this.appService.showMessage('Somethimg went wrong', 'X');
+
+        console.log('hi123');
       }
     })
   }
-  /////////-Saving the documents-////////
-  saveDocumentFiles($event) {
-    console.log($event);
-    this.document.EntityCategory = 'Master';
-    this.document.BusinessId = '';
-    this.document.BusinessName = '';
-    this.document.CompanyId = '';
-    this.document.CompanyName = '';
-    this.document.BusinesTypes = '';
-    this.document.EntityParent = '';
-    this.document.EntityType = 'Vendor';
-    this.document.EntityName = this.vendor.VendorId + '_' + this.vendor.VendorName;
-    this.document.DocumentType = $event.UploadedFileName;
-    this.document.ControlId = 'ControlId-1';
-    this.document.FileDetails = $event;
-    let url = 'MasterDataApi/SaveDocument';
-    let data = this.document;
-    console.log(data);
-    this.service.postData(data, url).subscribe((data: any) => {
+
+  nodeLabel(node) {
+    this.isEdit = false;
+    console.log(node);
+    if (node) {
+      localStorage.setItem('nodeLabel', node);
+      this.childrenNode = node;
+      this.isNodelLabelChange = true;
+    }
+
+    this.VendorDetailsById();
+
+  }
+  VendorDetailsById() {
+    let obj = { VendorId: this.childrenNode.Id }
+    let url = 'MasterDataApi/GetVendorMaster_SF'
+    this.service.postData(obj, url).subscribe((data: any) => {
       console.log(data);
-      if (data) {
-        this.appService.showMessage('Saved Successfully', 'X');
-        this.getDocuments(this.document.DocumentType);
-        //this.closeDialog();
-      } else {
-        this.appService.showMessage('Somethimg went wrong', 'X');
+      if (data.length != 0) {
+        this.vendor = data[0];
+
+        console.log(this.vendor);
+        this.getStates();
+        this.viewDetails();
+        this.getAgencyMapping();
+        this.getGoodsMapping();
+        this.getServiceMapping();
+        this.getDocuments('PAN');
+        this.getDocuments('TAN');
+        this.getDocuments('GSTIN');
+        this.getDocuments('CIN');
+        console.log(this.childrenNode.Id);
+        this.getBanks();
+        this.agencys = [];
+        this.getBankBranchs();
       }
+
     })
   }
+
+
+  //get documents
   getDocuments(type) {
     let data = {
       "DocumentInfo": [
@@ -219,10 +264,43 @@ export class AddVendorDetailsComponent implements OnInit {
       }
     })
   }
+  /////////-Saving the documents-////////
+  saveDocumentFiles($event) {
+    console.log($event);
+    this.document.EntityCategory = 'Master';
+    this.document.BusinessId = '';
+    this.document.BusinessName = '';
+    this.document.CompanyId = '';
+    this.document.CompanyName = '';
+    this.document.BusinesTypes = '';
+    this.document.EntityParent = '';
+    this.document.EntityType = 'Vendor';
+    this.document.EntityName = this.vendor.VendorId + '_' + this.vendor.VendorName;
+    this.document.DocumentType = $event.UploadedFileName;
+    this.document.ControlId = 'ControlId-1';
+    this.document.FileDetails = $event;
+    let url = 'MasterDataApi/SaveDocument';
+    let data = this.document;
+    console.log(data);
+    this.service.postData(data, url).subscribe((data: any) => {
+      console.log(data);
+      if (data) {
+        this.appService.showMessage('Saved Successfully', 'X');
+        this.getDocuments(this.document.DocumentType);
+        //this.closeDialog();
+      } else {
+        this.appService.showMessage('Somethimg went wrong', 'X');
+      }
+    })
+  }
+
+  checkPermissionAgencyEvent($event) {
+    this.getAgencyMapping();
+  }
   //AgencyMapping Details to perticular vendorid
   getAgencyMapping() {
     let status = 1;
-    if (this.isEditTab == true) {
+    if (this.isEdit == true) {
       status = 2;
     } else {
       status = 1;
@@ -283,6 +361,15 @@ export class AddVendorDetailsComponent implements OnInit {
       //   console.log(data)
     })
   }
+  //get Addedbanks to this Vendor;
+  getBanks() {
+    let url = "MasterDataApi/GetAllMappedBankAccountsByEntityId_SF"
+    let data = { "BusinessId": '', "Entity": 'Vendor', "EntityId": this.vendor.VendorId, "Status": 2 }
+    this.service.postData(data, url).subscribe((data: any) => {
+      this.bankAccDetails = data;
+      //   console.log(data)
+    })
+  }
   //saving bank details
   saveBankDetails($event) {
     //  console.log($event)
@@ -302,22 +389,14 @@ export class AddVendorDetailsComponent implements OnInit {
       }
     })
   }
-  //get Addedbanks to this Vendor;
-  getBanks() {
-    let url = "MasterDataApi/GetAllMappedBankAccountsByEntityId_SF"
-    let data = { "BusinessId": '', "Entity": 'Vendor', "EntityId": this.vendor.VendorId, "Status": 2 }
-    this.service.postData(data, url).subscribe((data: any) => {
-      this.bankAccDetails = data;
-      //   console.log(data)
-    })
+  checkGoodsPermissionEvent($event) {
+    this.getGoodsMapping();
   }
-  checkPermissionAgencyEvent($event) {
-    this.getAgencyMapping();
-  }
+
   //get goodsmapping data
   getGoodsMapping() {
     let status = 1;
-    if (this.isEditTab == true) {
+    if (this.isEdit == true) {
       status = 2;
     } else {
       status = 1;
@@ -335,9 +414,6 @@ export class AddVendorDetailsComponent implements OnInit {
       console.log(data);
       this.goods = data;
     })
-  }
-  checkGoodsPermissionEvent($event) {
-    this.getGoodsMapping();
   }
   //save Goods Details
   saveGoodsDetails($event) {
@@ -367,10 +443,14 @@ export class AddVendorDetailsComponent implements OnInit {
       }
     })
   }
+
+  checkServicePermissionEvent($event) {
+    this.getServiceMapping();
+  }
   //get ServiceMapping data
   getServiceMapping() {
     let status = 1;
-    if (this.isEditTab == true) {
+    if (this.isEdit == true) {
       status = 2;
     } else {
       status = 1;
@@ -389,10 +469,7 @@ export class AddVendorDetailsComponent implements OnInit {
       this.serviceMappingDetails = data;
     })
   }
-  checkServicePermissionEvent($event) {
-    this.getServiceMapping();
-  }
-  saveServicesDetails($event){
+  saveServicesDetails($event) {
     this.serviceMappingDetails = $event;
     let serviceArray: any = [];
     this.serviceMappingDetails.forEach(element => {
@@ -419,6 +496,7 @@ export class AddVendorDetailsComponent implements OnInit {
       }
     })
   }
+
+
+
 }
-
-
