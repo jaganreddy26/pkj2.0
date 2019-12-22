@@ -45,7 +45,7 @@ export class ViewVendorDetailsComponent implements OnInit {
   constructor(private service: ModuleService, private appService: AppService) { }
 
   ngOnInit() {
-    this.vendor.VendorName = history.state.data
+   // this.vendor.VendorName = history.state.data
     // this.vendorname = history.state.data;
     this.maxHeight = window.innerHeight - 56;
     if (localStorage.getItem('ubt')) {

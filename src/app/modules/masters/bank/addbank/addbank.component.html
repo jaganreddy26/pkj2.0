@@ -1,0 +1,18 @@
+<mat-toolbar class="head-toolbar" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+      Add Bank Details
+    </div>
+  
+  
+  </mat-toolbar>
+  
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div style="height: 93vh;width: 100%;margin:16px">
+      <mat-card class="padding">
+        <div class="padding fixed-height">
+  
+          <app-bank-form [isEdit]="isEdit" [bank]="bank" (saveData)="saveData($event)"></app-bank-form>
+        </div>
+      </mat-card>
+    </div>
+  </div>

@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ResizeEvent } from 'angular-resizable-element';
 import { Router } from '@angular/router';
-import { UBT } from '../../../ubt/ubt';
 import { ModuleService } from '../../../module.service';
 @Component({
   selector: 'app-master-vendors',
@@ -18,18 +16,7 @@ export class MasterVendorsComponent implements OnInit {
   constructor(private router: Router, private service: ModuleService) { }
 
   ngOnInit() {
-    this.maxHeight = window.innerHeight - 56;
-    if (localStorage.getItem('ubt')) {
-      // this.ubt = JSON.parse(localStorage.getItem('ubt'))
-    }
-    if (localStorage.getItem('ubtTab')) {
-      this.selectedTab = localStorage.getItem('ubtTab');
-    }
-    if (localStorage.getItem('ubtHeight')) {
-      this.height = localStorage.getItem('ubtHeight');
-    } else {
-      this.height = (window.innerHeight) / 2.2;
-    }
+   
   }
   addVendor(){
     console.log('hi');

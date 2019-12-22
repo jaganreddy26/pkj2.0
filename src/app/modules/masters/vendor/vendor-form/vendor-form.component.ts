@@ -10,7 +10,7 @@ import { Validators } from '../../../../shared/utils/validators';
 export class VendorFormComponent implements OnInit {
   validators:any = Validators;
   @Input() vendor: Vendor = new Vendor();
-  @ViewChild(NgForm, { static: true }) myForm: NgForm;
+  @ViewChild(NgForm, { static: true }) myForm: NgForm; 
   @Input() dataLoad: any = [];
   @Input() isEdit: boolean;
 

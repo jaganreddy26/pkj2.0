@@ -108,3 +108,14 @@ body{
 .mat-form-field-infix{
   font-size: 13px !important;
 }
+
+
+.card{
+  height: 100px;
+  width: auto;
+  cursor: pointer;
+}
+.margin{
+  margin:16px;
+}
+

@@ -71,6 +71,7 @@ export class TreeComponent implements OnInit {
     hasChild = (_: number, node: FlatNode) => node.Expandable;
     constructor() { }
     ngOnChanges(changes: SimpleChanges) {
+
         if(changes.dataSrc){
             this.dataSource.data = this.dataSrc;
             if (this.treeArray.length != 0) {
@@ -86,7 +87,9 @@ export class TreeComponent implements OnInit {
 
     }
     ngOnInit() {
+    
     }
+    
 
     nodeLabel(node) {
     //   this.childrenNode = node.Id;

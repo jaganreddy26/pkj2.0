@@ -1,0 +1,22 @@
+<form name="myForm" (ngSubmit)="myForm.form.valid && onSubmit(myForm)" #myForm="ngForm" novalidate fxLayout="row wrap"
+    fxLayoutAlign="start center">
+    <app-input fxFlex="33.3" [form]="myForm" class="padding-left" labelName="Goods Name" type="text"
+        filedName="GoodsName" [filedValue]="goods" required="true" errorRequired="GoodsName is required" [readonly]="!isEdit">
+    </app-input>
+    <app-input fxFlex="33.3" [form]="myForm" class="padding-left" labelName="Goods Type" type="text"
+        filedName="GoodsType" [filedValue]="goods" required="true" errorRequired="GoodsType is required" [readonly]="!isEdit">
+    </app-input>
+    <mat-radio-group class="padding-left" fxFlex="33.3" aria-label="ActiveStatus" [(ngModel)]="goods.Status"
+        [disabled]="!isEdit" [ngModelOptions]="{standalone: true}">
+        <mat-radio-button [value]="true">Active</mat-radio-button>
+        <mat-radio-button [value]="false">In - Active</mat-radio-button>
+    </mat-radio-group>
+    <div fxLayoutAlign="end end" fxFlex="100">
+        <button mat-raised-button color="primary" *ngIf="!isEdit" type="submit" [disabled]="!isEdit">
+            Save
+        </button>
+        <button mat-raised-button color="primary" *ngIf="isEdit" type="submit" [disabled]="!myForm.valid">
+            Save
+        </button>
+    </div>
+</form>

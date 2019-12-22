@@ -1,0 +1,18 @@
+<mat-toolbar class="head-toolbar" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+      Add Agency Details
+    </div>
+  
+  
+  </mat-toolbar>
+  
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div style="height: 93vh;width: 100%;margin:16px">
+      <mat-card class="padding">
+        <div class="padding fixed-height">
+  
+          <app-agency-form [isEdit]="isEdit" [agency]="agency" (saveData)="saveData($event)"></app-agency-form>
+        </div>
+      </mat-card>
+    </div>
+  </div>

@@ -1,0 +1,32 @@
+<form name="myForm" (ngSubmit)="myForm.form.valid && onSubmit(myForm)" #myForm="ngForm" novalidate fxLayout="row wrap"
+    fxLayoutAlign="start center">
+    <app-input fxFlex="33.3" [form]="myForm" class="padding-left" labelName="Agency Name" type="text"
+        filedName="AgencyName" [filedValue]="agency" required="true" errorRequired="AgencyName is required"
+        [readonly]="!isEdit">
+    </app-input>
+    <app-input fxFlex="33.3" [form]="myForm" class="padding-left" labelName="Email1" type="text" filedName="Email1"
+        [filedValue]="agency" required="true" errorRequired="Email1 is required" [readonly]="!isEdit">
+    </app-input>
+    <app-input fxFlex="33.3" [form]="myForm" class="padding-left" labelName="Email2" type="text" filedName="Email2"
+        [filedValue]="agency" required="false" [readonly]="!isEdit">
+    </app-input>
+    <app-input fxFlex="33.3" [form]="myForm" class="padding-left" labelName="Phone1" type="text" filedName="Phone1"
+        [filedValue]="agency" required="true" errorRequired="Phone1 is required" [readonly]="!isEdit">
+    </app-input>
+    <app-input fxFlex="33.3" [form]="myForm" class="padding-left" labelName="Phone2" type="text" filedName="Phone2"
+        [filedValue]="agency" required="true" errorRequired="Phone2 is required" [readonly]="!isEdit">
+    </app-input>
+    <mat-radio-group class="padding-left" fxFlex="33.3" aria-label="ActiveStatus" [(ngModel)]="agency.Status"
+        [disabled]="!isEdit" [ngModelOptions]="{standalone: true}">
+        <mat-radio-button [value]="true">Active</mat-radio-button>
+        <mat-radio-button [value]="false">In - Active</mat-radio-button>
+    </mat-radio-group>
+    <div fxLayoutAlign="end end" fxFlex="100">
+        <button mat-raised-button color="primary" *ngIf="!isEdit" type="submit" [disabled]="!isEdit">
+            Save
+        </button>
+        <button mat-raised-button color="primary" *ngIf="isEdit" type="submit" [disabled]="!myForm.valid">
+            Save
+        </button>
+    </div>
+</form>

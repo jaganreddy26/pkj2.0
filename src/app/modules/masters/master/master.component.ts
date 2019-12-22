@@ -19,4 +19,16 @@ export class MasterComponent implements OnInit {
   vendorMaster(){
     this.router.navigate(['/masters/Vendor',{}])
   }
+  agencyMaster(){
+    this.router.navigate(['/masters/Agency',{}])
+  }
+  goodsMaster(){
+    this.router.navigate(['/masters/Goods',{}])
+  }
+  serviceMaster(){
+    this.router.navigate(['/masters/Service',{}])
+  }
+  bankMaster(){
+    this.router.navigate(['/masters/Bank',{}])
+  }
 }
