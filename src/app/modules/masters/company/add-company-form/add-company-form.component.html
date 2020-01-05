@@ -1,0 +1,50 @@
+<!-- <form name="myForm" (ngSubmit)="myForm.form.valid" #myForm="ngForm" novalidate fxLayout="row wrap"
+    fxLayoutAlign="start center"> -->
+    <!-- <app-input fxFlex="33.3" [form]="myForm" class="padding-left" labelName="Company Name" type="text"
+        filedName="CompanyName" [filedValue]="company" required="true" errorRequired="CompanyName is required"
+        readonly="false">
+    </app-input> -->
+    <mat-dialog-content>
+        <div fxLayout="row wrap" fxLayoutAlign="center center">
+            
+            <mat-form-field appearance="outline" fxFlex="100">
+                <mat-label>CompanyName</mat-label>
+                <input matInput placeholder="CompanyName" [(ngModel)]="CompanyName" >
+              </mat-form-field>
+             
+        </div>
+
+
+    </mat-dialog-content>
+    <div fxLayoutAlign="end end" fxFlex="100">
+        <button mat-raised-button color="primary" (click)="popWindow(company)" *ngIf="!isEdit" type="submit" >
+            Next
+        </button>
+    </div>
+<!-- </form> -->
+
+<ng-template #company>
+  
+    <!-- <form name="myForm1" (ngSubmit)="myForm1.form.valid && onSubmit1(myForm1)" #myForm1="ngForm" novalidate> -->
+        <mat-dialog-content>
+            <div fxLayout="row wrap" fxLayoutAlign="center center">
+                
+                <mat-form-field appearance="outline" fxFlex="100">
+                    <mat-label>Password</mat-label>
+                    <input matInput placeholder="Password" [(ngModel)]="Password" >
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" fxFlex="100">
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput placeholder="Confirm Password" [(ngModel)]="ConfirmPassword" >
+                  </mat-form-field>
+            </div>
+
+
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button type="submit" (click)="saveComapny()" color="primary">Save</button>
+            <button mat-button matDialogClose type="reset" color="primary">Close</button>
+        </mat-dialog-actions>
+    <!-- </form> -->
+ 
+</ng-template>

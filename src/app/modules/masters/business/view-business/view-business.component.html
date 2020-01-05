@@ -3,7 +3,7 @@
         <span>
             Master /
         </span>
-       <span style="color:#ccc">View and Update Service Details</span> 
+       <span style="color:#ccc">View and Update Goods Details</span> 
     </div>
     <button mat-icon-button matTooltip="Edit" (click)="checkPermission()" *ngIf="!isEdit">
         <mat-icon>edit</mat-icon>
@@ -40,22 +40,9 @@
       <mat-card class="padding">
         <div class="padding fixed-height">
   
-            <app-service-form [isEdit]="isEdit" [service]="service" (saveData)="saveData($event)"></app-service-form>
+            <app-business-form [isEdit]="isEdit" [business]="business" (saveData)="saveData($event)"></app-business-form>
         </div>
       </mat-card>
 
     </div>
   </div>
-  <ng-template #statusDialog>
-    <h2 matDialogTitle>Confirm</h2>
-    <mat-dialog-content>
-        <p>
-         Changes that you made may not be saved.
-        </p>
-           
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-            <button mat-button (click)="saveChanges()">Save the changes</button>
-            <button mat-button (click)="discardChanges()">Discard the changes</button>
-    </mat-dialog-actions>
-  </ng-template>

@@ -31,4 +31,10 @@ export class MasterComponent implements OnInit {
   bankMaster(){
     this.router.navigate(['/masters/Bank',{}])
   }
+  createBusiness(){
+    this.router.navigate(['/masters/Business',{}])
+  }
+  createComapny(){
+    this.router.navigate(['/masters/Comapny',{}])
+  }
 }

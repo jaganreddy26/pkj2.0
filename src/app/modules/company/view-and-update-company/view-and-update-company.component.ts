@@ -197,13 +197,13 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     // if (this.companyForm.myForm.touched || this.documentsForm.files.length != 0 || this.vendorForm.isChanged || this.customerForm.isChanged) {
     //   this.openDialog();
      
-    // }
+    // } 
 
   }
   dataNode(node) {
     this.nodeArray = node;
     localStorage.setItem('businessTree', JSON.stringify(this.nodeArray))
-
+console.log(this.nodeArray);
   }
   nodeLabel(node) {
     console.log(node);
