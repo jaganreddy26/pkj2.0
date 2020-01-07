@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component ,EventEmitter} from '@angular/core';
 import { Router} from '@angular/router'
 
 @Component({
@@ -11,22 +11,24 @@ export class AppComponent {
   sidenavWidth = 14;
   ngStyle: string;
   isOpen=true;
-  isOperation:boolean=true;
-  isAdminstration:boolean = false;
+  isToggle:any;
+  executeAction: EventEmitter<any> = new EventEmitter();
   constructor(public router:Router){
-
+    let myString = this.isOpen? "true":"false";
+    localStorage.setItem('toggle',myString);
+    this.isToggle = localStorage.getItem('toggle');
   }
   getUrl(url){
     localStorage.setItem('url',url)
   }
-  addClass(route){
-    if(route == 'operation'){
-      this.isOperation = true;
-      this.isAdminstration = false;
-    }else{
-      this.isOperation = false;
-      this.isAdminstration = true;
-    }
+  toggle(){
+    this.isOpen = !this.isOpen;
+    let myString = this.isOpen? "true":"false";
+    localStorage.setItem('toggle',myString)
+    this.executeAction.emit();
+  }
+  getToggle(){
+   return localStorage.getItem('toggle');
   }
   // increase() {
   //   this.sidenavWidth = 15;

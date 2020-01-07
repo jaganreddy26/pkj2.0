@@ -12,6 +12,11 @@ import { DocumentsComponent } from '../documents/documents.component';
 import { BankComponent } from '../bank/bank.component';
 import { MatDialog } from '@angular/material';
 import { AppService } from '../../../shared/service/app.service';
+import { Subject } from 'rxjs';
+import { AppComponent } from '../../../app.component';
+
+
+
 
 
 @Component({
@@ -57,11 +62,16 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
   isCheckForm: boolean = false;
   isNodelLabelChange: boolean = false;
   companyNode: any;
-  nodeArray:any=[];
-  constructor(private router: Router, private service: ModuleService, private dialog: MatDialog,private appService:AppService) {
+  nodeArray: any = [];
+  entityParent: any;
+  isToggle:any = '';
+  protected ngUnsubscribe: Subject<any> = new Subject();
+  constructor(private router: Router, private service: ModuleService, private dialog: MatDialog, private appService: AppService,private appComponent: AppComponent) {
     this.getStates();
     this.getLocalStorage();
     this.releaseLock();
+    console.log(appComponent.isOpen)
+    
   }
   @HostListener('window:beforeunload', ['$event'])
   public beforeunloadHandler($event) {
@@ -74,7 +84,8 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
 
     this.getTreeData();
     this.getBankBranchs();
-    this.getAllData();
+
+
     //  this.saveCustomerDetails(null);
     //this.saveVendorDetails('')
   }
@@ -133,6 +144,14 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     let url = 'Tree/GetTree_SF'
     this.service.postData(obj, url).subscribe((data: any) => {
       this.dataSrc = data.RecursiveObjects;
+      var datas = {
+        'Children': this.dataSrc
+      }
+      let treeData = this.findParents(datas, this.companyId);
+        this.entityParent = treeData.join('/');
+        this.getAllData();
+        console.log(this.entityParent);
+    
     })
   }
   onResizeEnd(event: ResizeEvent) {
@@ -196,12 +215,19 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     this.releaseLock();
     // if (this.companyForm.myForm.touched || this.documentsForm.files.length != 0 || this.vendorForm.isChanged || this.customerForm.isChanged) {
     //   this.openDialog();
-     
-    // }
 
+    // }
+      this.ngUnsubscribe.next();
+      this.ngUnsubscribe.complete();
   }
   dataNode(node) {
     this.nodeArray = node;
+    var datas = {
+      'Children': this.dataSrc
+    }
+    let data = this.findParents(datas, this.companyId);
+    this.entityParent = data.join('/');
+    console.log(this.entityParent);
     localStorage.setItem('businessTree', JSON.stringify(this.nodeArray))
 
   }
@@ -250,14 +276,14 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     let url = "MasterDataApi/UpsertCompanyMaster";
     this.service.postData(event, url).subscribe((data: any) => {
       if (data) {
-        this.appService.showMessage('Saved Successfully','X');
+        this.appService.showMessage('Saved Successfully', 'X');
         this.getCompanyDetails(this.companyId)
         if (this.isCheckForm == true) {
           this.isEdit = false;
           this.releaseLock();
         }
-      }else{
-        this.appService.showMessage('Something went wrong','X')
+      } else {
+        this.appService.showMessage('Something went wrong', 'X')
       }
     })
 
@@ -270,17 +296,17 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
           "Entity": 'Company',
           "EntityId": null,
           "DocumentType": type,
-          "EntityParent": this.bussinessName,
-          "BusinesTypes":'Busines Types',          
+          "EntityParent": this.entityParent,
+          "BusinesTypes": 'Busines Types',
           "FilesCount": 1,
-          "EntityType":'',          
+          "EntityType": '',
           "ControlId": "ControlId-1"
         },
       ]
     }
 
 
-    let url = "FilesApi/GetAllFilesforScreen_SF" 
+    let url = "FilesApi/GetAllFilesforScreen_SF"
     this.service.postData(data, url).subscribe((data: any) => {
       // console.log(data)
       if (type == "PAN") {
@@ -323,9 +349,9 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
   }
   getCustomers() {
     let status = 1;
-    if(this.isEdit == true){
+    if (this.isEdit == true) {
       status = 2;
-    }else{
+    } else {
       status = 1;
     }
     let url = "MasterDataApi/GetMappedCustomersByCompanyStatus_SF"
@@ -337,9 +363,9 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
   }
   getVendors() {
     let status = 1;
-    if(this.isEdit == true){
-      status =2;
-    }else{
+    if (this.isEdit == true) {
+      status = 2;
+    } else {
       status = 1;
     }
     let url = "MasterDataApi/GetMappedVendorsByCompanyStatus_SF"
@@ -367,13 +393,13 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     })
   }
   saveDocumentFiles($event) {
-   console.log($event)
+    console.log($event)
     this.document.BusinessId = this.bussinessId;
     this.document.BusinessName = this.bussinessName;
     this.document.ControlId = 'ControlId-1';
     this.document.Entity = 'Company';
     this.document.EntityCategory = 'Master';
-    this.document.EntityParent = this.bussinessName;
+    this.document.EntityParent = this.entityParent;
     this.document.EntityName = this.document.FileDetails.FilePath;
     this.document.FileDetails = $event;
     this.document.DocumentType = $event.UploadedFileName;
@@ -382,11 +408,11 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     let data = this.document;
     this.service.postData(data, url).subscribe((data: any) => {
       if (data) {
-        this.appService.showMessage('Saved Successfully','X');
+        this.appService.showMessage('Saved Successfully', 'X');
         this.getDocuments(this.document.DocumentType)
         this.closeDialog();
-      }else{
-        this.appService.showMessage('Somethimg went wrong','X');
+      } else {
+        this.appService.showMessage('Somethimg went wrong', 'X');
       }
     })
 
@@ -401,10 +427,10 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     let data = this.bankObj;
     this.service.postData(data, url).subscribe((data: any) => {
       if (data) {
-        this.appService.showMessage('Saved Successfully','X');
+        this.appService.showMessage('Saved Successfully', 'X');
         this.getBanks();
-      }else{
-        this.appService.showMessage('Something went wrong','X');
+      } else {
+        this.appService.showMessage('Something went wrong', 'X');
       }
     })
   }
@@ -433,10 +459,10 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     this.service.postData(data, url).subscribe((data: any) => {
 
       if (data) {
-        this.appService.showMessage('Saved Successfully','X');
+        this.appService.showMessage('Saved Successfully', 'X');
         this.getCustomers();
-      }else{
-        this.appService.showMessage('Something went wrong','X');
+      } else {
+        this.appService.showMessage('Something went wrong', 'X');
       }
     })
   }
@@ -460,11 +486,11 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     let url = 'MasterDataApi/UpsertCompanyVendorMapping';
     this.service.postData(data, url).subscribe((data: any) => {
       if (data) {
-        this.appService.showMessage('Saved Successfully','X');
+        this.appService.showMessage('Saved Successfully', 'X');
         this.getVendors();
         this.vendorForm.isChanged = false;
-      }else{
-        this.appService.showMessage('Something went wrong','X');
+      } else {
+        this.appService.showMessage('Something went wrong', 'X');
       }
     })
   }
@@ -495,9 +521,9 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     if (this.documentsForm.files.length != 0) {
       this.documentsForm.files.forEach(element => {
         this.saveDocumentFiles(element);
-        setTimeout(()=>{
+        setTimeout(() => {
           this.documentsForm.clearAll();
-        },2000)
+        }, 2000)
       });
     }
     if (this.vendorForm.isChanged) {
@@ -555,7 +581,6 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     this.companyName = this.companyNode.Name;
     localStorage.setItem('companyName', this.companyNode.Name);
     this.getCompanyDetails(this.companyNode.Id)
-
     this.dataSrc.filter(item => {
       item.Children.filter(child => {
         if (child.Id == this.companyNode.Id) {
@@ -567,11 +592,35 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
         }
       })
     })
+    var datas = {
+      'Children': this.dataSrc
+    }
+    let treeData = this.findParents(datas, this.companyId);
+      this.entityParent = treeData.join('/');
+      console.log(this.entityParent);
+      this.releaseLock()
   }
-  checkPermissionCustomerEvent($event){
+  checkPermissionCustomerEvent($event) {
     this.getCustomers()
   }
-  checkPermissionVendorEvent($event){
+  checkPermissionVendorEvent($event) {
     this.getVendors()
+  }
+  findParents(node, searchForId) {
+    console.log(node)
+    console.log(searchForId)
+    if (node.Id === searchForId) {
+      return []
+    }
+    if (node.Children) {
+      console.log(node.Children)
+      console.log(searchForId)
+      for (var ChildrenNode of node.Children) {
+        const ChildrenResult = this.findParents(ChildrenNode, searchForId)
+        if (ChildrenResult) {
+          return [ChildrenNode.Id].concat(ChildrenResult);
+        }
+      }
+    }
   }
 }

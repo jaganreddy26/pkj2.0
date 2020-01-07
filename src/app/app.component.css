@@ -1,19 +1,42 @@
-.footer{
+/* .footer{
     position: fixed;
     bottom: 0px;
     width: 100%;
     z-index: 1;
-}
+} */
 .content{
     margin-left: 64px !important;
 }
 .active{
-  background: #f39c38 !important;
-  color: #fff;
+    width: 213px;
+    height: 52px;
+    line-height: 20px;
+    border-radius: 3px;
+    background-color: rgba(255, 152, 0, 1);
+    text-align: center;
+    color: #fff;
 }
 .mat-drawer-side{
     border-right: none !important;
 }
 .logo{
     margin-top: 16px
+}
+.uname{
+    position: absolute;
+    right: 11%;
+    top: 34px;
+    width: 152px;
+    height: 16px;
+    color: rgba(16, 16, 16, 1);
+    font-size: 14px;
+    text-align: left;
+    font-family: Arial-regular;
+}
+.uimage{
+    position: absolute;
+    right: 6%;
+    top: 20px;
+    width: 52px;
+    height: 45px;
 }

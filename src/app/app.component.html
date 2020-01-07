@@ -1,24 +1,24 @@
 <!-- *ngIf="router.url != '/' && router.url != '/login'" -->
 <mat-sidenav-container  fullscreen >
-        <mat-sidenav #sidenav style="background-color: #32404f;color: #fff !important;z-index: 1;" mode="side" class="example-sidenav" [ngStyle]="{ 'width.em': sidenavWidth }" opened="true" >
+        <mat-sidenav #sidenav style="background-color: #2F4050;color: #fff !important;z-index: 1;" mode="side" class="example-sidenav" [ngStyle]="{ 'width.em': sidenavWidth }" [opened]="isOpen" >
           <div class="logo">
               <h2 style="text-align:center">Little-ERP</h2>
           </div>
         
         <mat-nav-list >
-          <mat-list-item routerLink="operation"  routerLinkActive="active"  (click)="addClass('operation')" style="color:#fff">
+          <mat-list-item routerLink="" routerLinkActive="active"[ngClass]="{'active' : router.url != '/adminstration'}" style="color:#fff">
             <mat-icon mat-list-icon >dns</mat-icon>
             <div fxFlex="10"></div>
             <div *ngIf="sidenavWidth > 6" class="sidenav-item">
-              <h5 class="lead">Operation</h5>
+              <h5>Operation</h5>
             </div>
           </mat-list-item>
     
-          <mat-list-item routerLink="adminstration" routerLinkActive="active"   (click)="addClass('operation')" style="color:#fff">
+          <mat-list-item routerLink="adminstration" routerLinkActive="active" style="color:#fff">
             <mat-icon mat-list-icon >settings</mat-icon>
             <div fxFlex="10"></div>
-            <div *ngIf="sidenavWidth > 6" class="sidenav-item">
-              <h5 class="lead">Adminstartion</h5>
+            <div *ngIf="sidenavWidth > 6">
+              <h5>Adminstartion</h5>
             </div>
           </mat-list-item>
           <!-- [ngClass]="{'active' : isOperation}" -->
@@ -60,6 +60,9 @@
       </div>
     </mat-sidenav> -->
     <mat-sidenav-content style="margin-left: 55px !important;">
+        <button mat-icon-button class="menu-btn" (click)="toggle()" style="position: absolute;top: 20px;left: 20px;">
+          <mat-icon>menu</mat-icon>
+        </button>
     <!-- <mat-toolbar  style="color:#fff!;background-color: #60717d">
         <button mat-icon-button class="menu-btn" (click)="toggle()"><mat-icon>menu</mat-icon>
         </button>
@@ -75,11 +78,11 @@
     </mat-toolbar> -->
     
     <div style="height: 90vh;background-color: #f8f8f8f8;padding-left:16px" >
-        <button mat-icon-button matTooltip="Notifications" style="position: absolute;right: 24%;top: 8px;">
+        <!-- <button mat-icon-button matTooltip="Notifications" style="position: absolute;right: 24%;top: 22px;color: grey;">
             <mat-icon matBadge="6" matBadgeColor="warn">notification_important</mat-icon>
-        </button>
-        <label style="position: absolute;right: 11%;top: 20px;">Welcome to super user</label>
-        <img src="../assets/user.jpg" height="45px" width="45px" style="position: absolute;right: 5%;top: 8px;">
+        </button> -->
+        <label class="uname">Welcome to super user</label>
+        <img src="../assets/user.jpg" class="uimage">
         <!-- <button mat-icon-button style="position: absolute;right: 2%;top: 8px;">
           <mat-icon>arrow_drop_down</mat-icon>
         </button> -->

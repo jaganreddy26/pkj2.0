@@ -1,15 +1,14 @@
-<div fxFlex="95">
-        <div fxFlayout="row wrap" fxLayoutAlign="space-between center">
-                <mat-form-field>
+<div style="height: 50vh;" fxFlayout="row wrap" fxLayoutAlign="center start">
+
+                <mat-form-field fxFlex="15">
                     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
                   </mat-form-field>
-                  <button mat-raised-button color="primary" [disabled]="!isEdit" (click)="openBankForm(bankForm,null)">Add</button>
+                  
                   <!-- <button mat-icon-button matTooltip="Edit" [disabled]="!isEdit" (click)="checkPermission()">
                         <mat-icon>edit</mat-icon>
                     </button> -->
-            </div>
             
-            <div class="mat-elevation-z8">
+            <div class="mat-elevation-z8" fxFlex="80" style="position:relative;top:46px">
               <table mat-table [dataSource]="dataSource" matSort>
                 <ng-container matColumnDef="BankName">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> BankName </th>
@@ -37,6 +36,7 @@
             
               <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
             </div>
+            <button fxFlex="5" mat-raised-button color="primary" [disabled]="!isEdit" (click)="openBankForm(bankForm,null)">Add</button>
 </div>
 
 

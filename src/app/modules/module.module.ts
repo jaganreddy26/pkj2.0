@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { OprationComponent } from './opration/opration.component';
 import { UbtComponent } from './ubt/ubt.component';
-import { ViewUbtComponent} from './view-ubt/view-ubt.component';
-import { EditUbtComponent} from './edit-ubt/edit-ubt.component';
+import { ViewUbtComponent } from './view-ubt/view-ubt.component';
+import { EditUbtComponent } from './edit-ubt/edit-ubt.component';
 import { AdminstrationComponent } from './adminstration/adminstration.component';
 import { SharedModule } from '../shared/shared.module';
 import { ModuleService } from './module.service';
@@ -14,7 +14,7 @@ import { DirectorsComponent } from './company/directors/directors.component';
 import { CustomerComponent } from './company/customer/customer.component';
 import { VendorComponent } from './company/vendor/vendor.component';
 import { BankComponent } from './company/bank/bank.component';
-import { LoginComponent} from './login/login.component';
+import { LoginComponent } from './login/login.component';
 import { MasterComponent } from './masters/master/master.component';
 import { AddCustomerComponent } from './masters/customer/add-customer-details/add-customer-details.component';
 import { CustomerAddComponent } from './masters/customer/customer/customer.component';
@@ -53,47 +53,47 @@ import { ViewBankComponent } from './masters/bank/view-bank/view-bank.component'
 
 
 const routes: Routes = [
-  {path: '' ,component :OprationComponent},
-  {path: 'login' ,component :LoginComponent},
-  {path: 'operation' ,component :OprationComponent},
-  {path: 'ubt' ,component :UbtComponent},
-  {path: 'view-ubt' ,component :ViewUbtComponent},
-  {path: 'edit-ubt' ,component :EditUbtComponent},
-  {path: 'adminstration' ,component :AdminstrationComponent},
-  {path: 'view-and-update-company',component : ViewAndUpdateCompanyComponent,canDeactivate: [ModuleService],},
-  {path:'masters',component:MasterComponent},
-  {path:'masters/customer/addcustomerdetails',component:AddCustomerComponent},
+  { path: '', component: OprationComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'operation', component: OprationComponent },
+  { path: 'ubt', component: UbtComponent },
+  { path: 'view-ubt', component: ViewUbtComponent },
+  { path: 'edit-ubt', component: EditUbtComponent },
+  { path: 'adminstration', component: AdminstrationComponent },
+  { path: 'view-and-update-company', component: ViewAndUpdateCompanyComponent, canDeactivate: [ModuleService], },
+  { path: 'masters', component: MasterComponent },
+  { path: 'masters/customer/addcustomerdetails', component: AddCustomerComponent },
 
-  {path:'masters/Customer',component:CustomerAddComponent},
-  {path:'masters/customer/addcustomer',component:NewCustomerComponent},
-  {path:'masters/customer/viewcustomer',component:ViewCustomerDetailsComponent},
+  { path: 'masters/Customer', component: CustomerAddComponent },
+  { path: 'masters/customer/addcustomer', component: NewCustomerComponent },
+  { path: 'masters/customer/viewcustomer', component: ViewCustomerDetailsComponent },
 
-  {path:'masters/Vendor',component:MasterVendorsComponent},
-  {path:'masters/vendor/addcustomer',component:NewVendorComponent},
-  {path:'masters/vendor/addvendordetails',component:AddVendorDetailsComponent},
-  {path:'masters/vendor/viewvendors',component:ViewVendorDetailsComponent},
+  { path: 'masters/Vendor', component: MasterVendorsComponent },
+  { path: 'masters/vendor/addcustomer', component: NewVendorComponent },
+  { path: 'masters/vendor/addvendordetails', component: AddVendorDetailsComponent },
+  { path: 'masters/vendor/viewvendors', component: ViewVendorDetailsComponent },
 
-  {path:'masters/Agency',component:MasterAgencyComponent},
-  {path:'masters/agency/addagency',component:AddAgencyComponent},
-  {path:'masters/agency/viewagency',component:ViewAgencyComponent},
+  { path: 'masters/Agency', component: MasterAgencyComponent },
+  { path: 'masters/agency/addagency', component: AddAgencyComponent },
+  { path: 'masters/agency/viewagency', component: ViewAgencyComponent },
 
-  {path:'masters/Goods',component:MasterGoodsComponent},
-  {path:'masters/goods/addgoods',component:AddGroupComponent},
-  {path:'masters/goods/viewgoods',component:ViewGoodsComponent},
+  { path: 'masters/Goods', component: MasterGoodsComponent },
+  { path: 'masters/goods/addgoods', component: AddGroupComponent },
+  { path: 'masters/goods/viewgoods', component: ViewGoodsComponent },
 
-  {path:'masters/Service',component:MasterServiceComponent},
-  {path:'masters/service/addservice',component:AddServiceComponent},
-  {path:'masters/service/viewservice',component:ViewServiceComponent},
+  { path: 'masters/Service', component: MasterServiceComponent },
+  { path: 'masters/service/addservice', component: AddServiceComponent },
+  { path: 'masters/service/viewservice', component: ViewServiceComponent },
 
-  {path:'masters/Bank',component:MasterBankComponent},
-  {path:'masters/bank/addbank',component:AddbankComponent},
-  {path:'masters/bank/viewbank',component:ViewBankComponent}
+  { path: 'masters/Bank', component: MasterBankComponent },
+  { path: 'masters/bank/addbank', component: AddbankComponent },
+  { path: 'masters/bank/viewbank', component: ViewBankComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes),SharedModule.forRoot()],
+  imports: [RouterModule.forChild(routes), SharedModule.forRoot()],
   exports: [RouterModule],
-  declarations:[OprationComponent,UbtComponent,ViewUbtComponent,EditUbtComponent,AdminstrationComponent, CompanyFormComponent, ViewAndUpdateCompanyComponent, DocumentsComponent, DirectorsComponent, CustomerComponent, VendorComponent, BankComponent,LoginComponent, MasterComponent, AddCustomerComponent, CustomerAddComponent, NewCustomerComponent, AgencyComponent, ViewCustomerDetailsComponent, NewVendorComponent, AddVendorDetailsComponent, MasterVendorsComponent, VendorFormComponent, GoodsComponent, ServiceComponent, ViewVendorDetailsComponent, MasterAgencyComponent, AddAgencyComponent, ViewAgencyComponent, AgencyFormComponent, MasterGoodsComponent, AddGroupComponent, ViewGoodsComponent, GoodsFormComponent, MasterServiceComponent, AddServiceComponent, ViewServiceComponent, ServiceFormComponent, MasterBankComponent, BankFormComponent, AddbankComponent, ViewBankComponent],
+  declarations: [OprationComponent, UbtComponent, ViewUbtComponent, EditUbtComponent, AdminstrationComponent, CompanyFormComponent, ViewAndUpdateCompanyComponent, DocumentsComponent, DirectorsComponent, CustomerComponent, VendorComponent, BankComponent, LoginComponent, MasterComponent, AddCustomerComponent, CustomerAddComponent, NewCustomerComponent, AgencyComponent, ViewCustomerDetailsComponent, NewVendorComponent, AddVendorDetailsComponent, MasterVendorsComponent, VendorFormComponent, GoodsComponent, ServiceComponent, ViewVendorDetailsComponent, MasterAgencyComponent, AddAgencyComponent, ViewAgencyComponent, AgencyFormComponent, MasterGoodsComponent, AddGroupComponent, ViewGoodsComponent, GoodsFormComponent, MasterServiceComponent, AddServiceComponent, ViewServiceComponent, ServiceFormComponent, MasterBankComponent, BankFormComponent, AddbankComponent, ViewBankComponent],
   providers: [ModuleService]
 })
 export class ModuleModule { }

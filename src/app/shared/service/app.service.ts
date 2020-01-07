@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core"; //injectable represents the service
+import { Injectable,EventEmitter } from "@angular/core"; //injectable represents the service
 import { HttpClient } from "@angular/common/http"; //todo http calls
 import { map } from "rxjs/operators"; //to mapping the data
 import { Router, ActivatedRoute, NavigationExtras } from "@angular/router"; //for navigate the pages
@@ -6,6 +6,7 @@ import { Storage } from "../utils/storage"; //to store the data
 import { ApexService } from "./apex.service"; //own service for loader
 import { CanActivate } from "@angular/router";
 import { environment } from "../../../environments/environment";
+
 
 @Injectable()
 export class AppService {

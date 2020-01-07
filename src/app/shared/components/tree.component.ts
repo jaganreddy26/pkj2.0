@@ -25,21 +25,27 @@ interface FlatNode {
 @Component({
     selector: 'app-tree',
     template: `
+    <mat-card>
             <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
             <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding [ngClass]="{ 'background-highlight': childrenNode == node.Id}"
                 (click)="nodeLabel(node)">
+               
                 <button mat-icon-button></button>
                 <span class="txtColor">{{node.Name}}</span>
+           
             </mat-tree-node>
             <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-                <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.Name" (click)="dataNode(node)">
-                <mat-icon class="mat-icon-rtl-mirror">
-                    {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            <div class="mat-tree-node">
+                <button  mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.Name" (click)="dataNode(node)">
+                <mat-icon class="mat-icon-rtl-mirror" [ngClass]="{ 'arrow-keys': treeControl.isExpanded(node)}">
+                    {{treeControl.isExpanded(node) ? 'arrow_drop_down' : 'arrow_drop_up'}}
                 </mat-icon>
                 </button>
-                {{node.Name}}
+                <span class="nodeColor">{{node.Name}}</span>
+              </div>
             </mat-tree-node>
             </mat-tree>
+            </mat-card>
   `
 
 })
@@ -94,10 +100,8 @@ export class TreeComponent implements OnInit {
     nodeLabel(node) {
     //   this.childrenNode = node.Id;
         this.nodeLabelChange.emit(node)
-        console.log("hi2");
     }
     dataNode(node) {
-        console.log("hi");
         this.nodeArray = [];
         this.treeControl.dataNodes.filter((element) => {
             if (element.Expandable && this.treeControl.isExpanded(element)) {

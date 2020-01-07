@@ -1,121 +1,227 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-body{
+body {
     overflow: auto;
     background-color: #f8f8f8;
 }
-*{
+
+* {
     padding: 0px;
     margin: 0px;
 }
-.float-btn{
+
+.float-btn {
     position: fixed !important;
     bottom: 20px !important;
     right: 20px !important;
-  }
+}
 
-  table{
-      width: 100%;
-  }
-  .padding-left{
+table {
+    width: 100%;
+}
+
+.padding-left {
     padding-left: 16px;
-  }
-  .txtColor:hover{
-    color: #f39c38;
+}
+
+.txtColor {
+    font-size: 14px;
+    font-family: Arial-regular;
+}
+
+.txtColor:hover {
+    color: #f39c38 !important;
     cursor: pointer;
-  }
-  
-  .background-highlight{
-    background:#708090;
-    color: #fff;
-  }
-  .example-container {
+}
+
+.nodeColor {
+    color: #101010;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: Arial-regular;
+}
+
+.background-highlight {
+    /* background:#708090 !important; */
+    color: #f39c38;
+}
+
+.example-container {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-  }
-  
-  .example-radio-group {
+}
+
+.example-radio-group {
     display: block;
     border: 1px solid #555;
     margin: 20px;
     padding: 10px;
-  }
-  .example-tree-invisible {
+}
+
+.example-tree-invisible {
     display: none;
-  }
-  
-  .example-tree ul,
-  .example-tree li {
+}
+
+.example-tree ul,
+.example-tree li {
     margin-top: 0;
     margin-bottom: 0;
     list-style-type: none;
-  }
-  .fixed-height{
-      height: 72vh;
-      overflow-y: auto;
-  }
-  .footer{
+}
+
+.fixed-height {
+    height: 72vh;
+    overflow-y: auto;
+}
+
+.footer {
     bottom: 12px;
     background-color: #f8f8f8;
-   width: 100%;
-   position: fixed;
-   z-index: 999;
-  }
-  .hidden{
-    overflow: hidden;
-  }
-  .scroll{
-    overflow-y: auto;
-  }
-  .content{
-    position: relative;
-    top: 56px;
-    background-color: #fff;
-  }
-  .window-header{
-    background-color: #f4f4f4;
-    color: #131313;
-    height: 50px;
+    width: 65%;
+    left: 34%;
     position: fixed;
     z-index: 999;
-  }
-  .width-off{
-    width: 81.2%;
-  }
-  .width-on{
-    width: 65%;
-  }
-  .padding-left{
+}
+
+.footer1 {
+    bottom: 12px;
+    background-color: #f8f8f8;
+    width: 81%;
+    left: 17.8%;
+    position: fixed;
+    z-index: 999;
+}
+
+.footer2 {
+    bottom: 12px;
+    background-color: #f8f8f8;
+    width: 77.3%;
+    left: 21.6%;
+    position: fixed;
+    z-index: 999;
+}
+
+.footer3 {
+    bottom: 12px;
+    background-color: #f8f8f8;
+    width: 97%;
+    left: 2%;
+    position: fixed;
+    z-index: 999;
+}
+
+.hidden {
+    overflow: hidden;
+}
+
+.scroll {
+    overflow-y: auto;
+}
+
+.content {
+    position: relative;
+    /* top: 56px; */
+    background-color: #fff;
+}
+
+.window-header {
+    background-color: #f4f4f4;
+    color: #131313;
+    /* height: 50px; */
+    /* position: fixed; */
+    z-index: 999;
+}
+
+.window-icons {
+    position: absolute;
+    right: 0%;
+    top: 6px;
+    z-index: 999;
+}
+
+.width-off {
+    min-width: 81.2%;
+}
+
+.width-on {
+    min-width: 65%;
+}
+
+.padding-left {
     padding-left: 16px;
-  }
- .mat-tab-label-active{
-   background-color: #32404f !important;
-   color: #fff;
- }
- .mat-tab-body-wrapper{
-   padding: 16px;
- }
- .mat-raised-button.mat-primary {
-  background-color: #32404f !important;
-  color: #fff !important; 
-}
-.mat-list-base{
-  padding: 0px 12px;
-}
-.mat-form-field-infix{
-  font-size: 13px !important;
 }
 
-
-.card{
-  height: 100px;
-  width: auto;
-  cursor: pointer;
-}
-.margin{
-  margin:16px;
+.mat-tab-label-active {
+    background-color: #2F4050 !important;
+    color: #fff;
 }
 
+.mat-tab-body-wrapper {
+    padding: 16px;
+}
+
+.mat-tab-list {
+    line-height: 20px;
+    background-color: rgba(244, 244, 244, 1);
+    box-shadow: 0px 1px 3px 0px rgba(225, 225, 225, 1);
+}
+
+.mat-raised-button.mat-primary {
+    background-color: #2F4050 !important;
+    color: #fff !important;
+}
+
+.mat-list-base,
+.mat-list-item {
+    padding: 0px 12px;
+    height: 48px !important;
+}
+
+.mat-form-field-infix {
+    font-size: 13px !important;
+}
+
+.card {
+    height: 100px;
+    width: auto;
+    cursor: pointer;
+}
+
+.margin {
+    margin: 16px;
+}
+
+.menu-header {
+    position: relative;
+    top: 1px;
+    left: 26px;
+    width: 120px;
+    height: 16px;
+    color: rgba(16, 16, 16, 1);
+    font-size: 14px;
+    text-align: left;
+    font-family: Arial-regular;
+}
+
+.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,
+.mat-form-field-empty.mat-form-field-label {
+    font-size: 14px;
+    color: #000 !important;
+}
+
+.arrow-keys {
+    color: #f39c38;
+}
+
+.mat-action-list .mat-list-item:focus,
+.mat-action-list .mat-list-item:hover,
+.mat-list-option:focus,
+.mat-list-option:hover,
+.mat-nav-list .mat-list-item:focus,
+.mat-nav-list .mat-list-item:hover {
+    background-color: rgba(255, 152, 0, 1);
+}
