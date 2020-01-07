@@ -10,116 +10,13 @@
 
 </mat-toolbar>
 <div fxLayout="row" fxLayoutAlign="center center">
-  <!-- <div [style.width.%]="width" style="height: 93vh;background-color: #ccc;border-right: 1px solid #ccc;" *ngIf="width != 40">
-          <div fxLayout="row" fxLayoutAlign="end center">
-            <div>
-              <button mat-icon-button (click)="refresh()" matTooltip="Refresh Tree">
-                <mat-icon>refresh</mat-icon>
-              </button>
-              <button mat-icon-button (click)="minWidth()" matTooltip="Collapse Tree">
-                <mat-icon>keyboard_arrow_left</mat-icon>
-              </button>
-      
-            </div>
-      
-          </div>
-          <div *ngIf="width != 40">
-              <app-tree [dataSrc]="dataSrc" (dataNodeChange)="dataNode($event)" (nodeLabelChange)="nodeLabel($event)"></app-tree>
-          </div>
-      
-        </div> -->
-  <div style="height: 93vh;">
-    <div>
 
-    </div>
-
+  <div style="height: 93vh;width: 100%;margin:16px">
     <mat-card class="padding">
       <div class="padding fixed-height">
-        <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="6px">
 
-          <mat-form-field appearance="outline" fxFlex="100">
-            <mat-label>CustomerName</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="customer.CustomerName" readonly>
-          </mat-form-field>
-          <!-- <app-select fxFlex="33.3" class="padding-left" labelName="State" type="text" 
-           required="false" primaryKey="SteteId" name="StateName" [data]="states"
-          [readonly]="!isEdit" >
-  
-      </app-select> -->
-          <mat-form-field appearance="outline" fxFlex="100">
-            <mat-label>CustomerType</mat-label>
-            <mat-select (selectionChange)="changeCustomerType($event)">
-              <mat-option *ngFor="let item of CustomerType" [value]="item.TypeId">
-                {{item.TypeName}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100">
-            <mat-label>Email1</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="customer.Email1">
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100">
-            <mat-label>Email2</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="customer.Email2">
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100">
-            <mat-label>URL</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="customer.URL">
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100">
-            <mat-label>Phone1</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="customer.Phone1">
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100">
-            <mat-label>Phone2</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="customer.Phone2">
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100">
-            <mat-label>Address1</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="customer.Address1">
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100">
-            <mat-label>Address2</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="customer.Address2">
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100">
-            <mat-label>Address3</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="customer.Address3">
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100">
-            <mat-label>states</mat-label>
-            <mat-select (selectionChange)="changeStates($event)">
-              <mat-option *ngFor="let item of states" [value]="item.SteteId">
-                {{item.StateName}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100">
-            <mat-label>CIN</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="customer.CIN">
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100">
-            <mat-label>GSTIN</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="customer.GSTIN">
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100">
-            <mat-label>PAN</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="customer.PAN">
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100">
-            <mat-label>TAN</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="customer.TAN_NO">
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100">
-            <mat-label>FAX</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="customer.Fax">
-          </mat-form-field>
-          <div fxLayoutAlign="center center" fxFlex="100">
-            <button mat-button (click)="saveCustomerDetails()">Save</button>
-          </div>
-
-        </div>
-
+        <app-customer-form [isEdit]="isEdit" [customer]="customer" [dataLoad]="states" [customerTypesLoad]="CustomerType" (saveData)="saveData($event)">
+        </app-customer-form> 
       </div>
     </mat-card>
 
@@ -149,20 +46,20 @@
       <div class="content" [ngClass]=" width == 40 ? 'width-off' : 'width-on'">
         <mat-tab-group [selectedIndex]="selectedTab" (selectedTabChange)="tabChange($event)">
           <mat-tab label="Documents">
-            <app-documents [isEdit]="isEdit"  [pan]="panDocumentPath" [cin]="cinDocumentPath" [tan]="tanDocumentPath" [gstin]="gstinDocumentPath"
+            <app-documents [isEdit]="isEditTab"  [pan]="panDocumentPath" [cin]="cinDocumentPath" [tan]="tanDocumentPath" [gstin]="gstinDocumentPath"
             (saveDocumentFiles)="saveDocumentFiles($event)">
             </app-documents>
           </mat-tab>
           <mat-tab label="Agency Mapping">
-            <app-agency [isEdit]="isEdit" [agencys]="agencys" (checkPermissionEvent)="checkPermissionAgencyEvent($event)" (saveAgencyEvent)="saveAgencyDetails($event)"></app-agency>
+            <app-agency [isEdit]="isEditTab" [agencys]="agencys" (checkPermissionEvent)="checkPermissionAgencyEvent($event)" (saveAgencyEvent)="saveAgencyDetails($event)"></app-agency>
           </mat-tab>
           <mat-tab label="Bank Mapping">
-            <app-bank [isEdit]="isEdit" [bankAccDetails]="bankAccDetails" [bankBranches]="bankBranches" (saveBankDetails)="saveBankDetails($event)"></app-bank>
+            <app-bank [isEdit]="isEditTab" [bankAccDetails]="bankAccDetails" [bankBranches]="bankBranches" (saveBankDetails)="saveBankDetails($event)"></app-bank>
           </mat-tab>
         </mat-tab-group>
 
       </div>
     </div>
 
-  </div>
+  
 </div>

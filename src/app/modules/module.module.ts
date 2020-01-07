@@ -62,6 +62,7 @@ import { BusinessFormComponent } from './masters/business/business-form/business
 import { AddCompanyComponent } from './masters/company/add-company/add-company.component';
 import { MasterCompanyComponent } from './masters/company/master-company/master-company.component';
 import { AddCompanyFormComponent } from './masters/company/add-company-form/add-company-form.component';
+import { CustomerFormComponent } from './masters/customer/customer-form/customer-form.component';
 
 
 
@@ -91,7 +92,7 @@ const routes: Routes = [
   {path:'masters/agency/viewagency',component:ViewAgencyComponent,canDeactivate:[AgencyService]},
 
   {path:'masters/Goods',component:MasterGoodsComponent},
-  {path:'masters/goods/addgoods',component:AddGroupComponent},
+  {path:'masters/goods/addgoods',component:AddGroupComponent,canDeactivate:[GoodsService]},
   {path:'masters/goods/viewgoods',component:ViewGoodsComponent,canDeactivate: [GoodsService]},
 
   {path:'masters/Service',component:MasterServiceComponent},
@@ -113,7 +114,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes),SharedModule.forRoot()],
   exports: [RouterModule],
-  declarations:[OprationComponent,UbtComponent,ViewUbtComponent,EditUbtComponent,AdminstrationComponent, CompanyFormComponent, ViewAndUpdateCompanyComponent, DocumentsComponent, DirectorsComponent, CustomerComponent, VendorComponent, BankComponent,LoginComponent, MasterComponent, AddCustomerComponent, CustomerAddComponent, NewCustomerComponent, AgencyComponent, ViewCustomerDetailsComponent, NewVendorComponent, AddVendorDetailsComponent, MasterVendorsComponent, VendorFormComponent, GoodsComponent, ServiceComponent, ViewVendorDetailsComponent, MasterAgencyComponent, AddAgencyComponent, ViewAgencyComponent, AgencyFormComponent, MasterGoodsComponent, AddGroupComponent, ViewGoodsComponent, GoodsFormComponent, MasterServiceComponent, AddServiceComponent, ViewServiceComponent, ServiceFormComponent, MasterBankComponent, BankFormComponent, AddbankComponent, ViewBankComponent, MasterBusinessComponent, AddBusinessComponent, ViewBusinessComponent, BusinessFormComponent, AddCompanyComponent, MasterCompanyComponent, AddCompanyFormComponent],
-  providers: [ModuleService]
+  declarations:[OprationComponent,UbtComponent,ViewUbtComponent,EditUbtComponent,AdminstrationComponent, CompanyFormComponent, ViewAndUpdateCompanyComponent, DocumentsComponent, DirectorsComponent, CustomerComponent, VendorComponent, BankComponent,LoginComponent, MasterComponent, AddCustomerComponent, CustomerAddComponent, NewCustomerComponent, AgencyComponent, ViewCustomerDetailsComponent, NewVendorComponent, AddVendorDetailsComponent, MasterVendorsComponent, VendorFormComponent, GoodsComponent, ServiceComponent, ViewVendorDetailsComponent, MasterAgencyComponent, AddAgencyComponent, ViewAgencyComponent, AgencyFormComponent, MasterGoodsComponent, AddGroupComponent, ViewGoodsComponent, GoodsFormComponent, MasterServiceComponent, AddServiceComponent, ViewServiceComponent, ServiceFormComponent, MasterBankComponent, BankFormComponent, AddbankComponent, ViewBankComponent, MasterBusinessComponent, AddBusinessComponent, ViewBusinessComponent, BusinessFormComponent, AddCompanyComponent, MasterCompanyComponent, AddCompanyFormComponent, CustomerFormComponent],
+  providers: [ModuleService,VendorService]
 })
 export class ModuleModule { }

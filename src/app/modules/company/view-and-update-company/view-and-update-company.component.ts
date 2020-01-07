@@ -485,7 +485,7 @@ console.log(this.nodeArray);
 
   }
   openDialog() {
-    this.isCheckForm = true;
+    this.isCheckForm = true; 
     this.dialog.open(this.statusDialog, { disableClose: true });
   }
   saveChanges() {

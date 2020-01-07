@@ -41,7 +41,7 @@ export class ModuleService implements CanDeactivate<ViewAndUpdateCompanyComponen
     if (confirm('Do you want to save changeses') == true) 
         return component.saveChanges(); 
     else { 
-        return component.discardChanges() 
+        return component.discardChanges()  
   }
   }else{
     return true

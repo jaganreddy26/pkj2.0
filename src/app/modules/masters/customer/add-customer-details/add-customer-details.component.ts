@@ -34,7 +34,7 @@ export class AddCustomerComponent implements OnInit {
   CustomerName: any;
 
   customerDetailsById: any = {}
-  isEdit: boolean = false;
+  isEdit: boolean = true;
   panDocumentPath: any
   tanDocumentPath: any;
   cinDocumentPath: any;
@@ -43,6 +43,7 @@ export class AddCustomerComponent implements OnInit {
   bankAccDetails: any = [];
   bankBranches:any=[];
   bankObj: Bank = new Bank();
+  isEditTab:boolean=false;
   @ViewChild(NgForm, { static: true }) myForm: NgForm;
   constructor(private router: Router, private service: ModuleService, private appService: AppService) {
     this.customer.CustomerName = history.state.data;
@@ -190,9 +191,9 @@ export class AddCustomerComponent implements OnInit {
 
   }
   //adding new CustomerDetails
-  saveCustomerDetails() {
-    console.log(this.customer);
-
+  saveData($event) {
+    console.log($event);
+    this.customer = $event;
     let url = "MasterDataApi/UpsertCustomerMaster";
     this.service.postData(this.customer, url).subscribe((data: any) => {
       console.log(data);
@@ -207,6 +208,7 @@ export class AddCustomerComponent implements OnInit {
           if (data.length != 0) {
             this.customer = data[0];
             console.log(this.customer);
+            this.isEditTab = true;
             this.customerDetailsById = this.customer;
           }
 

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import {ViewVendorDetailsComponent} from '../vendor/view-vendor-details/view-vendor-details.component';
 import {Observable} from "rxjs";
+import { CanDeactivate} from "@angular/router";
 @Injectable({
   providedIn: 'root'
 })
-export class VendorService {
+export class VendorService implements CanDeactivate<ViewVendorDetailsComponent> {
 
 
   constructor() { }

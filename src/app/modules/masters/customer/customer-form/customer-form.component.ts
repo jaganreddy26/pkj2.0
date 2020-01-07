@@ -1,17 +1,19 @@
 import { Component, OnInit,Input , ViewChild, Output, EventEmitter, SimpleChanges, OnDestroy} from '@angular/core';
 import { NgForm } from "@angular/forms";
-import {Vendor} from '../../../../shared/entities/vendor';
+import { Customer } from '../../../../shared/entities/customer';
 import { Validators } from '../../../../shared/utils/validators';
 @Component({
-  selector: 'app-vendor-form',
-  templateUrl: './vendor-form.component.html',
-  styleUrls: ['./vendor-form.component.css']
+  selector: 'app-customer-form',
+  templateUrl: './customer-form.component.html',
+  styleUrls: ['./customer-form.component.css']
 })
-export class VendorFormComponent implements OnInit {
+export class CustomerFormComponent implements OnInit {
+
   validators:any = Validators;
-  @Input() vendor: Vendor = new Vendor();
+  @Input() customer: Customer = new Customer();
   @ViewChild(NgForm, { static: true }) myForm: NgForm; 
   @Input() dataLoad: any = [];
+  @Input() customerTypesLoad: any = [];
   @Input() isEdit: boolean;
   @Output() saveData = new EventEmitter();
 
@@ -23,7 +25,7 @@ export class VendorFormComponent implements OnInit {
     
   }
   onSubmit(form) {
-    this.saveData.emit(this.vendor)
+    this.saveData.emit(this.customer)
   }
   ngOnDestroy(): void {
     

@@ -34,6 +34,9 @@ export class ViewCustomerDetailsComponent implements OnInit {
   gstinDocumentPath: any;
   bankObj: Bank = new Bank();
   document: DocumentFiles = new DocumentFiles();
+
+  states:any=[];
+  CustomerType:any=[];
   constructor(private service: ModuleService, private appService: AppService) { }
 
   ngOnInit() {
@@ -156,8 +159,26 @@ export class ViewCustomerDetailsComponent implements OnInit {
       this.isNodelLabelChange = true;
     }
     this.customerId = this.childrenNode.Id
+    this.getStates();
+    this.getCustomerType();
     this.customerDetailsById();
 
+  }
+   //==================
+   getStates() {
+    let url = "MasterDataApi/GetAllStates_SF";
+    this.service.getData({}, url).subscribe((data: any) => {
+      console.log(data);
+      this.states = data;
+    })
+  }
+  //==================
+  getCustomerType() {
+    let url = "MasterDataApi/GetCustomerType_SF";
+    this.service.getData({}, url).subscribe((data: any) => {
+      console.log(data);
+      this.CustomerType = data;
+    })
   }
   customerDetailsById() {
     let obj = { CustomerId: this.childrenNode.Id }
@@ -364,27 +385,27 @@ export class ViewCustomerDetailsComponent implements OnInit {
     })
 
   }
-  updateCustomerDetails() {
+  saveData($event) {
     let object = {
-      "CustomerId": this.customer.CustomerId,
-      "CustomerTypeId": this.customer.CustomerTypeId,
-      "CustomerName": this.customer.CustomerName,
-      "Email1": this.customer.Email1,
-      "Email2": this.customer.Email2,
-      "URL": this.customer.URL,
-      "Phone1": this.customer.Phone1,
-      "Phone2": this.customer.Phone2,
-      "Address1": this.customer.Address1,
-      "Address2": this.customer.Address2,
-      "Address3": this.customer.Address3,
-      "StateId": this.customer.StateId,
-      "CIN": this.customer.CIN,
-      "GSTIN": this.customer.GSTIN,
-      "PAN": this.customer.PAN,
-      "TAN_NO":this.customer.TAN_NO,
+      "CustomerId": $event.CustomerId,
+      "CustomerTypeId": $event.CustomerTypeId,
+      "CustomerName": $event.CustomerName,
+      "Email1": $event.Email1,
+      "Email2": $event.Email2,
+      "URL": $event.URL,
+      "Phone1": $event.Phone1,
+      "Phone2": $event.Phone2,
+      "Address1": $event.Address1,
+      "Address2": $event.Address2,
+      "Address3": $event.Address3,
+      "StateId": $event.StateId,
+      "CIN": $event.CIN,
+      "GSTIN": $event.GSTIN,
+      "PAN": $event.PAN,
+      "TAN_NO":$event.TAN_NO,
       "Status": 1,
       "PreviousStatus": 0,
-      "Fax": this.customer.Fax
+      "Fax": $event.Fax
 
     }
     let url = "MasterDataApi/UpsertCustomerMaster";

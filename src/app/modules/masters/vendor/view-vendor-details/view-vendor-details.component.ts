@@ -27,7 +27,7 @@ export class ViewVendorDetailsComponent implements OnInit {
   @ViewChild(GoodsComponent, { static: false }) goodsForm: GoodsComponent;
   @ViewChild(ServiceComponent, { static: false }) serviceForm: ServiceComponent;
 
-  @ViewChild('statusDialog', { static: true }) statusDialog: TemplateRef<any>;
+  // @ViewChild('statusDialog', { static: true }) statusDialog: TemplateRef<any>;
   height: any = 43;
   previousHeight: number = 43;
   innerHeight: number;
@@ -60,7 +60,7 @@ export class ViewVendorDetailsComponent implements OnInit {
   isCheckForm: boolean = false;
   constructor(private service: ModuleService, private appService: AppService,
     private dialog: MatDialog) { }
-
+    @ViewChild('statusDialog', { static: true }) statusDialog: TemplateRef<any>;
   ngOnInit() {
     // this.vendor.VendorName = history.state.data
     // this.vendorname = history.state.data;
@@ -156,6 +156,8 @@ export class ViewVendorDetailsComponent implements OnInit {
   }
   viewDetails() {
     //  this.releaseLock();
+    debugger;
+    console.log(this.vedorForm.myForm.touched);
     if (this.vedorForm.myForm.touched
       || this.documentsForm.files.length != 0
       || this.agencyForm.isChanged
@@ -600,10 +602,13 @@ export class ViewVendorDetailsComponent implements OnInit {
     })
   }
   saveChanges() {
-    debugger
+    debugger;
+    console.log(this.vedorForm.myForm.touched);
     if (this.vedorForm.myForm.touched) {
-      this.saveData(this.vendor)
+      this.saveData(this.vendor);
+      this.vedorForm.myForm.reset();
     }
+    console.log(this.vedorForm.myForm.touched);
     if (this.documentsForm.files.length != 0) {
       this.documentsForm.files.forEach(element => {
         this.saveDocumentFiles(element);
@@ -611,17 +616,20 @@ export class ViewVendorDetailsComponent implements OnInit {
           this.documentsForm.clearAll();
         }, 2000)
       });
+      this.documentsForm.clearAll(); 
     }
     if (this.agencyForm.isChanged) {
       this.saveAgencyDetails(this.agencys);
+      this.agencyForm.isChanged = false;
 
     }
     if (this.goodsForm.isChanged) {
       this.saveGoodsDetails(this.goods);
+      this.goodsForm.isChanged = false;
     }
     if (this.serviceForm.isChanged) {
       this.saveServicesDetails(this.serviceMappingDetails)
-
+      this.serviceForm.isChanged = false;
     }
     if (this.isNodelLabelChange) {
       this.changeNode();
@@ -634,6 +642,7 @@ export class ViewVendorDetailsComponent implements OnInit {
   discardChanges() {
 
     if (this.vedorForm.myForm.touched) {
+      this.vedorForm.myForm.reset();
       this.VendorDetailsById();
     }
     if (this.agencyForm.isChanged) {
