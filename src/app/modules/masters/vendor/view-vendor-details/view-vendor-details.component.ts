@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { ResizeEvent } from 'angular-resizable-element';
 
 import { Vendor } from '../../../../shared/entities/vendor';
@@ -6,14 +6,28 @@ import { ModuleService } from '../../../module.service';
 import { AppService } from '../../../../shared/service/app.service';
 import { DocumentFiles } from '../../../../shared/entities/document';
 import { Bank } from '../../../../shared/entities/bank';
-
+import { VendorFormComponent } from '../vendor-form/vendor-form.component';
+import { DocumentsComponent } from '../../../company/documents/documents.component';
+import { AgencyComponent } from '../../../../modules/agency/agency.component';
+import { BankComponent } from '../../../company/bank/bank.component';
+import { GoodsComponent } from '../../../../modules/goods/goods.component'
+import { ServiceComponent } from '../../../../modules/service/service.component';
+import { MatDialog } from '@angular/material';
+import { $ } from 'protractor';
 @Component({
   selector: 'app-view-vendor-details',
   templateUrl: './view-vendor-details.component.html',
   styleUrls: ['./view-vendor-details.component.css']
 })
 export class ViewVendorDetailsComponent implements OnInit {
+  @ViewChild(VendorFormComponent, { static: false }) vedorForm: VendorFormComponent;
+  @ViewChild(DocumentsComponent, { static: false }) documentsForm: DocumentsComponent;
+  @ViewChild(AgencyComponent, { static: false }) agencyForm: AgencyComponent;
+  @ViewChild(BankComponent, { static: false }) bankForm: BankComponent;
+  @ViewChild(GoodsComponent, { static: false }) goodsForm: GoodsComponent;
+  @ViewChild(ServiceComponent, { static: false }) serviceForm: ServiceComponent;
 
+  // @ViewChild('statusDialog', { static: true }) statusDialog: TemplateRef<any>;
   height: any = 43;
   previousHeight: number = 43;
   innerHeight: number;
@@ -42,10 +56,13 @@ export class ViewVendorDetailsComponent implements OnInit {
   bankAccDetails: any = [];
   goods: any = [];
   serviceMappingDetails: any = [];
-  constructor(private service: ModuleService, private appService: AppService) { }
 
+  isCheckForm: boolean = false;
+  constructor(private service: ModuleService, private appService: AppService,
+    private dialog: MatDialog) { }
+    @ViewChild('statusDialog', { static: true }) statusDialog: TemplateRef<any>;
   ngOnInit() {
-   // this.vendor.VendorName = history.state.data
+    // this.vendor.VendorName = history.state.data
     // this.vendorname = history.state.data;
     this.maxHeight = window.innerHeight - 56;
     if (localStorage.getItem('ubt')) {
@@ -138,7 +155,20 @@ export class ViewVendorDetailsComponent implements OnInit {
 
   }
   viewDetails() {
-    this.releaseLock();
+    //  this.releaseLock();
+    debugger;
+    console.log(this.vedorForm.myForm.touched);
+    if (this.vedorForm.myForm.touched
+      || this.documentsForm.files.length != 0
+      || this.agencyForm.isChanged
+      || this.bankForm.myForm
+      || this.goodsForm.isChanged
+      || this.serviceForm.isChanged) {
+      this.openDialog();
+    } else {
+      this.isEdit = false;
+      this.releaseLock();
+    }
   }
 
   releaseLock() {
@@ -165,15 +195,33 @@ export class ViewVendorDetailsComponent implements OnInit {
 
   nodeLabel(node) {
     this.isEdit = false;
-    console.log(node);
-    if (node) {
-      localStorage.setItem('nodeLabel', node);
-      this.childrenNode = node;
-      this.isNodelLabelChange = true;
+    // console.log(node);
+    // if (node) {
+    //   localStorage.setItem('nodeLabel', node);
+    this.childrenNode = node;
+    this.isNodelLabelChange = true;
+    //}
+    if (this.vedorForm.myForm.touched
+      || this.documentsForm.files.length != 0
+      || this.agencyForm.isChanged
+      || this.goodsForm.isChanged
+      || this.serviceForm.isChanged
+    ) {
+      this.openDialog();
+    } else {
+      this.changeNode()
+
     }
 
-    this.VendorDetailsById();
 
+  }
+  changeNode() {
+    this.releaseLock()
+    this.VendorDetailsById();
+  }
+  openDialog() {
+    this.isCheckForm = true;
+    this.dialog.open(this.statusDialog, { disableClose: true });
   }
   VendorDetailsById() {
     let obj = { VendorId: this.childrenNode.Id }
@@ -202,7 +250,62 @@ export class ViewVendorDetailsComponent implements OnInit {
     })
   }
 
+  saveData($event) {
+    console.log($event);
+    //this.vendor = $event;
+    let object = {
+      "VendorId": $event.VendorId,
+      "VendorName": $event.VendorName,
+      "Email1": $event.Email1,
+      "Email2": $event.Email2,
+      "URL": $event.URL,
+      "Phone1": $event.Phone1,
+      "Phone2": $event.Phone2,
+      "Fax": $event.Fax,
+      "Address1": $event.Address1,
+      "Address2": $event.Address2,
+      "Address3": $event.Address3,
+      "StateId": $event.StateId,
+      "CIN": $event.CIN,
+      "GSTIN": $event.GSTIN,
+      "PAN": $event.PAN,
+      "TAN_NO": $event.TAN_NO,
+      "Status": $event.Status,
+      "PreviousStatus": 1,
+      "IsSource": $event.IsSource
 
+    }
+    console.log(object);
+    let url = "MasterDataApi/UpsertVendorMaster";
+    this.service.postData(object, url).subscribe((data: any) => {
+      console.log(data);
+      if (data != null) {
+        this.appService.showMessage('Saved Successfully', 'X');
+        if (this.isCheckForm == true) {
+          this.isEdit = false;
+          this.releaseLock();
+        }
+        //getVendorDetailsById
+        let obj = { VendorId: data }
+        let url = 'MasterDataApi/GetVendorMaster_SF';
+        this.service.postData(obj, url).subscribe((data: any) => {
+          console.log(data);
+          if (data.length != 0) {
+            this.vendor = data[0];
+            console.log(this.vendor);
+
+            // this.getAgencyMapping();
+            this.getBankBranchs();
+            // this.getGoodsMapping();
+          }
+
+        })
+      }
+      else {
+        this.appService.showMessage('Somethimg went wrong', 'X');
+      }
+    })
+  }
   //get documents
   getDocuments(type) {
     let data = {
@@ -287,7 +390,7 @@ export class ViewVendorDetailsComponent implements OnInit {
       if (data) {
         this.appService.showMessage('Saved Successfully', 'X');
         this.getDocuments(this.document.DocumentType);
-        //this.closeDialog();
+        this.closeDialog();
       } else {
         this.appService.showMessage('Somethimg went wrong', 'X');
       }
@@ -345,7 +448,7 @@ export class ViewVendorDetailsComponent implements OnInit {
       if (data) {
         this.appService.showMessage('Saved Successfully', 'X');
         this.getAgencyMapping();
-        // this.vendorForm.isChanged = false;
+        this.agencyForm.isChanged = false;
       } else {
         this.appService.showMessage('Something went wrong', 'X');
       }
@@ -437,7 +540,8 @@ export class ViewVendorDetailsComponent implements OnInit {
       console.log();
       if (data) {
         this.appService.showMessage('Saved Successfully', 'X');
-        this.getGoodsMapping()
+        this.getGoodsMapping();
+        this.goodsForm.isChanged = false;
       } else {
         this.appService.showMessage('Something went wrong', 'X');
       }
@@ -490,13 +594,78 @@ export class ViewVendorDetailsComponent implements OnInit {
       console.log();
       if (data) {
         this.appService.showMessage('Saved Successfully', 'X');
-        this.getServiceMapping()
+        this.getServiceMapping();
+        this.serviceForm.isChanged = false;
       } else {
         this.appService.showMessage('Something went wrong', 'X');
       }
     })
   }
+  saveChanges() {
+    debugger;
+    console.log(this.vedorForm.myForm.touched);
+    if (this.vedorForm.myForm.touched) {
+      this.saveData(this.vendor);
+      this.vedorForm.myForm.reset();
+    }
+    console.log(this.vedorForm.myForm.touched);
+    if (this.documentsForm.files.length != 0) {
+      this.documentsForm.files.forEach(element => {
+        this.saveDocumentFiles(element);
+        setTimeout(() => {
+          this.documentsForm.clearAll();
+        }, 2000)
+      });
+      this.documentsForm.clearAll(); 
+    }
+    if (this.agencyForm.isChanged) {
+      this.saveAgencyDetails(this.agencys);
+      this.agencyForm.isChanged = false;
 
+    }
+    if (this.goodsForm.isChanged) {
+      this.saveGoodsDetails(this.goods);
+      this.goodsForm.isChanged = false;
+    }
+    if (this.serviceForm.isChanged) {
+      this.saveServicesDetails(this.serviceMappingDetails)
+      this.serviceForm.isChanged = false;
+    }
+    if (this.isNodelLabelChange) {
+      this.changeNode();
+    }
+    this.closeDialog();
+    this.isEdit = false;
+    return true;
+  }
 
+  discardChanges() {
 
+    if (this.vedorForm.myForm.touched) {
+      this.vedorForm.myForm.reset();
+      this.VendorDetailsById();
+    }
+    if (this.agencyForm.isChanged) {
+      this.getAgencyMapping();
+    }
+    if (this.goodsForm.isChanged) {
+      this.getGoodsMapping();
+    }
+    if (this.serviceForm.isChanged) {
+      this.getServiceMapping();
+    }
+    if (this.documentsForm.files.length != 0) {
+      this.documentsForm.clearAll();
+    }
+    this.closeDialog();
+    if (this.isNodelLabelChange) {
+      this.changeNode();
+    }
+    this.isEdit = false;
+    this.vedorForm.myForm.reset();
+    return true;
+  }
+  closeDialog() {
+    this.dialog.closeAll();
+  }
 }

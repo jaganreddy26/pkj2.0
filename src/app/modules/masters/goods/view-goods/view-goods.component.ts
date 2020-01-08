@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild,TemplateRef } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import {Goods} from '../../../../shared/entities/goods';
 import { ModuleService } from '../../../module.service';
 import { AppService } from '../../../../shared/service/app.service';
 import { ResizeEvent } from 'angular-resizable-element';
+import { GoodsFormComponent } from '../goods-form/goods-form.component';
 @Component({
   selector: 'app-view-goods',
   templateUrl: './view-goods.component.html',
   styleUrls: ['./view-goods.component.css']
 })
 export class ViewGoodsComponent implements OnInit {
+  @ViewChild(GoodsFormComponent, { static: false }) viewGoodsForm: GoodsFormComponent;
+  @ViewChild('statusDialog', { static: true }) statusDialog: TemplateRef<any>;
   height: any = 43;
   previousHeight: number = 43;
   innerHeight: number;
@@ -16,7 +20,8 @@ export class ViewGoodsComponent implements OnInit {
   maxHeight: number;
   restoreHeight: number;
   selectedTab: any = 0;
-  
+  isCheckForm: boolean = false;
+
   dataSrc: any = [];
   isEdit: boolean = false;
   goods: Goods = new Goods();
@@ -24,7 +29,8 @@ export class ViewGoodsComponent implements OnInit {
   isNodelLabelChange: boolean = false;
   childrenNode: any;
   status:any;
-  constructor(private service: ModuleService, private appService: AppService,) { }
+ 
+  constructor(private service: ModuleService,private dialog: MatDialog, private appService: AppService,) { }
 
   ngOnInit() {
     this.maxHeight = window.innerHeight - 56;
@@ -82,6 +88,8 @@ export class ViewGoodsComponent implements OnInit {
     })
   }
   nodeLabel(node) {
+
+
     this.isEdit = false;
     console.log(node);
     if (node) {
@@ -89,9 +97,18 @@ export class ViewGoodsComponent implements OnInit {
       this.childrenNode = node;
       this.isNodelLabelChange = true;
     }
+    if (this.viewGoodsForm.myForm.touched) {
+      this.openDialog();
+    } else {
+      this.changeNode()
+
+    }
+  
+
+  }
+  changeNode() {
     this.releaseLock()
     this.goodsDetailsById();
-
   }
   goodsDetailsById() {
     let obj = {
@@ -174,6 +191,44 @@ export class ViewGoodsComponent implements OnInit {
     })
   }
   viewDetails() {
-    this.releaseLock();
+
+    if (this.viewGoodsForm.myForm.touched) {
+      this.openDialog();
+    } else {
+      this.isEdit = false;
+      this.releaseLock();
+    }
+
+//    this.releaseLock();
+  }
+ 
+  discardChanges() {
+
+   // if (this.viewGoodsForm.myForm.touched) {
+      this.viewGoodsForm.myForm.reset();
+      this.goodsDetailsById();
+      this.closeDialog();
+      return true;
+   // }
+    //this.closeDialog();
+  }
+  openDialog() {
+    this.isCheckForm = true;
+    this.dialog.open(this.statusDialog, { disableClose: true });
+  }
+  saveChanges() {
+//console.log("savedata");
+    // if (this.viewGoodsForm.myForm.touched) {
+     // console.log("savedatain");
+      this.saveData(this.goods);
+      this.closeDialog();
+      this.isEdit = false;
+      this.viewGoodsForm.myForm.reset();
+      return true;
+   // }
+    
+  }
+  closeDialog() {
+    this.dialog.closeAll();
   }
 }

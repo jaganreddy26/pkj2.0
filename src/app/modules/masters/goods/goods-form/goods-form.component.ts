@@ -10,7 +10,7 @@ import {Goods} from '../../../../shared/entities/goods';
 export class GoodsFormComponent implements OnInit {
   validators:any = Validators;
   @Input() goods: Goods = new Goods();
-  @ViewChild(NgForm, { static: true }) myForm: NgForm;
+  @ViewChild(NgForm, { static: true }) myForm: NgForm; 
   @Input() dataLoad: any = [];
   @Input() isEdit: boolean;
 

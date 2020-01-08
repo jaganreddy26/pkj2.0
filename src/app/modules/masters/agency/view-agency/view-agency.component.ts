@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild,TemplateRef } from '@angular/core';
 import { Agency } from '../../../../shared/entities/agency';
 import { ModuleService } from '../../../module.service';
 import { AppService } from '../../../../shared/service/app.service';
 import { ResizeEvent } from 'angular-resizable-element';
+import {AgencyFormComponent} from '../agency-form/agency-form.component';
+import { MatDialog } from '@angular/material';
 @Component({
   selector: 'app-view-agency',
   templateUrl: './view-agency.component.html',
   styleUrls: ['./view-agency.component.css']
 })
 export class ViewAgencyComponent implements OnInit {
+  @ViewChild(AgencyFormComponent, { static: false }) agencyForm: AgencyFormComponent;
+  @ViewChild('statusDialog', { static: true }) statusDialog: TemplateRef<any>;
   height: any = 43;
   previousHeight: number = 43;
   innerHeight: number;
@@ -24,7 +28,9 @@ export class ViewAgencyComponent implements OnInit {
   isNodelLabelChange: boolean = false;
   childrenNode: any;
   status: any;
-  constructor(private service: ModuleService, private appService: AppService, ) { }
+  isCheckForm: boolean = false;
+  constructor(private service: ModuleService, private appService: AppService,
+    private dialog: MatDialog  ) { }
 
   ngOnInit() {
     this.maxHeight = window.innerHeight - 56;
@@ -91,9 +97,17 @@ export class ViewAgencyComponent implements OnInit {
       this.childrenNode = node;
       this.isNodelLabelChange = true;
     }
-    this.releaseLock();
-    this.agencyDetailsById();
+    if (this.agencyForm.myForm.touched) {
+      this.openDialog();
+    } else {
+      this.changeNode();
 
+    }
+
+  }
+  changeNode() {
+    this.releaseLock()
+    this.agencyDetailsById();
   }
   agencyDetailsById() {
     let obj = {
@@ -170,7 +184,8 @@ export class ViewAgencyComponent implements OnInit {
       console.log(data);
       if (data != null) {
         this.appService.showMessage('Saved Successfully', 'X');
-
+        this.isEdit = false;
+        this.agencyForm.myForm.reset();
       }
       else {
         this.appService.showMessage('Somethimg went wrong', 'X');
@@ -178,6 +193,40 @@ export class ViewAgencyComponent implements OnInit {
     })
   }
   viewDetails() {
-    this.releaseLock();
+    if (this.agencyForm.myForm.touched) {
+      this.openDialog();
+    } else {
+      this.isEdit = false;
+      this.releaseLock();
+    }
   }
+  openDialog() {
+    this.isCheckForm = true;
+    this.dialog.open(this.statusDialog, { disableClose: true });
+  }
+  saveChanges() {
+    //console.log("savedata");
+        // if (this.viewGoodsForm.myForm.touched) {
+         // console.log("savedatain");
+          this.saveData(this.agency);
+          this.closeDialog();
+          this.isEdit = false;
+          this.agencyForm.myForm.reset();
+          return true;
+       // }
+        
+      }
+      closeDialog() {
+        this.dialog.closeAll();
+      }
+      discardChanges() {
+
+        // if (this.viewGoodsForm.myForm.touched) {
+           this.agencyForm.myForm.reset();
+           this.agencyDetailsById();
+           this.closeDialog();
+           return true;
+        // }
+         //this.closeDialog();
+       }
 }

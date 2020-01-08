@@ -1,0 +1,48 @@
+<mat-toolbar class="head-toolbar" fxLayout="row" fxLayoutAlign="space-between center">
+    <div  class="menu-header">  
+        <span>
+            Master /
+        </span>
+       <span style="color:#ccc">View and Update Goods Details</span> 
+    </div>
+    <button mat-icon-button matTooltip="Edit" (click)="checkPermission()" *ngIf="!isEdit">
+        <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button  matTooltip="View" *ngIf="isEdit" (click)="viewDetails()">
+        <mat-icon>collections_bookmark</mat-icon>
+    </button>
+
+</mat-toolbar>
+<button mat-icon-button *ngIf="width != 25"  class="treeIcon" (click)="maxWidth()" matTooltip="Expand Tree">
+    <mat-icon>account_tree
+    </mat-icon>
+</button>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div [style.width.%]="width" style="height: 93vh;background-color: #ccc;border-right: 1px solid #ccc;" *ngIf="width != 40">
+              <div fxLayout="row" fxLayoutAlign="end center">
+                <div>
+                  <button mat-icon-button (click)="refresh()" matTooltip="Refresh Tree">
+                    <mat-icon>refresh</mat-icon>
+                  </button>
+                  <button mat-icon-button (click)="minWidth()" matTooltip="Collapse Tree">
+                    <mat-icon>keyboard_arrow_left</mat-icon>
+                  </button>
+          
+                </div>
+          
+              </div>
+              <div *ngIf="width != 40">
+                  <app-tree [dataSrc]="dataSrc" (dataNodeChange)="dataNode($event)" (nodeLabelChange)="nodeLabel($event)"></app-tree>
+              </div>
+          
+            </div>
+    <div style="height: 93vh;width: 100%;margin:16px">
+      <mat-card class="padding">
+        <div class="padding fixed-height">
+  
+            <app-business-form [isEdit]="isEdit" [business]="business" (saveData)="saveData($event)"></app-business-form>
+        </div>
+      </mat-card>
+
+    </div>
+  </div>

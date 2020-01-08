@@ -1,5 +1,5 @@
 export class masterBank {
-    BBID:any
+    BBId:any
     BankName:any 
     BranchName:any
     Location:any

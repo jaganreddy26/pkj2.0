@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild,TemplateRef } from '@angular/core';
 import { Service } from '../../../../shared/entities/service';
 import { ModuleService } from '../../../module.service';
 import { AppService } from '../../../../shared/service/app.service';
 import { ResizeEvent } from 'angular-resizable-element';
+import {ServiceFormComponent} from '../service-form/service-form.component';
+import { MatDialog } from '@angular/material';
 @Component({
   selector: 'app-view-service',
   templateUrl: './view-service.component.html',
   styleUrls: ['./view-service.component.css']
 })
 export class ViewServiceComponent implements OnInit {
+  @ViewChild(ServiceFormComponent, { static: false }) viewServiceForm: ServiceFormComponent;
+  @ViewChild('statusDialog', { static: true }) statusDialog: TemplateRef<any>;
   height: any = 43;
   previousHeight: number = 43;
   innerHeight: number;
@@ -24,7 +28,10 @@ export class ViewServiceComponent implements OnInit {
   isNodelLabelChange: boolean = false;
   childrenNode: any;
   status: any;
-  constructor(private modelservice: ModuleService, private appService: AppService) { }
+
+  isCheckForm: boolean = false;
+  constructor(private modelservice: ModuleService, private appService: AppService,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
     this.maxHeight = window.innerHeight - 56;
@@ -89,9 +96,18 @@ export class ViewServiceComponent implements OnInit {
       this.childrenNode = node;
       this.isNodelLabelChange = true;
     }
+
+    if (this.viewServiceForm.myForm.touched) {
+      this.openDialog();
+    } else {
+      this.changeNode();
+
+    }
+
+  }
+  changeNode() {
     this.releaseLock()
     this.serviceDetailsById();
-
   }
   serviceDetailsById() {
     let obj = {
@@ -126,7 +142,12 @@ export class ViewServiceComponent implements OnInit {
     this.getTreeData();
   }
   viewDetails() {
-    this.releaseLock();
+    if (this.viewServiceForm.myForm.touched) {
+      this.openDialog();
+    } else {
+      this.isEdit = false;
+      this.releaseLock();
+    }
   }
   releaseLock() {
     let url = 'ManageTransactionLockApi/ReleaseContextLock';
@@ -154,7 +175,7 @@ export class ViewServiceComponent implements OnInit {
       this.status = 0
     }
     let object = {
-      "ServiceId":this.childrenNode.Id,
+      "ServiceId":$event.ServiceId,
       "ServiceName": $event.ServiceName,
       "ServiceType":$event.ServiceType,
       "Status": this.status,
@@ -171,4 +192,33 @@ export class ViewServiceComponent implements OnInit {
       }
     })
   }
+  openDialog() {
+    this.isCheckForm = true;
+    this.dialog.open(this.statusDialog, { disableClose: true });
+  }
+  saveChanges() {
+    //console.log("savedata");
+        // if (this.viewGoodsForm.myForm.touched) {
+         // console.log("savedatain");
+          this.saveData(this.service);
+          this.closeDialog();
+          this.isEdit = false;
+          this.viewServiceForm.myForm.reset();
+          return true;
+       // }
+        
+      }
+      closeDialog() {
+        this.dialog.closeAll();
+      }
+      discardChanges() {
+
+        // if (this.viewGoodsForm.myForm.touched) {
+           this.viewServiceForm.myForm.reset();
+           this.serviceDetailsById();
+           this.closeDialog();
+           return true;
+        // }
+         //this.closeDialog();
+       }
 }

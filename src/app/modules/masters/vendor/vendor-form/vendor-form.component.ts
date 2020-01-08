@@ -13,15 +13,20 @@ export class VendorFormComponent implements OnInit {
   @ViewChild(NgForm, { static: true }) myForm: NgForm; 
   @Input() dataLoad: any = [];
   @Input() isEdit: boolean;
-
-
   @Output() saveData = new EventEmitter();
-  constructor() { }
 
+  constructor() { }
+  ngOnChanges(changes: SimpleChanges) {
+
+  }
   ngOnInit() {
     
   }
   onSubmit(form) {
     this.saveData.emit(this.vendor)
+  }
+  ngOnDestroy(): void {
+    
+
   }
 }

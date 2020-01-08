@@ -1,4 +1,4 @@
-<form name="myForm" (ngSubmit)="myForm.form.valid && onSubmit(myForm)" #myForm="ngForm" novalidate fxLayout="row wrap"
+<form name="myForm" (ngSubmit)="myForm.form.valid && onSubmit(myForm)" #myForm1="ngForm" novalidate fxLayout="row wrap"
     fxLayoutAlign="start center">
     <app-input fxFlex="33.3" [form]="myForm" class="padding-left" labelName="Vendor Name" type="text"
         filedName="VendorName" [filedValue]="vendor" required="true" errorRequired="CompanyName is required"
@@ -14,19 +14,6 @@
         [filedValue]="vendor" required="false" [readonly]="!isEdit">
     </app-input>
     
-    <!-- <mat-form-field appearance="outline" fxFlex="33.3">
-            <mat-label>State</mat-label>
-            <mat-select name="StateId" [(ngModel)]="company.StateId" #model="ngModel"  required="true" >
-                <mat-option *ngFor="let item of dataLoad" [value]="item.SteteId">
-                {{item.StateName}}
-                </mat-option>
-            </mat-select>
-            <mat-error> 
-            <div *ngIf="myForm.submitted && model.invalid || model.touched && model.invalid">
-            <span *ngIf="model.errors.required">{{errorRequired}}</span> 
-            </div>
-            </mat-error>
-            </mat-form-field> -->
     <app-input fxFlex="33.3" [form]="myForm" class="padding-left" labelName="Phone1" type="text" filedName="Phone1"
         [filedValue]="vendor" required="true" errorRequired="Phone1 is required" [readonly]="!isEdit">
     </app-input>
@@ -65,11 +52,6 @@
         [readonly]="!isEdit">
     </app-input>
    
-    <!-- <mat-radio-group class="padding-left" fxFlex="33.3" aria-label="ActiveStatus" [(ngModel)]="vendor.Status"
-        [disabled]="!isEdit" [ngModelOptions]="{standalone: true}">
-        <mat-radio-button [value]="true">Active</mat-radio-button>
-        <mat-radio-button [value]="false">In - Active</mat-radio-button>
-    </mat-radio-group> -->
 
     <div fxLayoutAlign="end end" fxFlex="100">
         <button mat-raised-button color="primary" *ngIf="!isEdit" type="submit" [disabled]="!isEdit">

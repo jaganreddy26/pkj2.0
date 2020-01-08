@@ -229,7 +229,7 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
     this.entityParent = data.join('/');
     console.log(this.entityParent);
     localStorage.setItem('businessTree', JSON.stringify(this.nodeArray))
-
+console.log(this.nodeArray);
   }
   nodeLabel(node) {
     console.log(node);
@@ -511,7 +511,7 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
 
   }
   openDialog() {
-    this.isCheckForm = true;
+    this.isCheckForm = true; 
     this.dialog.open(this.statusDialog, { disableClose: true });
   }
   saveChanges() {

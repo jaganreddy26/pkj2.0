@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,TemplateRef,ViewChild, ɵConsole} from '@angular/core';
 import { masterBank } from '../../../../shared/entities/masterBank';
 import { ModuleService } from '../../../module.service';
 import { AppService } from '../../../../shared/service/app.service';
 import { ResizeEvent } from 'angular-resizable-element';
+import {BankFormComponent} from '../../bank/bank-form/bank-form.component';
+import { MatDialog } from '@angular/material';
 @Component({
   selector: 'app-view-bank',
   templateUrl: './view-bank.component.html',
   styleUrls: ['./view-bank.component.css']
 })
 export class ViewBankComponent implements OnInit {
+  @ViewChild(BankFormComponent, { static: false }) bankForm: BankFormComponent;
+  @ViewChild('statusDialog', { static: true }) statusDialog: TemplateRef<any>;
   height: any = 43;
   previousHeight: number = 43;
   innerHeight: number;
@@ -24,7 +28,10 @@ export class ViewBankComponent implements OnInit {
   isNodelLabelChange: boolean = false;
   childrenNode: any;
   status: any;
-  constructor(private service: ModuleService, private appService: AppService, ) { }
+
+  isCheckForm: boolean = false;
+  constructor(private service: ModuleService, private appService: AppService,
+    private dialog: MatDialog ) { }
 
   ngOnInit() {
     this.maxHeight = window.innerHeight - 56;
@@ -89,9 +96,17 @@ export class ViewBankComponent implements OnInit {
       this.childrenNode = node;
       this.isNodelLabelChange = true;
     }
-    this.releaseLock();
-    this.bankDetailsById();
+    if (this.bankForm.myForm.touched) {
+      this.openDialog();
+    } else {
+      this.changeNode();
 
+    }
+
+  }
+  changeNode() {
+    this.releaseLock()
+    this.bankDetailsById();
   }
   bankDetailsById() {
     let obj = {
@@ -103,6 +118,7 @@ export class ViewBankComponent implements OnInit {
       console.log(data);
       if (data.length != 0) {
         this.bank = data[0];
+        console.log(this.bank);
       }
     })
   }
@@ -110,15 +126,16 @@ export class ViewBankComponent implements OnInit {
     this.getTreeData();
   }
   checkPermission() {
-
+console.log(this.bank);
     let url = 'ManageTransactionLockApi/SetContextLock';
     let obj = {
       "Type": 'Master',
       "LockContextType": 'Bank',
-      "LockContextValue": this.bank.BBID,
+      "LockContextValue": this.bank.BBId,
       "UserID": 'A01_Administrator'
     }
-
+    console.log(this.bank.BBId)
+    console.log(obj);
     this.service.postData(obj, url).subscribe((data: any) => {
       this.isEdit = data.Status;
 
@@ -147,7 +164,12 @@ export class ViewBankComponent implements OnInit {
     })
   }
   viewDetails() {
-    this.releaseLock();
+    if (this.bankForm.myForm.touched) {
+      this.openDialog();
+    } else {
+      this.isEdit = false;
+      this.releaseLock();
+    }
   }
   saveData($event) {
     if ($event.Status == true) {
@@ -157,7 +179,7 @@ export class ViewBankComponent implements OnInit {
       this.status = 0
     }
     let object = {
-      "BBID":$event.BBID,
+      "BBID":$event.BBId,
       "BankName":$event.BankName,
       "BranchName": $event.BranchName,
       "Location": $event.Location,
@@ -173,11 +195,41 @@ export class ViewBankComponent implements OnInit {
       console.log(data);
       if (data != null) {
         this.appService.showMessage('Saved Successfully', 'X');
-     
+        this.isEdit = false;
+        this.bankForm.myForm.reset();
       }
       else {
         this.appService.showMessage('Somethimg went wrong', 'X');
       }
     })
   }
+  openDialog() {
+    this.isCheckForm = true;
+    this.dialog.open(this.statusDialog, { disableClose: true });
+  }
+  saveChanges() {
+    //console.log("savedata");
+        // if (this.viewGoodsForm.myForm.touched) {
+         // console.log("savedatain");
+          this.saveData(this.bank);
+          this.closeDialog();
+          this.isEdit = false;
+          this.bankForm.myForm.reset();
+          return true;
+       // }
+        
+      }
+      closeDialog() {
+        this.dialog.closeAll();
+      }
+      discardChanges() {
+
+        // if (this.viewGoodsForm.myForm.touched) {
+           this.bankForm.myForm.reset();
+           this.bankDetailsById();
+           this.closeDialog();
+           return true;
+        // }
+         //this.closeDialog();
+       }
 }

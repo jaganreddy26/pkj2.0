@@ -1,0 +1,51 @@
+
+   <mat-toolbar class="head-toolbar" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+        <button mat-icon-button *ngIf="width != 70" (click)="maxWidth()" matTooltip="Expand Tree">
+           
+          </button>
+          Add BusinessType
+    </div>
+  
+
+  
+  </mat-toolbar>
+  <div fxLayout="row" fxLayoutAlign="center center">
+  
+    <div style="height: 93vh;">
+      <div>
+  
+      </div>
+  
+      <mat-card class="padding">
+        <div class="padding fixed-height">
+          <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="6px">
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>BusinessType</mat-label>
+              <input matInput placeholder="Placeholder" [(ngModel)]="businessType">
+            </mat-form-field>
+        
+            <div fxLayoutAlign="center center" fxFlex="100">
+              <button mat-button (click)="addBusiness(business)">Save</button>
+            </div>
+  
+          </div>
+  
+        </div>
+      </mat-card>
+  
+    
+    </div>
+  </div>
+
+  
+<ng-template #business>
+    <h2 matDialogTitle>Maximum 26 business types can be added. Are you sure to create a business type?</h2>
+
+      
+        <mat-dialog-actions align="end">
+            <button mat-button type="submit" (click)="createBusiness()" color="primary">Create</button>
+            <button mat-button matDialogClose type="reset" color="primary">Close</button>
+        </mat-dialog-actions>
+ 
+</ng-template>
