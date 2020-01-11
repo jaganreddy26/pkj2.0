@@ -1,4 +1,4 @@
-.treeIcon{
+/* .treeIcon{
     position: fixed;
     top: 11%;
     left: 14%;
@@ -9,4 +9,14 @@
   .menu-header{
     font-weight: 400;
     
-  }
+  } */
+  .treeIcon{
+    position: absolute;
+    left: 0px;
+    z-index: 999;
+    background:#f39c38;
+    color: #fff;
+}
+.menu-header{
+    font-weight: 400;
+}

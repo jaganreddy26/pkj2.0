@@ -12,11 +12,10 @@ import { MatDialog } from '@angular/material';
 })
 export class ViewBankComponent implements OnInit {
   @ViewChild(BankFormComponent, { static: false }) bankForm: BankFormComponent;
-  @ViewChild('statusDialog', { static: true }) statusDialog: TemplateRef<any>;
   height: any = 43;
   previousHeight: number = 43;
   innerHeight: number;
-  width: number = 70;
+  width: number = 25;
   maxHeight: number;
   restoreHeight: number;
   selectedTab: any = 0;
@@ -32,7 +31,7 @@ export class ViewBankComponent implements OnInit {
   isCheckForm: boolean = false;
   constructor(private service: ModuleService, private appService: AppService,
     private dialog: MatDialog ) { }
-
+    @ViewChild('statusDialog', { static: true }) statusDialog: TemplateRef<any>;
   ngOnInit() {
     this.maxHeight = window.innerHeight - 56;
     if (localStorage.getItem('ubt')) {
@@ -44,6 +43,7 @@ export class ViewBankComponent implements OnInit {
     if (localStorage.getItem('ubtHeight')) {
       this.height = localStorage.getItem('ubtHeight');
     } else {
+      this.height = 43;
       this.height = (window.innerHeight) / 2.2;
     }
     this.getTreeData();
@@ -58,21 +58,28 @@ export class ViewBankComponent implements OnInit {
     }
   }
   minWidth() {
-    this.width = 40;
+    this.width = 0;
 
   }
   maxWidth() {
-    this.width = 70;
+    this.width = 25;
   }
   min() {
     this.height = 43;
   }
   max() {
-    if (this.height != window.innerHeight - 56) {
-      this.height = window.innerHeight - 56;
+    if (this.height != window.innerHeight - 90) {
+      this.height = window.innerHeight - 90;
     } else {
       this.height = this.previousHeight;
     }
+  }
+  previous() {
+    this.height = this.previousHeight;
+  }
+  restore() {
+    this.height = (window.innerHeight) / 2.2;
+    this.restoreHeight = (window.innerHeight) / 2.2;
   }
   getTreeData() {
     let object = {
@@ -91,18 +98,21 @@ export class ViewBankComponent implements OnInit {
   nodeLabel(node) {
     this.isEdit = false;
     console.log(node);
+    this.isNodelLabelChange = true;
     if (node) {
       localStorage.setItem('nodeLabel', node);
       this.childrenNode = node;
-      this.isNodelLabelChange = true;
+      // this.isNodelLabelChange = true;
     }
+   // alert(this.bankForm.myForm.touched);
     if (this.bankForm.myForm.touched) {
+     // alert(this.bankForm.myForm.touched);
       this.openDialog();
     } else {
       this.changeNode();
 
     }
-
+    // alert(this.bankForm.myForm.touched);
   }
   changeNode() {
     this.releaseLock()
@@ -164,6 +174,7 @@ console.log(this.bank);
     })
   }
   viewDetails() {
+   
     if (this.bankForm.myForm.touched) {
       this.openDialog();
     } else {
@@ -204,27 +215,30 @@ console.log(this.bank);
     })
   }
   openDialog() {
-    this.isCheckForm = true;
+    // this.isCheckForm = true;
+    // this.dialog.open(this.statusDialog, { disableClose: true });
+    this.isCheckForm = true; 
     this.dialog.open(this.statusDialog, { disableClose: true });
   }
   saveChanges() {
-    //console.log("savedata");
-        // if (this.viewGoodsForm.myForm.touched) {
-         // console.log("savedatain");
+  
+    console.log("savedata");
+        // if (this.bankForm.myForm.touched) {   
+         console.log("savedatain");
           this.saveData(this.bank);
           this.closeDialog();
           this.isEdit = false;
           this.bankForm.myForm.reset();
           return true;
-       // }
+     // }
         
       }
       closeDialog() {
         this.dialog.closeAll();
       }
       discardChanges() {
-
-        // if (this.viewGoodsForm.myForm.touched) {
+      //alert(this.bankForm.myForm.touched);
+      // if (this.bankForm.myForm.touched) {
            this.bankForm.myForm.reset();
            this.bankDetailsById();
            this.closeDialog();

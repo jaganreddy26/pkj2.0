@@ -16,7 +16,7 @@ export class ViewServiceComponent implements OnInit {
   height: any = 43;
   previousHeight: number = 43;
   innerHeight: number;
-  width: number = 70;
+  width: number = 25;
   maxHeight: number;
   restoreHeight: number;
   selectedTab: any = 0;
@@ -44,6 +44,7 @@ export class ViewServiceComponent implements OnInit {
     if (localStorage.getItem('ubtHeight')) {
       this.height = localStorage.getItem('ubtHeight');
     } else {
+      this.height = 43;
       this.height = (window.innerHeight) / 2.2;
     }
     this.getTreeData();
@@ -58,21 +59,28 @@ export class ViewServiceComponent implements OnInit {
     }
   }
   minWidth() {
-    this.width = 40;
+    this.width = 0;
 
   }
   maxWidth() {
-    this.width = 70;
+    this.width = 25;
   }
   min() {
     this.height = 43;
   }
   max() {
-    if (this.height != window.innerHeight - 56) {
-      this.height = window.innerHeight - 56;
+    if (this.height != window.innerHeight - 90) {
+      this.height = window.innerHeight - 90;
     } else {
       this.height = this.previousHeight;
     }
+  }
+  previous() {
+    this.height = this.previousHeight;
+  }
+  restore() {
+    this.height = (window.innerHeight) / 2.2;
+    this.restoreHeight = (window.innerHeight) / 2.2;
   }
   getTreeData() {
     let object = {

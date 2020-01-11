@@ -114,7 +114,27 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes), SharedModule.forRoot()],
   exports: [RouterModule],
-  declarations:[OprationComponent,UbtComponent,ViewUbtComponent,EditUbtComponent,AdminstrationComponent, CompanyFormComponent, ViewAndUpdateCompanyComponent, DocumentsComponent, DirectorsComponent, CustomerComponent, VendorComponent, BankComponent,LoginComponent, MasterComponent, AddCustomerComponent, CustomerAddComponent, NewCustomerComponent, AgencyComponent, ViewCustomerDetailsComponent, NewVendorComponent, AddVendorDetailsComponent, MasterVendorsComponent, VendorFormComponent, GoodsComponent, ServiceComponent, ViewVendorDetailsComponent, MasterAgencyComponent, AddAgencyComponent, ViewAgencyComponent, AgencyFormComponent, MasterGoodsComponent, AddGroupComponent, ViewGoodsComponent, GoodsFormComponent, MasterServiceComponent, AddServiceComponent, ViewServiceComponent, ServiceFormComponent, MasterBankComponent, BankFormComponent, AddbankComponent, ViewBankComponent, MasterBusinessComponent, AddBusinessComponent, ViewBusinessComponent, BusinessFormComponent, AddCompanyComponent, MasterCompanyComponent, AddCompanyFormComponent, CustomerFormComponent],
-  providers: [ModuleService,VendorService]
+  declarations:[OprationComponent
+    ,UbtComponent
+    ,ViewUbtComponent
+    ,EditUbtComponent
+    ,AdminstrationComponent
+    , CompanyFormComponent
+    , ViewAndUpdateCompanyComponent
+    , DocumentsComponent
+    , DirectorsComponent
+    , CustomerComponent
+    , VendorComponent
+    , BankComponent
+    ,LoginComponent
+    , MasterComponent
+    , AddCustomerComponent
+    , CustomerAddComponent
+    , NewCustomerComponent
+    , AgencyComponent
+    , ViewCustomerDetailsComponent
+    , NewVendorComponent
+    , AddVendorDetailsComponent, MasterVendorsComponent, VendorFormComponent, GoodsComponent, ServiceComponent, ViewVendorDetailsComponent, MasterAgencyComponent, AddAgencyComponent, ViewAgencyComponent, AgencyFormComponent, MasterGoodsComponent, AddGroupComponent, ViewGoodsComponent, GoodsFormComponent, MasterServiceComponent, AddServiceComponent, ViewServiceComponent, ServiceFormComponent, MasterBankComponent, BankFormComponent, AddbankComponent, ViewBankComponent, MasterBusinessComponent, AddBusinessComponent, ViewBusinessComponent, BusinessFormComponent, AddCompanyComponent, MasterCompanyComponent, AddCompanyFormComponent, CustomerFormComponent],
+  providers: [ModuleService,VendorService,BankService]
 })
 export class ModuleModule { }

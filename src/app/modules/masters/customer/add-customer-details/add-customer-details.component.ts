@@ -8,6 +8,7 @@ import { Customer } from '../../../../shared/entities/customer';
 import { AppService } from '../../../../shared/service/app.service';
 import { DocumentFiles } from '../../../../shared/entities/document';
 import { Bank } from '../../../../shared/entities/bank';
+import { AppComponent } from '../../../../app.component';
 @Component({
   selector: 'app-add-customer',
   templateUrl: './add-customer-details.component.html',
@@ -45,12 +46,14 @@ export class AddCustomerComponent implements OnInit {
   bankObj: Bank = new Bank();
   isEditTab:boolean=false;
   @ViewChild(NgForm, { static: true }) myForm: NgForm;
-  constructor(private router: Router, private service: ModuleService, private appService: AppService) {
+  constructor(private router: Router, private service: ModuleService, private appService: AppService,private appComponent: AppComponent) {
     this.customer.CustomerName = history.state.data;
     this.getStates();
     this.getCustomerType();
     this.getBankBranchs();
-    //this.getTreeData();
+    //this.getTreeData(); 
+
+    console.log(appComponent.isOpen);
   }
 
   ngOnInit() {
@@ -64,6 +67,7 @@ export class AddCustomerComponent implements OnInit {
     if (localStorage.getItem('ubtHeight')) {
       this.height = localStorage.getItem('ubtHeight');
     } else {
+      this.height = 43;
       this.height = (window.innerHeight) / 2.2;
     }
   }
@@ -81,18 +85,18 @@ export class AddCustomerComponent implements OnInit {
     }
   }
   minWidth() {
-    this.width = 40;
+    this.width = 0;
 
   }
   maxWidth() {
-    this.width = 70;
+    this.width = 25;
   }
   min() {
     this.height = 43;
   }
   max() {
-    if (this.height != window.innerHeight - 56) {
-      this.height = window.innerHeight - 56;
+    if (this.height != window.innerHeight - 90) {
+      this.height = window.innerHeight - 90;
     } else {
       this.height = this.previousHeight;
     }

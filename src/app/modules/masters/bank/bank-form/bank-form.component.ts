@@ -7,7 +7,7 @@ import {masterBank} from '../../../../shared/entities/masterBank';
   templateUrl: './bank-form.component.html',
   styleUrls: ['./bank-form.component.css']
 })
-export class BankFormComponent implements OnInit {
+export class BankFormComponent implements OnInit,OnDestroy {
   validators:any = Validators;
   @Input() bank: masterBank = new masterBank();
   @ViewChild(NgForm, { static: true }) myForm: NgForm;
@@ -17,12 +17,17 @@ export class BankFormComponent implements OnInit {
 
   @Output() saveData = new EventEmitter();
   constructor() { }
+  ngOnChanges(changes: SimpleChanges) {
 
+  }
   ngOnInit() {
   }
   onSubmit(form) {
     this.saveData.emit(this.bank)
   }
+  ngOnDestroy(): void {
+    
 
+  }
 
 }

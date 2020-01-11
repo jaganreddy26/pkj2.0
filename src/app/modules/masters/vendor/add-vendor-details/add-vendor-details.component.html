@@ -1,34 +1,21 @@
 <mat-toolbar class="head-toolbar" fxLayout="row" fxLayoutAlign="space-between center">
   <div>
+    <div class="menu-header">
+      <span>Master /vendor</span> 
+      <span style="color:#ccc">Add Vendor Details</span>
+  </div>
     <button mat-icon-button *ngIf="width != 70" (click)="maxWidth()" matTooltip="Expand Tree">
       <mat-icon>account_tree
       </mat-icon>
     </button>
-    Add Vendor Details
+    <!-- Add Vendor Detailss -->
   </div>
-
+  
 
 </mat-toolbar>
 
 <div fxLayout="row" fxLayoutAlign="center center">
-  <!-- <div [style.width.%]="width" style="height: 93vh;background-color: #ccc;border-right: 1px solid #ccc;" *ngIf="width != 40">
-            <div fxLayout="row" fxLayoutAlign="end center">
-              <div>
-                <button mat-icon-button (click)="refresh()" matTooltip="Refresh Tree">
-                  <mat-icon>refresh</mat-icon>
-                </button>
-                <button mat-icon-button (click)="minWidth()" matTooltip="Collapse Tree">
-                  <mat-icon>keyboard_arrow_left</mat-icon>
-                </button>
-        
-              </div>
-        
-            </div>
-            <div *ngIf="width != 40">
-                <app-tree [dataSrc]="dataSrc" (dataNodeChange)="dataNode($event)" (nodeLabelChange)="nodeLabel($event)"></app-tree>
-            </div>
-        
-          </div> -->
+
   <div style="height: 93vh;width: 100%;margin:16px">
     <mat-card class="padding">
       <div class="padding fixed-height">
@@ -91,6 +78,7 @@
         </mat-tab-group>
 
       </div>
+    
     </div>
 
   </div>

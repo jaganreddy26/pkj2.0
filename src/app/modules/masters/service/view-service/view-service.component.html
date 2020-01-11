@@ -1,61 +1,63 @@
-<mat-toolbar class="head-toolbar" fxLayout="row" fxLayoutAlign="space-between center">
-    <div  class="menu-header">  
-        <span>
-            Master /
-        </span>
-       <span style="color:#ccc">View and Update Service Details</span> 
-    </div>
-    <button mat-icon-button matTooltip="Edit" (click)="checkPermission()" *ngIf="!isEdit">
-        <mat-icon>edit</mat-icon>
-    </button>
-    <button mat-icon-button  matTooltip="View" *ngIf="isEdit" (click)="viewDetails()">
-        <mat-icon>collections_bookmark</mat-icon>
-    </button>
+<mat-toolbar class="head-toolbar" fxLayout="row" fxLayoutAlign="space-between center" style="background-color:#fff !important;width:99%">
+  <div class="menu-header">
+    <span>
+      Master /
+    </span>
+    <span style="color:#ccc">View and Update Service Details</span>
+  </div>
+  <button mat-icon-button matTooltip="Edit" (click)="checkPermission()" *ngIf="!isEdit" style="padding-left:24px;padding-top: 6px;">
+    <mat-icon>edit</mat-icon>
+  </button>
+  <button mat-icon-button matTooltip="View" *ngIf="isEdit" (click)="viewDetails()">
+    <mat-icon>collections_bookmark</mat-icon>
+  </button>
 
 </mat-toolbar>
-<button mat-icon-button *ngIf="width != 25"  class="treeIcon" (click)="maxWidth()" matTooltip="Expand Tree">
-    <mat-icon>account_tree
-    </mat-icon>
+<button mat-icon-button *ngIf="width != 25" class="treeIcon" (click)="maxWidth()" matTooltip="Expand Tree">
+  <mat-icon>account_tree
+  </mat-icon>
 </button>
-  <div fxLayout="row" fxLayoutAlign="center center">
-    <div [style.width.%]="width" style="height: 93vh;background-color: #ccc;border-right: 1px solid #ccc;" *ngIf="width != 40">
-              <div fxLayout="row" fxLayoutAlign="end center">
-                <div>
-                  <button mat-icon-button (click)="refresh()" matTooltip="Refresh Tree">
-                    <mat-icon>refresh</mat-icon>
-                  </button>
-                  <button mat-icon-button (click)="minWidth()" matTooltip="Collapse Tree">
-                    <mat-icon>keyboard_arrow_left</mat-icon>
-                  </button>
-          
-                </div>
-          
-              </div>
-              <div *ngIf="width != 40">
-                  <app-tree [dataSrc]="dataSrc" (dataNodeChange)="dataNode($event)" (nodeLabelChange)="nodeLabel($event)"></app-tree>
-              </div>
-          
-            </div>
-    <div style="height: 93vh;width: 100%;margin:16px">
-      <mat-card class="padding">
-        <div class="padding fixed-height">
-  
-            <app-service-form [isEdit]="isEdit" [service]="service" (saveData)="saveData($event)"></app-service-form>
-        </div>
-      </mat-card>
+<div fxLayout="row" fxLayoutAlign="start center">
+  <div *ngIf="width != 0" [style.width.%]="width"
+    style="height: 93vh;background-color: #ccc;border-right: 1px solid #ccc;">
+    <div fxLayout="row" fxLayoutAlign="end center">
+      <div>
+        <button mat-icon-button (click)="refresh()" matTooltip="Refresh Tree">
+          <mat-icon>refresh</mat-icon>
+        </button>
+        <button mat-icon-button (click)="minWidth()" matTooltip="Collapse Tree">
+          <mat-icon>close</mat-icon>
+        </button>
+
+      </div>
 
     </div>
+    <div *ngIf="width != 40">
+      <app-tree [dataSrc]="dataSrc" (dataNodeChange)="dataNode($event)" (nodeLabelChange)="nodeLabel($event)">
+      </app-tree>
+    </div>
+
   </div>
-  <ng-template #statusDialog>
-    <h2 matDialogTitle>Confirm</h2>
-    <mat-dialog-content>
-        <p>
-         Changes that you made may not be saved.
-        </p>
-           
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-            <button mat-button (click)="saveChanges()">Save the changes</button>
-            <button mat-button (click)="discardChanges()">Discard the changes</button>
-    </mat-dialog-actions>
-  </ng-template>
+  <div style="height: 93vh;width: 100%;margin:16px">
+    <mat-card class="padding">
+      <div class="padding fixed-height">
+
+        <app-service-form [isEdit]="isEdit" [service]="service" (saveData)="saveData($event)"></app-service-form>
+      </div>
+    </mat-card>
+
+  </div>
+</div>
+<ng-template #statusDialog>
+  <h2 matDialogTitle>Confirm</h2>
+  <mat-dialog-content>
+    <p>
+      Changes that you made may not be saved.
+    </p>
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="saveChanges()">Save the changes</button>
+    <button mat-button (click)="discardChanges()">Discard the changes</button>
+  </mat-dialog-actions>
+</ng-template>
