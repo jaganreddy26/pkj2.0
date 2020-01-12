@@ -1,4 +1,4 @@
-<mat-toolbar class="head-toolbar" fxLayout="row" fxLayoutAlign="space-between center"   style="background-color:#fff !important;width:99%">
+<mat-toolbar class="head-toolbar" fxLayout="row" fxLayoutAlign="space-between center"   >
     <div  class="menu-header">  
         <span>
             Master /
@@ -9,7 +9,7 @@
     mat-icon-button matTooltip="Edit"
      (click)="checkPermission()" 
      *ngIf="!isEdit"
-     style="padding-left:24px;padding-top: 6px;">
+     style="padding-left:0px;padding-top: 8px;">
         <mat-icon>edit</mat-icon>
     </button>
     <button mat-icon-button  matTooltip="View" *ngIf="isEdit" (click)="viewDetails()">

@@ -62,11 +62,18 @@
     <app-input fxFlex="33.3" [form]="myForm" class="padding-left" labelName="Website URL" type="text" filedName="URL"
         [filedValue]="company" required="false" [readonly]="!isEdit">
     </app-input>
-    <mat-radio-group class="padding-left" fxFlex="33.3" aria-label="ActiveStatus" [(ngModel)]="company.Status"
+    <!-- <mat-radio-group class="padding-left" fxFlex="33.3" aria-label="ActiveStatus" [(ngModel)]="company.Status"
         [disabled]="!isEdit" [ngModelOptions]="{standalone: true}">
         <mat-radio-button [value]="true">Active</mat-radio-button>
         <mat-radio-button [value]="false">In - Active</mat-radio-button>
-    </mat-radio-group>
+    </mat-radio-group> -->
+    <mat-slide-toggle
+    class="example-margin"
+    color="primary"
+    [checked]="company.Status"
+    >
+  Active
+</mat-slide-toggle>
 
     <div fxLayoutAlign="end end" fxFlex="100">
         <button mat-raised-button color="primary" *ngIf="!isEdit" type="submit" [disabled]="!isEdit">
