@@ -148,10 +148,11 @@ export class ViewAndUpdateCompanyComponent implements OnInit {
         'Children': this.dataSrc
       }
       let treeData = this.findParents(datas, this.companyId);
+      if(treeData){
         this.entityParent = treeData.join('/');
         this.getAllData();
         console.log(this.entityParent);
-    
+      }
     })
   }
   onResizeEnd(event: ResizeEvent) {
