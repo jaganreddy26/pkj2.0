@@ -228,3 +228,13 @@ table {
 .mat-toolbar{
     background-color: #f8f8f8f8 !important;
 }
+.treeIcon{
+    position: absolute;
+    left: 0px;
+    z-index: 999;
+    background:#f39c38;
+    color: #fff;
+}
+.menu-header{
+    font-weight: 400;
+}

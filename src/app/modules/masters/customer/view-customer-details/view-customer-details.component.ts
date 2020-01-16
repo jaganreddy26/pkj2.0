@@ -5,6 +5,8 @@ import { Customer } from '../../../../shared/entities/customer';
 import { AppService } from '../../../../shared/service/app.service';
 import { Bank } from '../../../../shared/entities/bank';
 import { DocumentFiles } from '../../../../shared/entities/document';
+import { AppComponent } from '../../../../app.component';
+
 @Component({
   selector: 'app-view-customer-details',
   templateUrl: './view-customer-details.component.html',
@@ -14,7 +16,7 @@ export class ViewCustomerDetailsComponent implements OnInit {
   height: any = 43;
   previousHeight: number = 43;
   innerHeight: number;
-  width: number = 70;
+  width: number = 25;
   maxHeight: number;
   restoreHeight: number;
   selectedTab: any = 0;
@@ -37,7 +39,7 @@ export class ViewCustomerDetailsComponent implements OnInit {
 
   states:any=[];
   CustomerType:any=[];
-  constructor(private service: ModuleService, private appService: AppService) { }
+  constructor(private service: ModuleService, private appService: AppService,private appComponent: AppComponent) { }
 
   ngOnInit() {
     this.maxHeight = window.innerHeight - 56;
@@ -121,11 +123,11 @@ export class ViewCustomerDetailsComponent implements OnInit {
     }
   }
   minWidth() {
-    this.width = 40;
+    this.width = 0;
 
   }
   maxWidth() {
-    this.width = 70;
+    this.width = 25;
   }
   min() {
     this.height = 43;
