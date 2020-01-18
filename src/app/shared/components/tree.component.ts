@@ -80,7 +80,7 @@ export class TreeComponent implements OnInit {
 
         if(changes.dataSrc){
             this.dataSource.data = this.dataSrc;
-            if (this.treeArray.length != 0) {
+            if (this.treeArray) {
                 this.treeArray.filter((element) => {
                     for (let i = 0; i < this.treeControl.dataNodes.length; i++) {
                         if (this.treeControl.dataNodes[i].Name == element) {

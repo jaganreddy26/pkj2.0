@@ -13,7 +13,8 @@ import { BankComponent } from '../../../company/bank/bank.component';
 import { GoodsComponent } from '../../../../modules/goods/goods.component'
 import { ServiceComponent } from '../../../../modules/service/service.component';
 import { MatDialog } from '@angular/material';
-import { $ } from 'protractor';
+import { AppComponent } from '../../../../app.component';
+
 @Component({
   selector: 'app-view-vendor-details',
   templateUrl: './view-vendor-details.component.html',
@@ -31,7 +32,7 @@ export class ViewVendorDetailsComponent implements OnInit {
   height: any = 43;
   previousHeight: number = 43;
   innerHeight: number;
-  width: number = 70;
+  width: number = 25;
   maxHeight: number;
   restoreHeight: number;
   selectedTab: any = 0;
@@ -59,7 +60,7 @@ export class ViewVendorDetailsComponent implements OnInit {
 
   isCheckForm: boolean = false;
   constructor(private service: ModuleService, private appService: AppService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,private appComponent: AppComponent) { }
     @ViewChild('statusDialog', { static: true }) statusDialog: TemplateRef<any>;
   ngOnInit() {
     // this.vendor.VendorName = history.state.data
@@ -90,11 +91,11 @@ export class ViewVendorDetailsComponent implements OnInit {
     }
   }
   minWidth() {
-    this.width = 40;
+    this.width = 0;
 
   }
   maxWidth() {
-    this.width = 70;
+    this.width = 25;
   }
   min() {
     this.height = 43;

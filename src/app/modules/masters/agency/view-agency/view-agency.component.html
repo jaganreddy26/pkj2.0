@@ -1,4 +1,4 @@
-<mat-toolbar class="head-toolbar" fxLayout="row" fxLayoutAlign="space-between center"   style="background-color:#fff !important;width:99%">
+<mat-toolbar class="head-toolbar" fxLayout="row" fxLayoutAlign="space-between center"   >
     <div  class="menu-header">  
         <span>
             Master /
@@ -9,7 +9,7 @@
     mat-icon-button matTooltip="Edit"
      (click)="checkPermission()" 
      *ngIf="!isEdit"
-     style="padding-left:24px;padding-top: 6px;">
+     style="padding-left:0px;padding-top: 8px;">
         <mat-icon>edit</mat-icon>
     </button>
     <button mat-icon-button  matTooltip="View" *ngIf="isEdit" (click)="viewDetails()">
@@ -26,7 +26,7 @@ class="treeIcon"
     <mat-icon>account_tree</mat-icon>
 </button>
   <!-- <div fxLayout="row" fxLayoutAlign="center center">
-    <div [style.width.%]="width" style="height: 93vh;background-color: #ccc;border-right: 1px solid #ccc;" *ngIf="width != 40">
+    <div [style.width.%]="width" style="height: 93vh;background-color: #fff;border-right: 1px solid #ccc;" *ngIf="width != 40">
               <div fxLayout="row" fxLayoutAlign="end center">
                 <div>
                   <button mat-icon-button (click)="refresh()" matTooltip="Refresh Tree">
