@@ -58,6 +58,8 @@ import {BankService} from './masters/bank/bank.service';
 import { MasterBusinessComponent } from './masters/business/master-business/master-business.component';
 import { AddBusinessComponent } from './masters/business/add-business/add-business.component';
 import { ViewBusinessComponent } from './masters/business/view-business/view-business.component';
+import { BusinessService} from './masters/business/business.service';
+
 import { BusinessFormComponent } from './masters/business/business-form/business-form.component';
 import { AddCompanyComponent } from './masters/company/add-company/add-company.component';
 import { MasterCompanyComponent } from './masters/company/master-company/master-company.component';
@@ -105,7 +107,7 @@ const routes: Routes = [
 
   {path:'masters/Business',component:MasterBusinessComponent},
   {path:'masters/business/addbusiness',component:AddBusinessComponent},
-  {path:'masters/business/viewbusiness',component:ViewBusinessComponent},
+  {path:'masters/business/viewbusiness',component:ViewBusinessComponent,canDeactivate:[BusinessService]},
 
   {path:'masters/Comapny',component:MasterCompanyComponent},
   {path:'masters/comapny/addcompany',component:AddCompanyComponent},

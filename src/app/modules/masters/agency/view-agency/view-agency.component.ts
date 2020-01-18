@@ -100,11 +100,13 @@ export class ViewAgencyComponent implements OnInit {
   nodeLabel(node) {
     this.isEdit = false;
     console.log(node);
+    this.isNodelLabelChange = true;
     if (node) {
       localStorage.setItem('nodeLabel', node);
       this.childrenNode = node;
-      this.isNodelLabelChange = true;
+  
     }
+   // alert(this.agencyForm.myForm.touched)
     if (this.agencyForm.myForm.touched) {
       this.openDialog();
     } else {
@@ -201,6 +203,7 @@ export class ViewAgencyComponent implements OnInit {
     })
   }
   viewDetails() {
+    alert(this.agencyForm.myForm.touched)
     if (this.agencyForm.myForm.touched) {
       this.openDialog();
     } else {
@@ -214,27 +217,29 @@ export class ViewAgencyComponent implements OnInit {
   }
   saveChanges() {
     //console.log("savedata");
-        // if (this.viewGoodsForm.myForm.touched) {
+       //  if (this.agencyForm.myForm.touched) {
          // console.log("savedatain");
+       //  alert(this.agencyForm.myForm.touched)
           this.saveData(this.agency);
           this.closeDialog();
           this.isEdit = false;
           this.agencyForm.myForm.reset();
           return true;
-       // }
-        
+   // }
+    
       }
       closeDialog() {
         this.dialog.closeAll();
       }
       discardChanges() {
 
-        // if (this.viewGoodsForm.myForm.touched) {
+        if (this.agencyForm.myForm.touched) {
+          alert(this.agencyForm.myForm.touched)
            this.agencyForm.myForm.reset();
            this.agencyDetailsById();
            this.closeDialog();
            return true;
-        // }
+        }
          //this.closeDialog();
        }
 }
