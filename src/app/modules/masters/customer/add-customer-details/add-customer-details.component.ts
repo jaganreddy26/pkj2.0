@@ -15,17 +15,17 @@ import { AppComponent } from '../../../../app.component';
   styleUrls: ['./add-customer-details.component.css']
 })
 export class AddCustomerComponent implements OnInit {
-
-  customer: Customer = new Customer();
-  document: DocumentFiles = new DocumentFiles();
   height: any = 43;
   previousHeight: number = 43;
   innerHeight: number;
-  width: number = 70;
+  width: number = 25;
   maxHeight: number;
   restoreHeight: number;
-  ubt: UBT = new UBT();
   selectedTab: any = 0;
+  customer: Customer = new Customer();
+  document: DocumentFiles = new DocumentFiles();
+  ubt: UBT = new UBT();
+
   array: any = [];
   dataSrc: any = [];
   childrenNode: any;
@@ -67,7 +67,7 @@ export class AddCustomerComponent implements OnInit {
     if (localStorage.getItem('ubtHeight')) {
       this.height = localStorage.getItem('ubtHeight');
     } else {
-      this.height = 43;
+     // this.height = 43;
       this.height = (window.innerHeight) / 2.2;
     }
   }
@@ -77,7 +77,7 @@ export class AddCustomerComponent implements OnInit {
 
   onResizeEnd(event: ResizeEvent) {
     if (event) {
-      //  console.log(event.rectangle.height);
+      //  console.log(event.rectangle.height); 
       if (event.rectangle.height >= 43 && event.rectangle.height <= window.innerHeight - 56) {
         this.height = event.rectangle.height;
         this.previousHeight = this.height;
@@ -95,8 +95,8 @@ export class AddCustomerComponent implements OnInit {
     this.height = 43;
   }
   max() {
-    if (this.height != window.innerHeight - 90) {
-      this.height = window.innerHeight - 90;
+    if (this.height != window.innerHeight - 56) {
+      this.height = window.innerHeight - 56;
     } else {
       this.height = this.previousHeight;
     }
