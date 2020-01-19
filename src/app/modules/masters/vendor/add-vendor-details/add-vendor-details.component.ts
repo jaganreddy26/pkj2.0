@@ -6,6 +6,7 @@ import { ModuleService } from '../../../module.service';
 import { AppService } from '../../../../shared/service/app.service';
 import { DocumentFiles } from '../../../../shared/entities/document';
 import { Bank } from '../../../../shared/entities/bank';
+import { AppComponent } from '../../../../app.component';
 @Component({
   selector: 'app-add-vendor-details',
   templateUrl: './add-vendor-details.component.html',
@@ -16,7 +17,7 @@ export class AddVendorDetailsComponent implements OnInit {
   height: any = 43;
   previousHeight: number = 43;
   innerHeight: number;
-  width: number = 70;
+  width: number = 25;
   maxHeight: number;
   restoreHeight: number;
   selectedTab: any = 0;
@@ -37,7 +38,8 @@ export class AddVendorDetailsComponent implements OnInit {
   bankAccDetails: any = [];
   goods: any = [];
   serviceMappingDetails:any=[];
-  constructor(private service: ModuleService, private appService: AppService) { }
+  constructor(private service: ModuleService, private appService: AppService
+    ,private appComponent: AppComponent) { }
 
   ngOnInit() {
     this.vendor.VendorName = history.state.data
@@ -69,11 +71,11 @@ export class AddVendorDetailsComponent implements OnInit {
     }
   }
   minWidth() {
-    this.width = 40;
+    this.width = 0;
 
   }
   maxWidth() {
-    this.width = 70;
+    this.width = 25;
   }
   min() {
     this.height = 43;

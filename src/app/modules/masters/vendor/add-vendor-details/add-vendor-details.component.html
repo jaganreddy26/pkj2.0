@@ -1,18 +1,15 @@
 <mat-toolbar class="head-toolbar" fxLayout="row" fxLayoutAlign="space-between center">
   <div>
     <div class="menu-header">
-      <span>Master /vendor</span> 
+      <span>Master /</span> 
       <span style="color:#ccc">Add Vendor Details</span>
   </div>
-    <button mat-icon-button *ngIf="width != 70" (click)="maxWidth()" matTooltip="Expand Tree">
-      <mat-icon>account_tree
-      </mat-icon>
-    </button>
-    <!-- Add Vendor Detailss -->
   </div>
   
 
 </mat-toolbar>
+
+
 
 <div fxLayout="row" fxLayoutAlign="center center">
 
@@ -26,30 +23,59 @@
     </mat-card>
 
 
-    <div class="footer" [ngClass]=" height > 43 ? 'scroll' : 'hidden'" mwlResizable [enableGhostResize]="false"
-      [resizeEdges]="{bottom: false, right: false, top: true, left: false}" (resizeEnd)="onResizeEnd($event)"
-      [style.height.px]="height">
-      <div class="window-header" [ngClass]=" width == 40 ? 'width-off' : 'width-on'" fxLayout="row"
-        fxLayoutAlign="space-between center">
-        <div style="padding-left: 22px;">
-          Tabs
-        </div>
-        <div style="padding-right: 22px;">
-          <button mat-icon-button *ngIf="height > 43" matTooltip="Minimize" (click)="min()">
-            <mat-icon>indeterminate_check_box</mat-icon>
-          </button>
-          <button mat-icon-button *ngIf="height != restoreHeight" matTooltip="Minimize" (click)="restore()">
-            <mat-icon>restore_page</mat-icon>
-          </button>
-          <button mat-icon-button *ngIf="height != maxHeight" (click)="max()" matTooltip="Maximize">
-            <mat-icon>aspect_ratio
-            </mat-icon>
-          </button>
+    <span
+    mwlResizable
+    [enableGhostResize]="false"
+    [resizeEdges]="{bottom: false, right: false, top: true, left: false}"
+    (resizeEnd)="onResizeEnd($event)"
+        *ngIf="!appComponent.isOpen"
+        class="footer3"
+        [style.height.px]="height"
+        
+    >
+            <div
+            class="window-header"
+            [ngClass]=" width == 0 ? 'width-off' : 'width-on'"
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+        >
+            <div style="padding-left: 22px;height:4px;color:#f4f4f4">Details</div>
+            <div
+                style="padding-right: 22px;"
+                class="window-icons"
+            >
+                <button
+                    mat-icon-button
+                    *ngIf="height > 43"
+                    matTooltip="Minimize"
+                    (click)="min()"
+                >
+                    <mat-icon>indeterminate_check_box</mat-icon>
+                </button>
+                <button
+                    mat-icon-button
+                    *ngIf="height != restoreHeight"
+                    matTooltip="Restore"
+                    (click)="restore()"
+                >
+                    <mat-icon>restore_page</mat-icon>
+                </button>
+                <button
+                    mat-icon-button
+                    *ngIf="height != maxHeight"
+                    (click)="max()"
+                    matTooltip="Maximize"
+                >
+                    <mat-icon>aspect_ratio</mat-icon>
+                </button>
+            </div>
+
         </div>
 
-      </div>
-
-      <div class="content" [ngClass]=" width == 40 ? 'width-off' : 'width-on'">
+        <div
+            class="content"
+            [ngClass]=" width == 0 ? 'width-off' : 'width-on'"
+        >
         <mat-tab-group [selectedIndex]="selectedTab" (selectedTabChange)="tabChange($event)">
           <mat-tab label="Documents">
             <app-documents [isEdit]="isEditTab" [pan]="panDocumentPath" [cin]="cinDocumentPath" [tan]="tanDocumentPath"
@@ -77,9 +103,87 @@
           </mat-tab>
         </mat-tab-group>
 
-      </div>
+            </div>
+            </span>
+            <span
+            *ngIf="appComponent.isOpen"
+            class="footer1"
+            [style.height.px]="height"
+            mwlResizable
+            [enableGhostResize]="false"
+            [resizeEdges]="{bottom: false, right: false, top: true, left: false}"
+            (resizeEnd)="onResizeEnd($event)"
+        >
+            <div
+                class="window-header"
+                [ngClass]=" width == 0 ? 'width-off' : 'width-on'"
+                fxLayout="row"
+                fxLayoutAlign="space-between center"
+            >
+                <div style="padding-left: 22px;height:4px;color:#f4f4f4">Details</div>
+                <div
+                    style="padding-right: 22px;"
+                    class="window-icons"
+                >
+                    <button
+                        mat-icon-button
+                        *ngIf="height > 43"
+                        matTooltip="Minimize"
+                        (click)="min()"
+                    >
+                        <mat-icon>indeterminate_check_box</mat-icon>
+                    </button>
+                    <button
+                        mat-icon-button
+                        *ngIf="height != restoreHeight"
+                        matTooltip="Restore"
+                        (click)="restore()"
+                    >
+                        <mat-icon>restore_page</mat-icon>
+                    </button>
+                    <button
+                        mat-icon-button
+                        *ngIf="height != maxHeight"
+                        (click)="max()"
+                        matTooltip="Maximize"
+                    >
+                        <mat-icon>aspect_ratio</mat-icon>
+                    </button>
+                </div>
     
-    </div>
-
+            </div>
+    
+            <div
+                class="content"
+                [ngClass]=" width == 0 ? 'width-off' : 'width-on'"
+            >
+            <mat-tab-group [selectedIndex]="selectedTab" (selectedTabChange)="tabChange($event)">
+              <mat-tab label="Documents">
+                <app-documents [isEdit]="isEditTab" [pan]="panDocumentPath" [cin]="cinDocumentPath" [tan]="tanDocumentPath"
+                  [gstin]="gstinDocumentPath" (saveDocumentFiles)="saveDocumentFiles($event)">
+                </app-documents>
+              </mat-tab>
+              <mat-tab label="Agency Mapping">
+                <app-agency [isEdit]="isEditTab" [agencys]="agencys"
+                  (checkPermissionEvent)="checkPermissionAgencyEvent($event)" (saveAgencyEvent)="saveAgencyDetails($event)">
+                </app-agency>
+              </mat-tab>
+              <mat-tab label="Bank Mapping">
+                <app-bank [isEdit]="isEditTab" [bankAccDetails]="bankAccDetails" [bankBranches]="bankBranches"
+                  (saveBankDetails)="saveBankDetails($event)"></app-bank>
+              </mat-tab>
+              <mat-tab label="Goods Mapping">
+                <app-goods [isEdit]="isEditTab" [goods]="goods"
+                  (checkGoodsPermissionEvent)="checkGoodsPermissionEvent($event)"
+                  (saveGoodsEvent)="saveGoodsDetails($event)"></app-goods>
+              </mat-tab>
+              <mat-tab label="Service Mapping">
+                <app-service [isEdit]="isEditTab" [services]="serviceMappingDetails"
+                  (checkServicesPermissionEvent)="checkServicePermissionEvent($event)"
+                  (saveServicesEvent)="saveServicesDetails($event)"></app-service>
+              </mat-tab>
+            </mat-tab-group>
+                    </div>
+                </span>
   </div>
 </div>

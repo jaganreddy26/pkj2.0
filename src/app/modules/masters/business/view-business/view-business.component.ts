@@ -1,13 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild ,TemplateRef} from '@angular/core';
 import {Business} from '../../../../shared/entities/business';
 import { ModuleService } from '../../../module.service';
 import { AppService } from '../../../../shared/service/app.service';
+import {BusinessFormComponent} from '../business-form/business-form.component';
+import { MatDialog } from '@angular/material';
 @Component({
   selector: 'app-view-business',
   templateUrl: './view-business.component.html',
   styleUrls: ['./view-business.component.css']
 })
 export class ViewBusinessComponent implements OnInit {
+  @ViewChild(BusinessFormComponent, { static: false }) businessForm: BusinessFormComponent;
+  @ViewChild('statusDialog', { static: true }) statusDialog: TemplateRef<any>;
   height: any = 43;
   previousHeight: number = 43;
   innerHeight: number;
@@ -24,7 +28,11 @@ export class ViewBusinessComponent implements OnInit {
   isNodelLabelChange: boolean = false;
   childrenNode: any;
   status: any;
-  constructor(private service:ModuleService,private appService: AppService) { }
+
+  isCheckForm:boolean=false;
+  
+  constructor(private service:ModuleService,private appService: AppService
+  ,  private dialog: MatDialog  ) { }
 
   ngOnInit() {
     this.getTreeData()
@@ -60,7 +68,13 @@ export class ViewBusinessComponent implements OnInit {
       this.isNodelLabelChange = true;
     }
    // this.releaseLock();
-    this.businessDetailsById();
+  //  this.businessDetailsById();
+    if (this.businessForm.myForm.touched) {
+      this.openDialog();
+    } else {
+      this.changeNode();
+
+    }
 
   }
   businessDetailsById() {
@@ -80,22 +94,34 @@ export class ViewBusinessComponent implements OnInit {
   refresh() {
     this.getTreeData();
   }
-  // checkPermission() {
+  openDialog() {
+    this.isCheckForm = true;
+    this.dialog.open(this.statusDialog, { disableClose: true });
+  }
+  changeNode() {
+    //this.releaseLock()
+    this.businessDetailsById();
+  }
+  checkPermission() {
+    if (this.businessForm.myForm.touched) {
+      alert(this.businessForm.myForm.touched)
+      this.closeDialog();
+   return true;
+   }
+    // let url = 'ManageTransactionLockApi/SetContextLock';
+    // let obj = {
+    //   "Type": 'Master',
+    //   "LockContextType": 'Agency',
+    //   "LockContextValue": this.agency.AgencyId,
+    //   "UserID": 'A01_Administrator'
+    // }
 
-  //   let url = 'ManageTransactionLockApi/SetContextLock';
-  //   let obj = {
-  //     "Type": 'Master',
-  //     "LockContextType": 'Agency',
-  //     "LockContextValue": this.agency.AgencyId,
-  //     "UserID": 'A01_Administrator'
-  //   }
+    // this.service.postData(obj, url).subscribe((data: any) => {
+    //   this.isEdit = data.Status;
 
-  //   this.service.postData(obj, url).subscribe((data: any) => {
-  //     this.isEdit = data.Status;
+    // })
 
-  //   })
-
-  // }
+  }
   // releaseLock() {
   //   let url = 'ManageTransactionLockApi/ReleaseContextLock';
   //   let obj = {
@@ -117,5 +143,31 @@ export class ViewBusinessComponent implements OnInit {
   //     }
   //   })
   // }
+  saveChanges() {
+    //alert(this.businessForm.myForm.touched)
+        if (this.businessForm.myForm.touched) {
+          alert(this.businessForm.myForm.touched)
+        //  console.log("savedatain");
+        //   this.saveData(this.goods);
+          this.closeDialog();
+        //   this.isEdit = false;
+        //   this.viewGoodsForm.myForm.reset();
+       return true;
+       }
+        
+      }
+      discardChanges() {
 
+       if (this.businessForm.myForm.touched) {
+          //  this.businessForm.myForm.reset();
+           alert(this.businessForm.myForm.touched)
+          // this.agencyDetailsById();
+           this.closeDialog();
+           return true;
+      }
+         //this.closeDialog();
+       }
+      closeDialog() {
+        this.dialog.closeAll();
+      }
 }
