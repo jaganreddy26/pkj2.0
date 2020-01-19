@@ -5,6 +5,7 @@ import { AppService } from '../../../../shared/service/app.service';
 import { ResizeEvent } from 'angular-resizable-element';
 import {ServiceFormComponent} from '../service-form/service-form.component';
 import { MatDialog } from '@angular/material';
+import { AppComponent } from '../../../../app.component';
 @Component({
   selector: 'app-view-service',
   templateUrl: './view-service.component.html',
@@ -31,7 +32,7 @@ export class ViewServiceComponent implements OnInit {
 
   isCheckForm: boolean = false;
   constructor(private modelservice: ModuleService, private appService: AppService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,private appComponent:AppComponent) { }
 
   ngOnInit() {
     this.maxHeight = window.innerHeight - 56;

@@ -5,6 +5,8 @@ import { AppService } from '../../../../shared/service/app.service';
 import { ResizeEvent } from 'angular-resizable-element';
 import {BankFormComponent} from '../../bank/bank-form/bank-form.component';
 import { MatDialog } from '@angular/material';
+import { AppComponent } from '../../../../app.component';
+
 @Component({
   selector: 'app-view-bank',
   templateUrl: './view-bank.component.html',
@@ -30,7 +32,7 @@ export class ViewBankComponent implements OnInit {
 
   isCheckForm: boolean = false;
   constructor(private service: ModuleService, private appService: AppService,
-    private dialog: MatDialog ) { }
+    private dialog: MatDialog,private appComponent: AppComponent ) { }
     @ViewChild('statusDialog', { static: true }) statusDialog: TemplateRef<any>;
   ngOnInit() {
     this.maxHeight = window.innerHeight - 56;

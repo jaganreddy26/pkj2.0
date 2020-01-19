@@ -5,6 +5,7 @@ import { AppService } from '../../../../shared/service/app.service';
 import { ResizeEvent } from 'angular-resizable-element';
 import {AgencyFormComponent} from '../agency-form/agency-form.component';
 import { MatDialog } from '@angular/material';
+import { AppComponent } from '../../../../app.component';
 @Component({
   selector: 'app-view-agency',
   templateUrl: './view-agency.component.html',
@@ -30,7 +31,7 @@ export class ViewAgencyComponent implements OnInit {
   status: any;
   isCheckForm: boolean = false;
   constructor(private service: ModuleService, private appService: AppService,
-    private dialog: MatDialog  ) { }
+    private dialog: MatDialog,private appComponent:AppComponent  ) { }
 
   ngOnInit() {
     this.maxHeight = window.innerHeight - 56;

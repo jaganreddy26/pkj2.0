@@ -229,8 +229,15 @@ table {
     background-color: #f8f8f8f8 !important;
 }
 .treeIcon{
-    position: absolute;
-    left: 0px;
+    position: fixed !important;
+    left: 14%;
+    z-index: 999;
+    background:#f39c38;
+    color: #fff;
+}
+.treeIconCollapse{
+    position: fixed !important;
+    left: 0%;
     z-index: 999;
     background:#f39c38;
     color: #fff;

@@ -5,6 +5,8 @@ import { ModuleService } from '../../../module.service';
 import { AppService } from '../../../../shared/service/app.service';
 import { ResizeEvent } from 'angular-resizable-element';
 import { GoodsFormComponent } from '../goods-form/goods-form.component';
+import { AppComponent } from '../../../../app.component';
+
 @Component({
   selector: 'app-view-goods',
   templateUrl: './view-goods.component.html',
@@ -30,7 +32,9 @@ export class ViewGoodsComponent implements OnInit {
   childrenNode: any;
   status:any;
  
-  constructor(private service: ModuleService,private dialog: MatDialog, private appService: AppService,) { }
+  constructor(private service: ModuleService,private dialog: MatDialog, private appService: AppService,private appComponent:AppComponent) { 
+
+  }
 
   ngOnInit() {
     this.maxHeight = window.innerHeight - 56;

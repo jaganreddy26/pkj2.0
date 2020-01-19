@@ -13,21 +13,23 @@
   </button>
 
 </mat-toolbar>
-<!-- <button mat-icon-button 
-*ngIf="width != 25" 
-class="treeIcon"
- (click)="maxWidth()" 
-matTooltip="Expand Tree">
-  <mat-icon>account_tree
-  </mat-icon>
-</button> -->
-<button 
-mat-icon-button 
-*ngIf="width != 25"  
-class="treeIcon"
- (click)="maxWidth()"
- matTooltip="Expand Tree">
-    <mat-icon>account_tree</mat-icon>
+<button
+  mat-icon-button
+  *ngIf="width != 25 && appComponent.isOpen"
+  class="treeIcon"
+  (click)="maxWidth()"
+  matTooltip="Expand Tree"
+>
+<mat-icon>account_tree</mat-icon>
+</button>
+<button
+  mat-icon-button
+  *ngIf="width != 25 && !appComponent.isOpen"
+  class="treeIconCollapse"
+  (click)="maxWidth()"
+  matTooltip="Expand Tree"
+>
+<mat-icon>account_tree</mat-icon>
 </button>
 <div fxLayout="row" fxLayoutAlign="start center">
   <div *ngIf="width != 0" [style.width.%]="width" style="height: 93vh;background-color: #fff;border-right: 1px solid #ccc;"
